@@ -1,0 +1,157 @@
+@charset "UTF-8";
+
+#report-main-content {
+	grid-area: report-main-content;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(5, 1fr);
+	grid-template-areas: "stock-info stock-info stock-info"
+		"stock-chart stock-chart stock-chart"
+		"stock-chart stock-chart stock-chart"
+		"stock-grid input-grid output-grid"
+		"stock-grid input-grid output-grid";
+	grid-gap: 20px;
+}
+
+#report-info {
+	grid-area: stock-info;
+	display: flex;
+	flex-direction: column;
+	padding: 10px 50px;
+	background: #DFE9F2;
+}
+
+.report-info-top {
+	flex-basis: 40%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.report-info-top-left {
+	
+}
+
+.report-info-top-right {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.search-time-container {
+	margin-right: 20px;
+}
+
+#search-btn {
+	padding: 10px 30px;
+}
+
+.report-info-bottom {
+	flex-basis: 60%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.report-device-list {
+	outline: none;
+	padding: 10px 30px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	font-weight: 600;
+	color: #666666;
+	transition: 500ms;
+}
+
+.report-device-list:hover {
+	cursor: pointer;
+	box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.report-device-list>option {
+	font-size: 16px;
+	color: #666666;
+	font-weight: 600;
+}
+
+.report-info-card {
+	flex-basis: 25%;
+	height: 70px;
+	padding: 10px;
+	background: #FFFFFF;
+	border-radius: 5px;
+	border-left: 5px solid;
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+	display: flex;
+	flex-direction: column;
+	transition: 500ms;
+	cursor: pointer;
+}
+
+.report-info-card:hover {
+	transform: translate(0, -2px);
+}
+
+.report-info-card.stock {
+	border-color: rgb(54, 162, 235);
+}
+
+.report-info-card.input {
+	border-color: rgb(75, 192, 192);
+}
+
+.report-info-card.output {
+	border-color: rgb(255, 205, 86);
+}
+
+.report-info-card-top {
+	font-size: 16px;
+	color: #AAAAAA;
+	margin-bottom: 5px;
+	transition: 500ms;
+}
+
+.report-info-card:hover .report-info-card-top.stock {
+	color: rgb(54, 162, 235);
+}
+
+.report-info-card:hover .report-info-card-top.input {
+	color: rgb(75, 192, 192);
+}
+
+.report-info-card:hover .report-info-card-top.output {
+	color: rgb(255, 205, 86);
+}
+
+.report-info-card-bottom {
+	text-align: center;
+	font-size: 24px;
+	font-weight: 600;
+	color: #666666;
+}
+
+.report-info-card-bottom::after {
+	content: " 개";
+	color: #AAAAAA;
+}
+
+#report-stock-chart {
+	grid-area: stock-chart;
+	padding: 20px;
+}
+
+#report-stock-grid {
+	grid-area: stock-grid;
+}
+
+#report-input-grid {
+	grid-area: input-grid;
+}
+
+#report-output-grid {
+	grid-area: output-grid;
+}

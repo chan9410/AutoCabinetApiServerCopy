@@ -1,0 +1,17 @@
+.report-worker-layout {
+	display: grid;
+	grid-template-columns: 200px 1fr;
+	grid-template-rows: repeat(1fr, 6);
+	grid-template-areas: "report-sidebar report-worker-content"
+		"report-sidebar report-worker-content"
+		"report-sidebar report-worker-content"
+		"report-sidebar report-worker-content"
+		"report-sidebar report-worker-content"
+		"report-sidebar report-worker-content";
+	padding: 20px;
+	grid-gap: 20px;
+	/* height: 90vh; */
+	height: 90vh;
+	padding: 20px;
+	padding: 20px;
+}

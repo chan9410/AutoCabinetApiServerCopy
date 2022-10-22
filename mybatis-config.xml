@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- mysql column name _ 처리 -->
+<!-- DB 상의 컬럼명이 COMAPNY_ID일때 DB 컬럼명의 언더바를 무시한채 읽어오기에 VO에서 COMPANYID로 변수를 생성해도 정상적으로 작동된다. -->
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+		 
+	</settings>
+</configuration>
+<!--  -->

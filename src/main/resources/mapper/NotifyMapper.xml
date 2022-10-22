@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.NotifyDao">
+	<select id="getKakaoNotifyInfoOfWorkersByTag"
+		parameterType="String"
+		resultType="com.example.demo.dto.KakaoNotifyInfoOfWorkersVO">
+		SELECT
+		b.ITEM_NAME, c.WORKER_NAME, c.WORKER_PHONE_NUM,
+		a.IS_INPUT_ALERT,
+		a.IS_OUTPUT_ALERT
+		FROM
+		tb_event_notify_to_worker a,
+		tb_item_info b,
+		tb_worker c
+		WHERE
+		a.TAG = b.TAG
+		AND
+		a.WORKER_ID =
+		c.WORKER_ID
+		AND
+		A.TAG =
+		#{tag}
+		AND BY_KAKAO = "1";
+	</select>
+
+	<select id="getSingleRecentTotalStockCount" parameterType="String"
+		resultType="Map">
+		SELECT
+		sum(d.STOCK_COUNT) AS RECENT_TOTAL_STOCK_COUNT,
+		d.STOCK_DATE AS STOCK_DATE
+		FROM
+		(
+		SELECT b.device_id AS DEVICE_ID
+		FROM tb_company_info a,
+		tb_device_info b
+		WHERE a.COMPANY_ID =
+		b.COMPANY_ID AND a.company_id = #{compId}
+		) c,
+		tb_count_per_day d
+		WHERE
+		c.DEVICE_ID = d.DEVICE_ID
+		GROUP BY d.STOCK_DATE
+		ORDER BY d.STOCK_DATE DESC
+		LIMIT 1;
+	</select>
+	
+	<select
+		id="getWorkerNameFromWorkerId"
+		parameterType="String"
+		resultType="Map"
+	>
+		SELECT
+		a.WORKER_NAME AS WORKER_NAME
+		FROM tb_worker a
+		WHERE a.WORKER_ID = #{workerId}
+	</select>
+</mapper>

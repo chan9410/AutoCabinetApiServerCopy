@@ -1,0 +1,359 @@
+.main-layout {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr);
+	grid-template-rows: repeat(6, 1fr);
+	/* 	grid-template-areas:
+		"live-stock live-stock live-stock live-stock live-stock product-search"
+		"live-stock live-stock live-stock live-stock live-stock product-search"
+		"live-stock live-stock live-stock live-stock live-stock product-search"
+		"live-stock live-stock live-stock live-stock live-stock antenna"
+		"live-stock live-stock live-stock live-stock live-stock antenna"
+		"input-history input-history output-history output-history worker-history tag-alarm-history"; */
+	grid-template-areas:
+		"live-stock live-stock live-stock live-stock live-stock product-search"
+		"live-stock live-stock live-stock live-stock live-stock product-search"
+		"live-stock live-stock live-stock live-stock live-stock product-search"
+		"live-stock live-stock live-stock live-stock live-stock antenna"
+		"live-stock live-stock live-stock live-stock live-stock antenna"
+		"input-history input-history input-history output-history output-history output-history";
+	gap: 20px 20px;
+	/* height: 90vh; */
+	height: 92vh;
+	padding: 15px;
+}
+
+#live-stock {
+	grid-area: live-stock;
+	/* border: 1px solid orange; */
+}
+
+Table {
+	border-spacing: 10px;
+}
+
+#createBox {
+	width: 100%;
+	height: 100%;
+}
+
+.cbBox {
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	width: 100px;
+	height: 64px;
+	padding: 3px;
+	background: rgba(0, 0, 0, 0.05);
+	width: 100px;
+	transition: 300ms;
+	width: 100px;
+	border-radius: 5px;
+}
+
+.cbBox.check {
+	background: rgb(255, 205, 86);
+}
+
+.cbBox:hover {
+	cursor: pointer;
+	background: #FFFFFF;
+	border: 1px solid #0075FF;
+}
+
+.location {
+	font-size: 16px;
+	text-align: center;
+	transition: 300ms;
+}
+
+.tag_cnt {
+	font-size: 24px;
+	text-align: center;
+	margin-top: 8px;
+	font-weight: 600;
+	transition: 300ms;
+}
+
+.cbBox:hover .location {
+	color: #0075FF;
+}
+
+.cbBox:hover .tag_cnt {
+	color: #0075FF;
+}
+
+#product-search {
+	grid-area: product-search;
+	display: flex;
+	flex-direction: column;
+	background: #DFE9F2;
+	padding: 15px;
+	min-width: 0;
+	border-radius: 5px;
+}
+
+.product-search-title {
+	margin-bottom: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#reset-search-data-btn {
+	outline: none;
+	cursor: pointer;
+}
+
+.proeuct-searc-title>span {
+	
+}
+
+.product-search-btn-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.product-search-btn-container>button {
+	outline: none;
+}
+
+.product-search-result {
+	background: #FFFFFF;
+	height: 100%;
+	max-height: 100%;
+	overflow: auto;
+}
+
+.product-search-item {
+	list-style-type: none;
+	padding: 10px 20px;
+	border: 1px solid #EEEEEE;
+	cursor: pointer;
+	text-align: center;
+	transition: 300ms;
+}
+
+.product-search-item:hover {
+	color: #0075FF
+}
+
+#antenna {
+	grid-area: antenna;
+	display: flex;
+	flex-direction: column;
+	background: #DFE9F2;
+	padding: 15px;
+	min-width: 0;
+	border-radius: 5px;
+}
+
+.antenna-header {
+	flex-basis: 20%;
+	flex-grow: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 10px;
+}
+
+.antenna-title {
+	flex-basis: 150px;
+	flex-grow: 0;
+}
+
+.antenna-port {
+	flex-basis: 0;
+	flex-grow: 1;
+	outline: none;
+	border: none;
+	height: 20px;
+}
+
+.antenna-body {
+	flex-basis: 0;
+	flex-grow: 1;
+	height: 100%;
+	max-height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+.antenna-result {
+	background: #FFFFFF;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+.antenna-result-item {
+	font-size: 14px;
+	padding: 10px 5px;
+	border: 1px solid #EEEEEE;
+	padding: 10px 5px;
+	transition: 300ms;
+}
+
+.antenna-result-item:hover {
+	color: #0075FF;
+	cursor: pointer;
+}
+
+#input-history {
+	grid-area: input-history;
+	display: flex;
+	flex-direction: row;
+	background: #DFE9F2;
+	min-height: 0;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.input-history-title {
+	flex-basis: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.input-history-title>span {
+	text-align: center;
+}
+
+/* .input-history-content {
+	flex-basis: 85%;
+	display: flex;
+	flex-direction: column;
+} */
+
+/* .input-history-content-body {
+	flex-basis: 75%;
+	border-bottom: 1px solid #111111;
+	padding: 20px;
+	min-height: 0;
+	overflow: auto
+}
+ */
+.input-history-content {
+	flex-grow: 1;
+	overflow: auto;
+}
+
+.input-history-result {
+	width: 100%;
+	background: #FFFFFF;
+}
+
+.input-history-item {
+	border: 1px solid #EEEEEE;
+	padding: 10px 20px;
+	transition: 300ms;
+}
+
+.input-history-item:hover {
+	color: #0075FF;
+	cursor: pointer;
+}
+
+/* .input-history-content-footer {
+	flex-basis: 25%;
+	padding: 10px;
+} */
+#output-history {
+	grid-area: output-history;
+	display: flex;
+	flex-direction: row;
+	background: #DFE9F2;
+	min-height: 0;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.output-history-title {
+	flex-basis: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.output-history-title>span {
+	text-align: center;
+}
+
+.output-history-content {
+	flex-grow: 1;
+	overflow: auto;
+}
+
+.output-history-result {
+	width: 100%;
+	background: #FFFFFF;
+}
+
+.output-history-item {
+	border: 1px solid #EEEEEE;
+	padding: 10px 20px;
+	transition: 300ms;
+}
+
+.output-history-item:hover {
+	color: #0075FF;
+	cursor: pointer;
+}
+
+/* .output-history-content {
+	flex-basis: 85%;
+	display: flex;
+	flex-direction: column;
+} */
+
+/* .output-history-content-body {
+	flex-basis: 75%;
+	border-bottom: 1px solid #111111;
+	padding: 10px;
+	min-height: 0;
+	overflow: auto
+}
+
+.output-history-content-footer {
+	flex-basis: 25%;
+	padding: 10px;
+} */
+#worker-history {
+	grid-area: worker-history;
+	display: flex;
+	flex-direction: column;
+	background: #DFE9F2;
+}
+
+.worker-history-title {
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 1px solid #111111;
+}
+
+.worker-history-content {
+	flex-basis: 75%;
+	box-sizing: border-box;
+}
+
+#tag-alarm-history {
+	grid-area: tag-alarm-history;
+	display: flex;
+	flex-direction: column;
+	background: #DFE9F2;
+}
+
+.tag-alarm-history-title {
+	flex-basis: 25%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-bottom: 1px solid #111111;
+}
+
+.tag-alarm-history-content {
+	flex-basis: 75%;
+}

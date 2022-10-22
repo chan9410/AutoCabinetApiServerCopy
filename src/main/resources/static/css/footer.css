@@ -1,0 +1,19 @@
+.footer{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #F2F2F2;
+	padding: 10px;
+}
+
+.footer-list{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer-item{
+	margin-right: 30px;
+}

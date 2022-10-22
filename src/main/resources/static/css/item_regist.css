@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+.searchForm {
+	margin: auto;
+	margin-top : 15px;
+	width: 40%;
+	height: 86vh;
+	border: 1px solid black;
+	background: #DFE9F2;
+	padding: 10px;
+}
+
+.title_div{
+	
+}
+
+.title_text {
+	font-size: 24px;
+	padding: 5px;
+	margin-bottom: 5px;
+}
+
+.search_div {
+	display : flex;
+	border: 1px solid black;
+	padding: 10px;
+	background: #ffffff;
+	margin-bottom : 20px;
+	flex-direction: row;
+}
+
+.file_name {
+	font-size: 20px;
+	margin : 8px;
+}
+
+.search_file{
+	width : 30%;
+	height : 30px;
+}
+
+.search_file_btn{
+	font-size : 18px;
+	margin-left : 30px;
+	width : 10%;
+	
+}
+
+.upload_file_btn{
+	font-size : 18px;
+	margin-left : 30px;
+	width : 12%;
+}
+
+.temp_down_btn{
+	font-size : 18px;
+	margin-left : 30px;
+	width : 20%;
+}
+
+.search_input_title{
+	font-size: 24px;
+}
+
+.search_input_code{
+	width : 60%;
+	height : 30px;
+	margin-left : 10px;
+	margin-right : 10px;
+}
+
+.select_reset_btn_div{
+	display : flex;
+	height : 6vh;
+	padding : 10px;
+	justify-content : center;
+}
+
+.upload_btn{
+	width : 18%;
+	height : 40px;
+	font-size : 24px;
+}
+
+#grid{
+	
+}
+
+#grid_second{
+	
+}
+
+

@@ -1,0 +1,18 @@
+.common-btn {
+	outline: none;
+	border: none;
+	background: #0075FF;
+	color: #FFFFFF;
+	padding: 5px 20px;
+	transition: 300ms;
+	border-radius: 5px;
+}
+
+.common-btn:hover {
+	cursor: pointer;
+	background: rgba(0, 117, 255, 0.8);
+}
+
+.common-btn:active {
+	background: rgba(0, 117, 255, 0.5);
+}
