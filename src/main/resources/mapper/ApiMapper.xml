@@ -3,7 +3,7 @@
 <mapper namespace="com.example.demo.dao.ApiDao">
 
 	<select id="getDeviceList"
-		resultType="com.example.demo.dto.ApiVO">
+		resultType="com.example.demo.dto.ApiDeviceControllVO">
 
 		SELECT
 		DEVICE_ID,
@@ -14,47 +14,63 @@
 	</select>
 
 	<insert id="saveDevice"
-		parameterType="com.example.demo.dto.ApiVO">
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 
-		INSERT INTO tb_device_info(
+		INSERT INTO
+		tb_device_info(
 		DEVICE_ID,
-		COL_NUM,
-		ROW_NUM,
 		DEVICE_NAME
 
 		)VALUES (
-		#{deviceId, jdbcType=VARCHAR},
-		#{colNum, jdbcType=INTEGER},
-		#{rowNum,
-		jdbcType=INTEGER},
-		#{deviceName, jdbcType=VARCHAR}
+		#{deviceId},
+		#{deviceName}
 		)
 	</insert>
 
 	<update id="updateDevice"
-		parameterType="com.example.demo.dto.ApiVO">
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 
 		UPDATE tb_device_info
 		SET
-		DEVICE_NAME = #{updateDevName, jdbcType=VARCHAR}
+		DEVICE_NAME = #{deviceName}
 		WHERE
-		DEVICE_ID = {deviceId};
+		DEVICE_ID = #{deviceId};
 
 	</update>
 
+	<select id="chkDeviceId" resultType="String">
+
+		SELECT
+		DEVICE_ID
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID = #{deviceId};
+
+	</select>
+
+	<delete id="delPerDate"
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+
+		DELETE FROM tb_count_per_day
+		WHERE
+		DEVICE_ID =
+		#{deviceId};
+
+	</delete>
+
 	<delete id="delDevice"
-		parameterType="com.example.demo.dto.ApiVO">
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 
 		DELETE FROM tb_device_info
 		WHERE
-		DEVICE_ID = {deviceId};
-
-		<!-- 보류 -->
+		DEVICE_ID = #{deviceId};
 
 	</delete>
 
 	<select id="currentCount"
-		resultType="com.example.demo.dto.ApiVO">
+		parameterType="com.example.demo.dto.ApiTagCountVO"
+		resultType="com.example.demo.dto.ApiTagCountVO">
 
 		SELECT
 		LOCATION,
@@ -66,7 +82,60 @@
 
 	</select>
 
-	<select id="searchCode" resultType="com.example.demo.dto.ApiVO">
+	<select id="getColRowNum"
+		resultType="com.example.demo.dto.ApiColRowNumVO">
+
+		SELECT
+		COL_NUM,
+		ROW_NUM
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID =
+		#{deviceId};
+
+	</select>
+
+	<!-- <insert id="regTag" parameterType="com.example.demo.dto.ApiTagRegVO"> 
+		INSERT INTO tb_item_info( TAG, ITEM_CODE, ITEM_NAME )VALUES ( #{tag}, #{itemCode}, 
+		#{itemName} ) </insert> -->
+
+	<insert id="regTag"
+		parameterType="com.example.demo.dto.ApiTagRegVO">
+
+		INSERT INTO
+		tb_item_info(
+		TAG,
+		ITEM_CODE,
+		ITEM_NAME,
+		ITEM_GROUP,
+		ITEM_STANDARD,
+		ITEM_ADMIN,
+		ITEM_DEPART,
+		ITEM_SITE,
+		ITEM_ROOM,
+		ITEM_GET_DATE,
+		ITEM_GET_PRICE,
+		ITEM_NOTE
+
+		)VALUES (
+		#{tag},
+		#{itemCode},
+		#{itemName},
+		#{itemGroup},
+		#{itemStandard},
+		#{itemAdmin},
+		#{itemDepart},
+		#{itemSite},
+		#{itemRoom},
+		#{itemGetDate},
+		#{itemGetPrice},
+		#{itemNote}
+		)
+	</insert>
+
+	<select id="searchCode"
+		parameterType="com.example.demo.dto.tagSearchVO">
 
 		SELECT A.TAG,
 		B.ITEM_NAME,
@@ -82,7 +151,8 @@
 		JOIN tb_tag_input_history C
 		ON A.TAG
 		= C.TAG
-		WHERE B.ITEM_CODE = #{itemCode}
+		WHERE B.ITEM_CODE =
+		#{searchCode}
 		ORDER BY
 		C.DATE_TIME DESC LIMIT
 		1;
@@ -90,7 +160,7 @@
 	</select>
 
 	<select id="getCheckRowTag"
-		resultType="com.example.demo.dto.ApiVO">
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 		SELECT
 		A.TAG,
 		B.ITEM_NAME,
@@ -117,9 +187,9 @@
 	</select>
 
 
-<!-- 여기부터 고쳐야됨 -->
+	<!-- 여기부터 고쳐야됨 -->
 	<select id="getItemSearch"
-		resultType="com.example.demo.dto.ApiVO">
+		resultType="com.example.demo.dto.ApiDeviceControllVO">
 		SELECT A.TAG,
 		B.COMPANY_ID,
 		B.ITEM_NAME
@@ -141,6 +211,30 @@
 		</if>
 		GROUP BY A.TAG
 	</select>
+	<!-- -->
 
+	<select id="addChkRow"
+		parameterType="com.example.demo.dto.tagSearchVO">
+		SELECT A.TAG,
+		B.COMPANY_ID,
+		B.ITEM_NAME
+		FROM
+		tb_tag_current_location A
+		LEFT JOIN tb_item_info B
+		ON A.TAG = B.TAG
+		LEFT JOIN tb_tag_input_history
+		C
+		ON A.TAG = C.TAG
+
+		<if test="searchCodeArr != null and searchCodeArr != ''">
+			WHERE B.ITEM_NAME IN(
+			<foreach collection="searchCodeArr" item="searchCodeArr"
+				separator=",">
+				#{searchCodeArr}
+			</foreach>
+			)
+		</if>
+		GROUP BY A.TAG
+	</select>
 
 </mapper>
