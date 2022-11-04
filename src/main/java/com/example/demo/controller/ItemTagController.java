@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.ApiItemTagInfoVO;
 import com.example.demo.dto.ListResult;
 import com.example.demo.service.ApiService;
+import com.example.demo.service.ItemTagService;
 
 @CrossOrigin("*")
 @Controller
@@ -20,17 +21,13 @@ import com.example.demo.service.ApiService;
 
 public class ItemTagController {
 
-	// private ItemTagService itemTagService;
+	private ItemTagService itemTagService;
 
 	private ApiService apiService;
 
-	/*
-	 * @Autowired public ItemTagController(ItemTagService itemTagService) {
-	 * this.itemTagService = itemTagService; }
-	 */
-
 	@Autowired
-	public ItemTagController(ApiService apiService) {
+	public ItemTagController(ItemTagService itemTagService, ApiService apiService) {
+		this.itemTagService = itemTagService;
 		this.apiService = apiService;
 	}
 
@@ -57,7 +54,7 @@ public class ItemTagController {
 		System.out.println((String) map.get("ITEMNAME"));
 		System.out.println((String) map.get("ITEMNOTE"));
 
-		return apiService.getListResult(apiService.getSearchTag(param));
+		return apiService.getListResult(itemTagService.getSearchTag(param));
 	}
 
 	// 등록 현황 단일 품목 등록
@@ -86,7 +83,7 @@ public class ItemTagController {
 		System.out.println(map.get("ITEMCODE").toString());
 		System.out.println(map.get("ITEMNAME").toString());
 
-		result = apiService.regTag(param);
+		result = itemTagService.regTag(param);
 
 		System.out.println(result);
 
@@ -113,7 +110,7 @@ public class ItemTagController {
 
 		param.setTag(map.get("TAG").toString());
 
-		result = apiService.updateTag(param);
+		result = itemTagService.updateTag(param);
 
 		System.out.println(result);
 
@@ -129,7 +126,7 @@ public class ItemTagController {
 
 		param.setTag(map.get("TAG").toString());
 
-		result = apiService.deleteTag(param);
+		result = itemTagService.deleteTag(param);
 
 		System.out.println(result);
 

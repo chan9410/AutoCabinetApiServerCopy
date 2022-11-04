@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.CurrentCountDao">
+
+<select id="currentCount"
+		parameterType="com.example.demo.dto.ApiTagInfoVO"
+		resultType="com.example.demo.dto.ApiTagCountVO">
+
+		SELECT
+		LOCATION,
+		COUNT
+		FROM
+		tb_device_current_count
+		WHERE
+		DEVICE_ID = #{deviceId};
+
+	</select>
+
+	<select id="chkLocationInfo"
+		parameterType="com.example.demo.dto.ApiTagInfoVO"
+		resultType="com.example.demo.dto.ApiChkTagInfoVO">
+		<!-- resultType="com.example.demo.dto.ApiChkTagInfoVO"> -->
+
+		SELECT
+		B.ITEM_CODE,
+		B.ITEM_NAME
+		FROM
+		tb_tag_current_location A
+		LEFT JOIN tb_item_info B
+		ON A.TAG = B.TAG
+		WHERE
+		A.DEVICE_ID =
+		#{deviceId}
+		AND
+		A.LOCATION = #{location};
+
+	</select>
+
+</mapper>

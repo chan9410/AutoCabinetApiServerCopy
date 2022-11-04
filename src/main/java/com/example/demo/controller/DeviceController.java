@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoVO;
 import com.example.demo.dto.ListResult;
-import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
+import com.example.demo.service.DevConService;
 import com.example.demo.service.exeption.paramNotFoundException;
 
 @CrossOrigin("*")
@@ -24,24 +24,20 @@ import com.example.demo.service.exeption.paramNotFoundException;
 
 public class DeviceController {
 
-	// private DevConService devConService;
+	private DevConService devConService;
 
 	private ApiService apiService;
 
-	/*
-	 * @Autowired public DeviceController(DevConService devConService) {
-	 * this.devConService = devConService; }
-	 */
-
 	@Autowired
-	public DeviceController(ApiService apiService) {
+	public DeviceController(DevConService devConService, ApiService apiService) {
+		this.devConService = devConService;
 		this.apiService = apiService;
 	}
 
 	// 장비 리스트 불러오기
 	@GetMapping(value = "/getDeviceList", produces = "application/json")
 	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
-		return apiService.getListResult(apiService.getDeviceList());
+		return apiService.getListResult(devConService.getDeviceList());
 	}
 
 	// 장비 등록
@@ -55,7 +51,7 @@ public class DeviceController {
 
 		Boolean result;
 
-		result = apiService.saveDevice(param);
+		result = devConService.saveDevice(param);
 
 		if (result == false) {
 			throw new paramNotFoundException(String.format("DB에 param'%s' 존재", map.get("DEVICEID").toString()));
@@ -80,7 +76,7 @@ public class DeviceController {
 
 		int result;
 
-		result = apiService.updateDevice(param);
+		result = devConService.updateDevice(param);
 
 		if (result == 1) {
 			return true;
@@ -101,7 +97,7 @@ public class DeviceController {
 
 		Boolean result;
 
-		result = apiService.delDevice(param);
+		result = devConService.delDevice(param);
 
 		System.out.println(result);
 
@@ -110,7 +106,7 @@ public class DeviceController {
 
 	// COL,ROW 개수 불러오기
 	@PostMapping(value = "/getColRowNum", produces = "application/json")
-	public @ResponseBody SingleResult<ApiTagInfoVO> getColRowNum(@RequestBody HashMap<String, Object> map)
+	public @ResponseBody ListResult<ApiTagInfoVO> getColRowNum(@RequestBody HashMap<String, Object> map)
 			throws paramNotFoundException {
 
 		ApiTagInfoVO param = new ApiTagInfoVO();
@@ -126,7 +122,7 @@ public class DeviceController {
 		 */
 		System.out.println(map.get("DEVICEID").toString());
 
-		return apiService.getSingleResult(apiService.getColRowNum(param));
+		return apiService.getListResult(devConService.getColRowNum(param));
 	}
 
 }

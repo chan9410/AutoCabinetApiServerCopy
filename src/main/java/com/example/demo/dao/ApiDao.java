@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiItemTagInfoVO;
-import com.example.demo.dto.ApiTagCountVO;
 import com.example.demo.dto.ApiTagInfoVO;
 
 @Repository
@@ -23,8 +22,6 @@ public interface ApiDao {
 	public void saveDevice(ApiDeviceControllVO param);
 
 	public String chkDeviceId(ApiDeviceControllVO param);
-
-	public String chkDeviceId(ApiTagCountVO param);
 
 	public void delPerDate(ApiDeviceControllVO param);
 

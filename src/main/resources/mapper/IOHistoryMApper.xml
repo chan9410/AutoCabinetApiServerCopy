@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.IOHistoryDao">
+
+<select id="inputHistorySearch"
+		resultType="com.example.demo.dto.ApiItemTagInfoVO">
+
+		SELECT
+		A.ITEM_CODE,
+		A.ITEM_NAME,
+		A.ITEM_GROUP,
+		A.ITEM_STANDARD,
+		A.ITEM_ADMIN,
+		A.ITEM_DEPART,
+		A.ITEM_SITE,
+		A.ITEM_ROOM,
+		A.ITEM_GET_DATE,
+		A.ITEM_GET_PRICE,
+		A.ITEM_NOTE,
+		B.DATE_TIME
+		FROM 
+		tb_item_info A
+		LEFT JOIN tb_tag_input_history B
+		ON A.TAG = B.TAG
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		
+		AND A.TAG = B.TAG
+		
+		AND DEVICE_ID = #{deviceId}
+		
+		<if test="tag != null and tag != ''">
+		AND
+		A.TAG like CONCAT('%', #{tag},'%')
+		</if>
+		
+		<if test="itemCode != null and itemCode != ''">
+		AND
+		A.ITEM_CODE like CONCAT('%',#{itemCode},'%')
+		</if>
+		
+		<if test="itemName != null and itemName != ''">
+		AND
+		A.ITEM_NAME like CONCAT('%',#{itemName},'%')
+		</if>
+		
+		<if test="itemGroup != null and itemGroup != ''">
+		AND
+		A.ITEM_GROUP like CONCAT('%',#{itemGroup},'%')
+		</if>
+		
+		<if test="itemStandard != null and itemStandard != ''">
+		AND
+		A.ITEM_STANDARD like CONCAT('%',#{itemStandard},'%')
+		</if>
+		
+		<if test="itemAdmin != null and itemAdmin != ''">
+		AND
+		A.ITEM_ADMIN like CONCAT('%',#{itemAdmin},'%')
+		</if>
+		
+		<if test="itemDepart != null and itemDepart != ''">
+		AND
+		A.ITEM_DEPART like CONCAT('%',#{itemDepart},'%')
+		</if>
+		
+		<if test="itemSite != null and itemSite != ''">
+		AND
+		A.ITEM_SITE like CONCAT('%',#{itemSite},'%')
+		</if>
+		
+		<if test="itemRoom != null and itemRoom != ''">
+		AND
+		A.ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
+		</if>
+		
+		<if test="itemGetDate != null and itemGetDate != ''">
+		AND
+		A.ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+		</if>
+		
+		<if test="itemGetPrice != null and itemGetPrice != ''">
+		AND
+		A.ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+		</if>
+		
+		<if test="itemNote != null and itemNote != ''">
+		AND
+		A.ITEM_NOTE like CONCAT('%',#{itemNote},'%')
+		</if>
+	
+		</trim>
+	</select>
+	
+	<select id="outputHistorySearch"
+		resultType="com.example.demo.dto.ApiItemTagInfoVO">
+
+		SELECT
+		A.ITEM_CODE,
+		A.ITEM_NAME,
+		A.ITEM_GROUP,
+		A.ITEM_STANDARD,
+		A.ITEM_ADMIN,
+		A.ITEM_DEPART,
+		A.ITEM_SITE,
+		A.ITEM_ROOM,
+		A.ITEM_GET_DATE,
+		A.ITEM_GET_PRICE,
+		A.ITEM_NOTE,
+		B.DATE_TIME
+		FROM 
+		tb_item_info A
+		LEFT JOIN tb_tag_output_history B
+		ON A.TAG = B.TAG
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		
+		AND A.TAG = B.TAG
+		
+		AND DEVICE_ID = #{deviceId}
+		
+		<if test="tag != null and tag != ''">
+		AND
+		A.TAG like CONCAT('%', #{tag},'%')
+		</if>
+		
+		<if test="itemCode != null and itemCode != ''">
+		AND
+		A.ITEM_CODE like CONCAT('%',#{itemCode},'%')
+		</if>
+		
+		<if test="itemName != null and itemName != ''">
+		AND
+		A.ITEM_NAME like CONCAT('%',#{itemName},'%')
+		</if>
+		
+		<if test="itemGroup != null and itemGroup != ''">
+		AND
+		A.ITEM_GROUP like CONCAT('%',#{itemGroup},'%')
+		</if>
+		
+		<if test="itemStandard != null and itemStandard != ''">
+		AND
+		A.ITEM_STANDARD like CONCAT('%',#{itemStandard},'%')
+		</if>
+		
+		<if test="itemAdmin != null and itemAdmin != ''">
+		AND
+		A.ITEM_ADMIN like CONCAT('%',#{itemAdmin},'%')
+		</if>
+		
+		<if test="itemDepart != null and itemDepart != ''">
+		AND
+		A.ITEM_DEPART like CONCAT('%',#{itemDepart},'%')
+		</if>
+		
+		<if test="itemSite != null and itemSite != ''">
+		AND
+		A.ITEM_SITE like CONCAT('%',#{itemSite},'%')
+		</if>
+		
+		<if test="itemRoom != null and itemRoom != ''">
+		AND
+		A.ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
+		</if>
+		
+		<if test="itemGetDate != null and itemGetDate != ''">
+		AND
+		A.ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+		</if>
+		
+		<if test="itemGetPrice != null and itemGetPrice != ''">
+		AND
+		A.ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+		</if>
+		
+		<if test="itemNote != null and itemNote != ''">
+		AND
+		A.ITEM_NOTE like CONCAT('%',#{itemNote},'%')
+		</if>
+	
+		</trim>
+	</select>
+
+</mapper>

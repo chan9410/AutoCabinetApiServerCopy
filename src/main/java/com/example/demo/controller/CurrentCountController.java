@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.ApiTagInfoVO;
 import com.example.demo.dto.ListResult;
 import com.example.demo.service.ApiService;
+import com.example.demo.service.CurrentCountService;
 
 @CrossOrigin("*")
 @Controller
@@ -20,17 +21,13 @@ import com.example.demo.service.ApiService;
 
 public class CurrentCountController {
 
-	// private CurrentCountService currentCountService;
+	private CurrentCountService currentCountService;
 
 	private ApiService apiService;
 
-	/*
-	 * @Autowired public CurrentCountController(CurrentCountService
-	 * currentCountService) { this.currentCountService = currentCountService; }
-	 */
-
 	@Autowired
-	public CurrentCountController(ApiService apiService) {
+	public CurrentCountController(CurrentCountService currentCountService, ApiService apiService) {
+		this.currentCountService = currentCountService;
 		this.apiService = apiService;
 	}
 
@@ -43,7 +40,7 @@ public class CurrentCountController {
 
 		System.out.println(map.get("DEVICEID").toString());
 
-		return apiService.getListResult(apiService.currentCount(param));
+		return apiService.getListResult(currentCountService.currentCount(param));
 	}
 
 	// 클릭한 구분영역의 정보 불러오기
@@ -57,7 +54,7 @@ public class CurrentCountController {
 		System.out.println(map.get("DEVICEID").toString());
 		System.out.println((int) map.get("LOCATION"));
 
-		return apiService.getListResult(apiService.chkLocationInfo(param));
+		return apiService.getListResult(currentCountService.chkLocationInfo(param));
 	}
 
 }

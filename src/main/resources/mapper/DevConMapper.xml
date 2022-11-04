@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.DevConDao">
+
+<select id="getDeviceList"
+		resultType="com.example.demo.dto.ApiDeviceControllVO">
+
+		SELECT
+		DEVICE_ID,
+		DEVICE_NAME
+		FROM
+		tb_device_info;
+
+	</select>
+	
+	<insert id="saveDevice"
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+
+		INSERT INTO
+		tb_device_info(
+		DEVICE_ID,
+		DEVICE_NAME
+
+		)VALUES (
+		#{deviceId},
+		#{deviceName}
+		)
+	</insert>
+
+	<update id="updateDevice"
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+
+		UPDATE tb_device_info
+		SET
+		DEVICE_NAME = #{deviceName}
+		WHERE
+		DEVICE_ID = #{deviceId};
+
+	</update>
+
+	<select id="chkDeviceId" resultType="String">
+
+		SELECT
+		DEVICE_ID
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID = #{deviceId};
+
+	</select>
+	
+	<delete id="delPerDate"
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+
+		DELETE FROM tb_count_per_day
+		WHERE
+		DEVICE_ID =
+		#{deviceId};
+
+	</delete>
+
+	<delete id="delDevice"
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+
+		DELETE FROM tb_device_info
+		WHERE
+		DEVICE_ID = #{deviceId};
+
+	</delete>
+	
+	<select id="getColRowNum"
+	parameterType="com.example.demo.dto.ApiTagInfoVO"
+	resultType="com.example.demo.dto.ApiColRowNumVO">
+	<!-- resultType="com.example.demo.dto.ApiColRowNumVO"> -->
+
+		SELECT
+		COL_NUM,
+		ROW_NUM
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID =
+		#{deviceId};
+
+	</select>
+
+</mapper>

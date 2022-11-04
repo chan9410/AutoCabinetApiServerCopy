@@ -13,24 +13,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.ApiItemTagInfoVO;
 import com.example.demo.dto.ListResult;
 import com.example.demo.service.ApiService;
+import com.example.demo.service.IOHistoryService;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/ap/IOHis")
+@RequestMapping("/api/IOHis")
 
 public class InputOutputHistoryContoller {
 
-	// private IOHistoryService iOHistoryService;
+	private IOHistoryService iOHistoryService;
 
 	private ApiService apiService;
 
-	/*
-	 * @Autowired public InputOutputHistoryContoller(IOHistoryService
-	 * iOHistoryService) { this.iOHistoryService = iOHistoryService; }
-	 */
-
 	@Autowired
-	public InputOutputHistoryContoller(ApiService apiService) {
+	public InputOutputHistoryContoller(IOHistoryService iOHistoryService, ApiService apiService) {
+		this.iOHistoryService = iOHistoryService;
 		this.apiService = apiService;
 	}
 
@@ -54,7 +51,7 @@ public class InputOutputHistoryContoller {
 
 		param.setDeviceId(map.get("DEVICEID").toString());
 
-		return apiService.getListResult(apiService.inputHistorySearch(param));
+		return apiService.getListResult(iOHistoryService.inputHistorySearch(param));
 	}
 
 	// 출고 History 조회
@@ -77,7 +74,7 @@ public class InputOutputHistoryContoller {
 
 		param.setDeviceId(map.get("DEVICEID").toString());
 
-		return apiService.getListResult(apiService.outputHistorySearch(param));
+		return apiService.getListResult(iOHistoryService.outputHistorySearch(param));
 	}
 
 }
