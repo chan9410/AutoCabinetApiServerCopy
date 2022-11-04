@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import java.util.List;
 
-public class ListResult<T> extends CommonResult {
+public class ListResult<T> {
 
 	public List<T> dataList;
 

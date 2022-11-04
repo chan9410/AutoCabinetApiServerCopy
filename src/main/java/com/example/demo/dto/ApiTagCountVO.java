@@ -10,9 +10,6 @@ public class ApiTagCountVO {
 	@JsonProperty(value = "COUNT")
 	private int count;
 
-	@JsonProperty(value = "DEVICEID")
-	private String deviceId;
-
 	public int getLocation() {
 		return location;
 	}
@@ -28,13 +25,4 @@ public class ApiTagCountVO {
 	public void setCount(int count) {
 		this.count = count;
 	}
-
-	public String getDeviceId() {
-		return deviceId;
-	}
-
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
-	}
-
 }

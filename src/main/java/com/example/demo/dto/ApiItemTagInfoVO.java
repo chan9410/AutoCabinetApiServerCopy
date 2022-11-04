@@ -1,8 +1,10 @@
 package com.example.demo.dto;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ApiTagRegVO {
+public class ApiItemTagInfoVO {
 
 	@JsonProperty(value = "TAG")
 	private String tag;
@@ -39,6 +41,12 @@ public class ApiTagRegVO {
 
 	@JsonProperty(value = "ITEMNOTE")
 	private String itemNote;
+
+	@JsonProperty(value = "DEVICEID")
+	private String deviceId;
+
+	@JsonProperty(value = "DATETIME")
+	private Date dateTime;
 
 	public String getTag() {
 		return tag;
@@ -136,4 +144,19 @@ public class ApiTagRegVO {
 		this.itemNote = itemNote;
 	}
 
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public Date getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(Date dateTime) {
+		this.dateTime = dateTime;
+	}
 }

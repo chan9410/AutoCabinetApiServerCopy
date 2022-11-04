@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
-import com.example.demo.dto.ApiTagCountVO;
-import com.example.demo.dto.ApiTagRegVO;
+import com.example.demo.dto.ApiItemTagInfoVO;
+import com.example.demo.dto.ApiTagInfoVO;
 import com.example.demo.dto.ListResult;
+import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.demo.service.exeption.paramNotFoundException;
 
 @CrossOrigin("*")
 @Controller
@@ -33,19 +32,16 @@ public class ApiController {
 		this.apiService = apiService;
 	}
 
-	@Autowired
-	private ObjectMapper mapper;
-
 	// 장비 리스트 불러오기
 	@GetMapping(value = "/getDeviceList", produces = "application/json")
-	public @ResponseBody List<ApiDeviceControllVO> getDeviceList() {
-		return apiService.getDeviceList();
+	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
+		return apiService.getListResult(apiService.getDeviceList());
 	}
 
 	// 장비 등록
 
 	@PostMapping(value = "/saveDevice", produces = "application/json")
-	public @ResponseBody Boolean saveDevice(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody Boolean saveDevice(@RequestBody HashMap<String, Object> map) throws paramNotFoundException {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		param.setDeviceId(map.get("DEVICEID").toString());
@@ -54,6 +50,10 @@ public class ApiController {
 		Boolean result;
 
 		result = apiService.saveDevice(param);
+
+		if (result == false) {
+			throw new paramNotFoundException(String.format("DB에 param'%s' 존재", map.get("DEVICEID").toString()));
+		}
 
 		System.out.println(result);
 
@@ -104,54 +104,102 @@ public class ApiController {
 
 	// COL,ROW 개수 불러오기
 	@PostMapping(value = "/getColRowNum", produces = "application/json")
-	public @ResponseBody ApiColRowNumVO getColRowNum(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody SingleResult<ApiTagInfoVO> getColRowNum(@RequestBody HashMap<String, Object> map)
+			throws paramNotFoundException {
 
-		ApiColRowNumVO param = new ApiColRowNumVO();
+		ApiTagInfoVO param = new ApiTagInfoVO();
 
 		param.setDeviceId(map.get("DEVICEID").toString());
 
+		/*
+		 * if (map.get("DEVICEID").toString() == "") { throw new
+		 * paramNotFoundException(String.valueOf("DEVICE ID 빈값")); } else if
+		 * (apiService.getColRowNum(param) == null) { throw new
+		 * paramNotFoundException(String.format("DB에 파라미터'%s' 없음",
+		 * map.get("DEVICEID").toString())); }
+		 */
 		System.out.println(map.get("DEVICEID").toString());
 
-		return apiService.getColRowNum(param);
+		return apiService.getSingleResult(apiService.getColRowNum(param));
 	}
 
 	// 실시간 카운트 수 불러오기
 	@PostMapping(value = "/currentCount", produces = "application/json")
-	public @ResponseBody ListResult<ApiTagCountVO> currentCount(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ListResult<ApiTagInfoVO> currentCount(@RequestBody HashMap<String, Object> map) {
 
-		ApiTagCountVO param = new ApiTagCountVO();
+		ApiTagInfoVO param = new ApiTagInfoVO();
 		param.setDeviceId(map.get("DEVICEID").toString());
 
 		System.out.println(map.get("DEVICEID").toString());
 
-		// return apiService.currentCount(param);
-		// return apiService.getSingleResult(apiService.currentCount(param));
 		return apiService.getListResult(apiService.currentCount(param));
 	}
 
-	// 태그 등록
+	// 클릭한 구분영역의 정보 불러오기
+	@PostMapping(value = "/chkLocationInfo", produces = "application/json")
+	public @ResponseBody ListResult<ApiTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
+
+		ApiTagInfoVO param = new ApiTagInfoVO();
+		param.setLocation((int) map.get("LOCATION"));
+		param.setDeviceId(map.get("DEVICEID").toString());
+
+		System.out.println(map.get("DEVICEID").toString());
+		System.out.println((int) map.get("LOCATION"));
+
+		return apiService.getListResult(apiService.chkLocationInfo(param));
+	}
+
+	// 등록 현황 품목 조회
+	@PostMapping(value = "/getSearchTag", produces = "application/json")
+	public @ResponseBody ListResult<ApiItemTagInfoVO> getSearchTag(@RequestBody HashMap<String, Object> map) {
+
+		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		param.setTag((String) map.get("TAG"));
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
+
+		System.out.println((String) map.get("TAG"));
+		System.out.println((String) map.get("ITEMCODE"));
+		System.out.println((String) map.get("ITEMNAME"));
+		System.out.println((String) map.get("ITEMNOTE"));
+
+		return apiService.getListResult(apiService.getSearchTag(param));
+	}
+
+	// 등록 현황 단일 품목 등록
+
 	@PostMapping(value = "/regTag", produces = "application/json")
 	public @ResponseBody Boolean regTag(@RequestBody HashMap<String, Object> map) {
+		Boolean result;
 
-		ApiTagRegVO param = new ApiTagRegVO();
+		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+
 		param.setTag(map.get("TAG").toString());
 		param.setItemCode(map.get("ITEMCODE").toString());
 		param.setItemName(map.get("ITEMNAME").toString());
-		param.setItemGroup(map.get("ITEMGROUP").toString());
-		param.setItemStandard(map.get("ITEMSTANDARD").toString());
-		param.setItemAdmin(map.get("ITEMADMIN").toString());
-		param.setItemDepart(map.get("ITEMDEPART").toString());
-		param.setItemSite(map.get("ITEMSITE").toString());
-		param.setItemRoom(map.get("ITEMROOM").toString());
-		param.setItemGetDate(map.get("ITEMGETDATE").toString());
-		param.setItemGetPrice(map.get("ITEMGETPRICE").toString());
-		param.setItemNote(map.get("ITEMNOTE").toString());
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
 
+		// TAG, ITEMCODE, ITEMNAME 필수로 필요
 		System.out.println(map.get("TAG").toString());
 		System.out.println(map.get("ITEMCODE").toString());
 		System.out.println(map.get("ITEMNAME").toString());
-
-		Boolean result;
 
 		result = apiService.regTag(param);
 
@@ -160,35 +208,93 @@ public class ApiController {
 		return result;
 	}
 
-	// 개별,그룹 검색 - 제품명 검색
+	// 등록 현황 품목 수정
+	@PostMapping(value = "/updateTag", produces = "application/json")
+	public @ResponseBody Boolean updateTag(@RequestBody HashMap<String, Object> map) {
+		Boolean result;
 
-	/*
-	 * @PostMapping(value = "/searchCode", produces = "application/json")
-	 * public @ResponseBody List<tagSearchVO> searchCode(@RequestBody
-	 * HashMap<String, Object> map) {
-	 * 
-	 * tagSearchVO param = new tagSearchVO();
-	 * param.setSearchCode(map.get("searchCode").toString());
-	 * 
-	 * return apiService.searchCode(param); }
-	 */
+		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
 
-	// 개별 검색 - SecondGrid에 체크 박스 선택한 Row 추가
+		param.setTag(map.get("TAG").toString());
 
-	/*
-	 * @PostMapping(value = "/addChkRow", produces = "application/json")
-	 * public @ResponseBody List<tagSearchVO> addChkRow(@RequestBody HashMap<String,
-	 * Object> map) {
-	 * 
-	 * tagSearchVO param = new tagSearchVO();
-	 * //param.setChkRow(map.get("chkRow").toString());
-	 * param.setChkRow(Arrays.toString(map.get("chkRowTagArr")));
-	 * 
-	 * System.out.println(Arrays.toString(map.get("chkRowTagArr")));
-	 * 
-	 * return apiService.addChkRow(param); }
-	 */
+		result = apiService.updateTag(param);
 
-	// 그룹 검색 - 제품코드로 데이터 검색
+		System.out.println(result);
+
+		return result;
+	}
+
+	// 등록 현황 품목 삭제
+	@PostMapping(value = "/deleteTag", produces = "application/json")
+	public @ResponseBody Boolean deleteTag(@RequestBody HashMap<String, Object> map) {
+		Boolean result;
+
+		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+
+		param.setTag(map.get("TAG").toString());
+
+		result = apiService.deleteTag(param);
+
+		System.out.println(result);
+
+		return result;
+	}
+
+	// 입고 History 조회
+	@PostMapping(value = "/inputHistorySearch", produces = "application/json")
+	public @ResponseBody ListResult<ApiItemTagInfoVO> inputHistorySearch(@RequestBody HashMap<String, Object> map) {
+
+		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		param.setTag((String) map.get("TAG"));
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
+
+		param.setDeviceId(map.get("DEVICEID").toString());
+
+		return apiService.getListResult(apiService.inputHistorySearch(param));
+	}
+
+	// 출고 History 조회
+	@PostMapping(value = "/outputHistorySearch", produces = "application/json")
+	public @ResponseBody ListResult<ApiItemTagInfoVO> outputHistorySearch(@RequestBody HashMap<String, Object> map) {
+
+		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		param.setTag((String) map.get("TAG"));
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
+
+		param.setDeviceId(map.get("DEVICEID").toString());
+
+		return apiService.getListResult(apiService.outputHistorySearch(param));
+	}
 
 }

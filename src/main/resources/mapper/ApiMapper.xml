@@ -69,7 +69,7 @@
 	</delete>
 
 	<select id="currentCount"
-		parameterType="com.example.demo.dto.ApiTagCountVO"
+		parameterType="com.example.demo.dto.ApiTagInfoVO"
 		resultType="com.example.demo.dto.ApiTagCountVO">
 
 		SELECT
@@ -82,8 +82,30 @@
 
 	</select>
 
+	<select id="chkLocationInfo"
+		parameterType="com.example.demo.dto.ApiTagInfoVO"
+		resultType="com.example.demo.dto.ApiChkTagInfoVO">
+		<!-- resultType="com.example.demo.dto.ApiChkTagInfoVO"> -->
+
+		SELECT
+		B.ITEM_CODE,
+		B.ITEM_NAME
+		FROM
+		tb_tag_current_location A
+		LEFT JOIN tb_item_info B
+		ON A.TAG = B.TAG
+		WHERE
+		A.DEVICE_ID =
+		#{deviceId}
+		AND
+		A.LOCATION = #{location};
+
+	</select>
+	
 	<select id="getColRowNum"
-		resultType="com.example.demo.dto.ApiColRowNumVO">
+	parameterType="com.example.demo.dto.ApiTagInfoVO"
+	resultType="com.example.demo.dto.ApiTagInfoVO">
+	<!-- resultType="com.example.demo.dto.ApiColRowNumVO"> -->
 
 		SELECT
 		COL_NUM,
@@ -96,12 +118,8 @@
 
 	</select>
 
-	<!-- <insert id="regTag" parameterType="com.example.demo.dto.ApiTagRegVO"> 
-		INSERT INTO tb_item_info( TAG, ITEM_CODE, ITEM_NAME )VALUES ( #{tag}, #{itemCode}, 
-		#{itemName} ) </insert> -->
-
 	<insert id="regTag"
-		parameterType="com.example.demo.dto.ApiTagRegVO">
+		parameterType="com.example.demo.dto.ApiItemTagInfoVO">
 
 		INSERT INTO
 		tb_item_info(
@@ -133,108 +151,332 @@
 		#{itemNote}
 		)
 	</insert>
+	
+	<select id="getSearchTag"
+		resultType="com.example.demo.dto.ApiItemTagInfoVO">
 
-	<select id="searchCode"
-		parameterType="com.example.demo.dto.tagSearchVO">
-
-		SELECT A.TAG,
-		B.ITEM_NAME,
-		C.DATE_TIME
-		AS INPUT_DATE_TIME
-		FROM
-		tb_tag_current_location A
-		LEFT
-		JOIN
-		tb_item_info B
-		ON A.TAG = B.TAG
-		LEFT
-		JOIN tb_tag_input_history C
-		ON A.TAG
-		= C.TAG
-		WHERE B.ITEM_CODE =
-		#{searchCode}
-		ORDER BY
-		C.DATE_TIME DESC LIMIT
-		1;
-
-	</select>
-
-	<select id="getCheckRowTag"
-		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 		SELECT
-		A.TAG,
-		B.ITEM_NAME,
-		C.DATE_TIME
-		AS INPUT_TAG_TIME
-		FROM
-		tb_tag_current_location A
-		LEFT
-		JOIN tb_item_info B
-		ON A.TAG = B.TAG
-		LEFT
-		JOIN tb_tag_input_history C
-		ON A.TAG = C.TAG
-		<if test="chkRowTagArr != null and chkRowTagArr != ''">
-			WHERE A.TAG IN(
-			<foreach collection="chkRowTagArr" item="chkRowTagArr"
-				separator=",">
-				#{chkRowTagArr}
-			</foreach>
-			)
+		ITEM_CODE,
+		ITEM_NAME,
+		ITEM_GROUP,
+		ITEM_STANDARD,
+		ITEM_ADMIN,
+		ITEM_DEPART,
+		ITEM_SITE,
+		ITEM_ROOM,
+		ITEM_GET_DATE,
+		ITEM_GET_PRICE,
+		ITEM_NOTE
+		
+		FROM tb_item_info
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<if test="tag != null and tag != ''">
+		AND
+		TAG like CONCAT('%', #{tag},'%')
 		</if>
-		ORDER BY
-		C.DATE_TIME DESC LIMIT 1
+		
+		<if test="itemCode != null and itemCode != ''">
+		AND
+		ITEM_CODE like CONCAT('%',#{itemCode},'%')
+		</if>
+		
+		<if test="itemName != null and itemName != ''">
+		AND
+		ITEM_NAME like CONCAT('%',#{itemName},'%')
+		</if>
+		
+		<if test="itemGroup != null and itemGroup != ''">
+		AND
+		ITEM_GROUP like CONCAT('%',#{itemGroup},'%')
+		</if>
+		
+		<if test="itemStandard != null and itemStandard != ''">
+		AND
+		ITEM_STANDARD like CONCAT('%',#{itemStandard},'%')
+		</if>
+		
+		<if test="itemAdmin != null and itemAdmin != ''">
+		AND
+		ITEM_ADMIN like CONCAT('%',#{itemAdmin},'%')
+		</if>
+		
+		<if test="itemDepart != null and itemDepart != ''">
+		AND
+		ITEM_DEPART like CONCAT('%',#{itemDepart},'%')
+		</if>
+		
+		<if test="itemSite != null and itemSite != ''">
+		AND
+		ITEM_SITE like CONCAT('%',#{itemSite},'%')
+		</if>
+		
+		<if test="itemRoom != null and itemRoom != ''">
+		AND
+		ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
+		</if>
+		
+		<if test="itemGetDate != null and itemGetDate != ''">
+		AND
+		ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+		</if>
+		
+		<if test="itemGetPrice != null and itemGetPrice != ''">
+		AND
+		ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+		</if>
+		
+		<if test="itemNote != null and itemNote != ''">
+		AND
+		ITEM_NOTE like CONCAT('%',#{itemNote},'%')
+		</if>
+		</trim>
+		
 	</select>
+	
+	<update id="updateTag"
+		parameterType="com.example.demo.dto.ApiItemTagInfoVO">
 
-
-	<!-- 여기부터 고쳐야됨 -->
-	<select id="getItemSearch"
-		resultType="com.example.demo.dto.ApiDeviceControllVO">
-		SELECT A.TAG,
-		B.COMPANY_ID,
-		B.ITEM_NAME
-		FROM
-		tb_tag_current_location A
-		LEFT JOIN tb_item_info B
-		ON A.TAG = B.TAG
-		LEFT JOIN tb_tag_input_history
-		C
-		ON A.TAG = C.TAG
-
-		<if test="searchCodeArr != null and searchCodeArr != ''">
-			WHERE B.ITEM_NAME IN(
-			<foreach collection="searchCodeArr" item="searchCodeArr"
-				separator=",">
-				#{searchCodeArr}
-			</foreach>
-			)
+		UPDATE tb_item_info
+		<trim prefix = "SET" suffixOverrides = ",">
+		<if test="itemCode != null and itemCode != ''">
+		ITEM_CODE = #{itemCode},
 		</if>
-		GROUP BY A.TAG
+		
+		<if test="itemName != null and itemName != ''">
+		ITEM_NAME = #{itemName},
+		</if>
+		
+		<if test="itemGroup != null and itemGroup != ''">
+		ITEM_GROUP = #{itemGroup},
+		</if>
+		
+		<if test="itemStandard != null and itemStandard != ''">
+		ITEM_STANDARD = #{itemStandard},
+		</if>
+		
+		<if test="itemAdmin != null and itemAdmin != ''">
+		ITEM_ADMIN = #{itemAdmin},
+		</if>
+		
+		<if test="itemDepart != null and itemDepart != ''">
+		ITEM_DEPART = #{itemDepart},
+		</if>
+		
+		<if test="itemSite != null and itemSite != ''">
+		ITEM_SITE = #{itemSite},
+		</if>
+		
+		<if test="itemRoom != null and itemRoom != ''">
+		ITEM_ROOM = #{itemRoom},
+		</if>
+		
+		<if test="itemGetDate != null and itemGetDate != ''">
+		ITEM_GET_DATE = #{itemGetDate},
+		</if>
+		
+		<if test="itemGetPrice != null and itemGetPrice != ''">
+		ITEM_GET_PRICE = #{itemGetPrice},
+		</if>
+		
+		<if test="itemNote != null and itemNote != ''">
+		ITEM_NOTE = #{itemNote},
+		</if>
+		</trim>
+		
+		WHERE
+		TAG = #{tag};
+
+	</update>
+	
+	<delete id="deleteTag"
+		parameterType="com.example.demo.dto.ApiItemTagInfoVO">
+
+		DELETE FROM tb_item_info
+		WHERE
+		TAG =
+		#{tag};
+
+	</delete>
+	
+	<select id="inputHistorySearch"
+		resultType="com.example.demo.dto.ApiItemTagInfoVO">
+
+		SELECT
+		A.ITEM_CODE,
+		A.ITEM_NAME,
+		A.ITEM_GROUP,
+		A.ITEM_STANDARD,
+		A.ITEM_ADMIN,
+		A.ITEM_DEPART,
+		A.ITEM_SITE,
+		A.ITEM_ROOM,
+		A.ITEM_GET_DATE,
+		A.ITEM_GET_PRICE,
+		A.ITEM_NOTE,
+		B.DATE_TIME
+		FROM 
+		tb_item_info A
+		LEFT JOIN tb_tag_input_history B
+		ON A.TAG = B.TAG
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		
+		AND A.TAG = B.TAG
+		
+		AND DEVICE_ID = #{deviceId}
+		
+		<if test="tag != null and tag != ''">
+		AND
+		A.TAG like CONCAT('%', #{tag},'%')
+		</if>
+		
+		<if test="itemCode != null and itemCode != ''">
+		AND
+		A.ITEM_CODE like CONCAT('%',#{itemCode},'%')
+		</if>
+		
+		<if test="itemName != null and itemName != ''">
+		AND
+		A.ITEM_NAME like CONCAT('%',#{itemName},'%')
+		</if>
+		
+		<if test="itemGroup != null and itemGroup != ''">
+		AND
+		A.ITEM_GROUP like CONCAT('%',#{itemGroup},'%')
+		</if>
+		
+		<if test="itemStandard != null and itemStandard != ''">
+		AND
+		A.ITEM_STANDARD like CONCAT('%',#{itemStandard},'%')
+		</if>
+		
+		<if test="itemAdmin != null and itemAdmin != ''">
+		AND
+		A.ITEM_ADMIN like CONCAT('%',#{itemAdmin},'%')
+		</if>
+		
+		<if test="itemDepart != null and itemDepart != ''">
+		AND
+		A.ITEM_DEPART like CONCAT('%',#{itemDepart},'%')
+		</if>
+		
+		<if test="itemSite != null and itemSite != ''">
+		AND
+		A.ITEM_SITE like CONCAT('%',#{itemSite},'%')
+		</if>
+		
+		<if test="itemRoom != null and itemRoom != ''">
+		AND
+		A.ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
+		</if>
+		
+		<if test="itemGetDate != null and itemGetDate != ''">
+		AND
+		A.ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+		</if>
+		
+		<if test="itemGetPrice != null and itemGetPrice != ''">
+		AND
+		A.ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+		</if>
+		
+		<if test="itemNote != null and itemNote != ''">
+		AND
+		A.ITEM_NOTE like CONCAT('%',#{itemNote},'%')
+		</if>
+	
+		</trim>
 	</select>
-	<!-- -->
+	
+	<select id="outputHistorySearch"
+		resultType="com.example.demo.dto.ApiItemTagInfoVO">
 
-	<select id="addChkRow"
-		parameterType="com.example.demo.dto.tagSearchVO">
-		SELECT A.TAG,
-		B.COMPANY_ID,
-		B.ITEM_NAME
-		FROM
-		tb_tag_current_location A
-		LEFT JOIN tb_item_info B
+		SELECT
+		A.ITEM_CODE,
+		A.ITEM_NAME,
+		A.ITEM_GROUP,
+		A.ITEM_STANDARD,
+		A.ITEM_ADMIN,
+		A.ITEM_DEPART,
+		A.ITEM_SITE,
+		A.ITEM_ROOM,
+		A.ITEM_GET_DATE,
+		A.ITEM_GET_PRICE,
+		A.ITEM_NOTE,
+		B.DATE_TIME
+		FROM 
+		tb_item_info A
+		LEFT JOIN tb_tag_output_history B
 		ON A.TAG = B.TAG
-		LEFT JOIN tb_tag_input_history
-		C
-		ON A.TAG = C.TAG
-
-		<if test="searchCodeArr != null and searchCodeArr != ''">
-			WHERE B.ITEM_NAME IN(
-			<foreach collection="searchCodeArr" item="searchCodeArr"
-				separator=",">
-				#{searchCodeArr}
-			</foreach>
-			)
+		
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		
+		AND A.TAG = B.TAG
+		
+		AND DEVICE_ID = #{deviceId}
+		
+		<if test="tag != null and tag != ''">
+		AND
+		A.TAG like CONCAT('%', #{tag},'%')
 		</if>
-		GROUP BY A.TAG
+		
+		<if test="itemCode != null and itemCode != ''">
+		AND
+		A.ITEM_CODE like CONCAT('%',#{itemCode},'%')
+		</if>
+		
+		<if test="itemName != null and itemName != ''">
+		AND
+		A.ITEM_NAME like CONCAT('%',#{itemName},'%')
+		</if>
+		
+		<if test="itemGroup != null and itemGroup != ''">
+		AND
+		A.ITEM_GROUP like CONCAT('%',#{itemGroup},'%')
+		</if>
+		
+		<if test="itemStandard != null and itemStandard != ''">
+		AND
+		A.ITEM_STANDARD like CONCAT('%',#{itemStandard},'%')
+		</if>
+		
+		<if test="itemAdmin != null and itemAdmin != ''">
+		AND
+		A.ITEM_ADMIN like CONCAT('%',#{itemAdmin},'%')
+		</if>
+		
+		<if test="itemDepart != null and itemDepart != ''">
+		AND
+		A.ITEM_DEPART like CONCAT('%',#{itemDepart},'%')
+		</if>
+		
+		<if test="itemSite != null and itemSite != ''">
+		AND
+		A.ITEM_SITE like CONCAT('%',#{itemSite},'%')
+		</if>
+		
+		<if test="itemRoom != null and itemRoom != ''">
+		AND
+		A.ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
+		</if>
+		
+		<if test="itemGetDate != null and itemGetDate != ''">
+		AND
+		A.ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+		</if>
+		
+		<if test="itemGetPrice != null and itemGetPrice != ''">
+		AND
+		A.ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+		</if>
+		
+		<if test="itemNote != null and itemNote != ''">
+		AND
+		A.ITEM_NOTE like CONCAT('%',#{itemNote},'%')
+		</if>
+	
+		</trim>
 	</select>
 
 </mapper>
