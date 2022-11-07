@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.ApiItemTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.IOHistotyVO;
 import com.example.demo.dto.ListResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.IOHistoryService;
@@ -33,9 +34,9 @@ public class InputOutputHistoryContoller {
 
 	// 입고 History 조회
 	@PostMapping(value = "/inputHistorySearch", produces = "application/json")
-	public @ResponseBody ListResult<ApiItemTagInfoVO> inputHistorySearch(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ListResult<IOHistotyVO> inputHistorySearch(@RequestBody HashMap<String, Object> map) {
 
-		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 		param.setTag((String) map.get("TAG"));
 		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
@@ -49,16 +50,16 @@ public class InputOutputHistoryContoller {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
-		param.setDeviceId(map.get("DEVICEID").toString());
+		param.setDeviceId((String) map.get("DEVICEID"));
 
 		return apiService.getListResult(iOHistoryService.inputHistorySearch(param));
 	}
 
 	// 출고 History 조회
 	@PostMapping(value = "/outputHistorySearch", produces = "application/json")
-	public @ResponseBody ListResult<ApiItemTagInfoVO> outputHistorySearch(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ListResult<IOHistotyVO> outputHistorySearch(@RequestBody HashMap<String, Object> map) {
 
-		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 		param.setTag((String) map.get("TAG"));
 		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
@@ -72,7 +73,7 @@ public class InputOutputHistoryContoller {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
-		param.setDeviceId(map.get("DEVICEID").toString());
+		param.setDeviceId((String) map.get("DEVICEID"));
 
 		return apiService.getListResult(iOHistoryService.outputHistorySearch(param));
 	}

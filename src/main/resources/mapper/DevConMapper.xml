@@ -35,6 +35,8 @@
 		tb_device_info
 		WHERE
 		DEVICE_ID = #{deviceId};
+		AND
+		STATE = "1";
 
 	</select>
 
@@ -50,13 +52,33 @@
 	</update>
 	
 	<select id="getColRowNum"
-	parameterType="com.example.demo.dto.ApiTagInfoVO"
+	parameterType="com.example.demo.dto.ApiTagInfoParam"
 	resultType="com.example.demo.dto.ApiColRowNumVO">
-	<!-- resultType="com.example.demo.dto.ApiColRowNumVO"> -->
 
 		SELECT
 		COL_NUM,
 		ROW_NUM
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID =
+		#{deviceId};
+
+	</select>
+	
+	<select id="chkDevInfo"
+	parameterType="com.example.demo.dto.ApiTagInfoParam"
+	resultType="com.example.demo.dto.ApiChkDevVO">
+
+		SELECT
+		DEVICE_ID,
+		DEVICE_NAME,
+		COL_NUM,
+		ROW_NUM,
+		CASE (STATE)
+        WHEN "1" THEN 'Y'
+        WHEN "0" THEN 'N'
+        END AS STATE
 		FROM
 		tb_device_info
 		WHERE

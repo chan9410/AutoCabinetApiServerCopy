@@ -2,12 +2,18 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import com.example.demo.dto.ApiTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.ApiSearchTagInfoVO;
+import com.example.demo.dto.ApiTagCountVO;
+import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.CurrentCountSearchTagVO;
 
 public interface CurrentCountService {
 
-	public List<ApiTagInfoVO> currentCount(ApiTagInfoVO param);
+	public List<ApiTagCountVO> currentCount(ApiTagInfoParam param);
 
-	public List<ApiTagInfoVO> chkLocationInfo(ApiTagInfoVO param);
+	public ApiSearchTagInfoVO chkLocationInfo(ApiTagInfoParam param);
+
+	public List<CurrentCountSearchTagVO> getCurrentCountSearch(ApiItemTagInfoParam param);
 
 }

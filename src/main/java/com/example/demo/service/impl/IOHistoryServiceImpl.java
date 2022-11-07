@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.IOHistoryDao;
-import com.example.demo.dto.ApiItemTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.IOHistotyVO;
 import com.example.demo.service.IOHistoryService;
 
 @Service
@@ -20,13 +21,29 @@ public class IOHistoryServiceImpl implements IOHistoryService {
 	}
 
 	@Override
-	public List<ApiItemTagInfoVO> inputHistorySearch(ApiItemTagInfoVO param) {
-		return iOHistoryDao.inputHistorySearch(param);
+	public List<IOHistotyVO> inputHistorySearch(ApiItemTagInfoParam param) {
+
+		String chkDeviceId = iOHistoryDao.chkDeviceId(param);
+
+		if (chkDeviceId == null) {
+			System.out.println("No DeviceId");
+			return null;
+		} else {
+			return iOHistoryDao.inputHistorySearch(param);
+		}
 	}
 
 	@Override
-	public List<ApiItemTagInfoVO> outputHistorySearch(ApiItemTagInfoVO param) {
-		return iOHistoryDao.outputHistorySearch(param);
+	public List<IOHistotyVO> outputHistorySearch(ApiItemTagInfoParam param) {
+
+		String chkDeviceId = iOHistoryDao.chkDeviceId(param);
+
+		if (chkDeviceId == null) {
+			System.out.println("No DeviceId");
+			return null;
+		} else {
+			return iOHistoryDao.outputHistorySearch(param);
+		}
 	}
 
 }

@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.ApiItemTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.GetSearchTagVO;
 import com.example.demo.dto.ListResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.ItemTagService;
@@ -33,9 +34,9 @@ public class ItemTagController {
 
 	// 등록 현황 품목 조회
 	@PostMapping(value = "/getSearchTag", produces = "application/json")
-	public @ResponseBody ListResult<ApiItemTagInfoVO> getSearchTag(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ListResult<GetSearchTagVO> getSearchTag(@RequestBody HashMap<String, Object> map) {
 
-		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 		param.setTag((String) map.get("TAG"));
 		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
@@ -63,7 +64,7 @@ public class ItemTagController {
 	public @ResponseBody Boolean regTag(@RequestBody HashMap<String, Object> map) {
 		Boolean result;
 
-		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
 		param.setTag(map.get("TAG").toString());
 		param.setItemCode(map.get("ITEMCODE").toString());
@@ -95,9 +96,7 @@ public class ItemTagController {
 	public @ResponseBody Boolean updateTag(@RequestBody HashMap<String, Object> map) {
 		Boolean result;
 
-		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
-		param.setItemCode((String) map.get("ITEMCODE"));
-		param.setItemName((String) map.get("ITEMNAME"));
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 		param.setItemGroup((String) map.get("ITEMGROUP"));
 		param.setItemStandard((String) map.get("ITEMSTANDARD"));
 		param.setItemAdmin((String) map.get("ITEMADMIN"));
@@ -108,7 +107,10 @@ public class ItemTagController {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
+		// TAG, ITEMCODE, ITEMNAME은 널 허용 X
 		param.setTag(map.get("TAG").toString());
+		param.setItemCode(map.get("ITEMCODE").toString());
+		param.setItemName(map.get("ITEMNAME").toString());
 
 		result = itemTagService.updateTag(param);
 
@@ -122,7 +124,7 @@ public class ItemTagController {
 	public @ResponseBody Boolean deleteTag(@RequestBody HashMap<String, Object> map) {
 		Boolean result;
 
-		ApiItemTagInfoVO param = new ApiItemTagInfoVO();
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
 		param.setTag(map.get("TAG").toString());
 

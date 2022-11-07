@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
-import java.util.List;
-
+import com.example.demo.dto.ApiChkDevVO;
+import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
-import com.example.demo.dto.ApiTagInfoVO;
+import com.example.demo.dto.ApiTagInfoParam;
 
 public interface DevConService {
-
-	public List<ApiDeviceControllVO> getDeviceList();
 
 	public int updateDevice(ApiDeviceControllVO param);
 
@@ -15,6 +13,7 @@ public interface DevConService {
 
 	public Boolean delDevice(ApiDeviceControllVO param);
 
-	public List<ApiTagInfoVO> getColRowNum(ApiTagInfoVO param);
+	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param);
 
+	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param);
 }

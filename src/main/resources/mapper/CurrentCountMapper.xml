@@ -2,8 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.CurrentCountDao">
 
-<select id="currentCount"
-		parameterType="com.example.demo.dto.ApiTagInfoVO"
+	<select id="chkDeviceId" resultType="String">
+
+		SELECT
+		DEVICE_ID
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID = #{deviceId}
+		AND
+		STATE = "1";
+
+	</select>
+
+	<select id="currentCount"
+		parameterType="com.example.demo.dto.ApiTagInfoParam"
 		resultType="com.example.demo.dto.ApiTagCountVO">
 
 		SELECT
@@ -17,9 +30,8 @@
 	</select>
 
 	<select id="chkLocationInfo"
-		parameterType="com.example.demo.dto.ApiTagInfoVO"
-		resultType="com.example.demo.dto.ApiChkTagInfoVO">
-		<!-- resultType="com.example.demo.dto.ApiChkTagInfoVO"> -->
+		parameterType="com.example.demo.dto.ApiTagInfoParam"
+		resultType="com.example.demo.dto.ApiSearchTagInfoVO">
 
 		SELECT
 		B.ITEM_CODE,
@@ -34,6 +46,102 @@
 		AND
 		A.LOCATION = #{location};
 
+	</select>
+
+	<select id="getCurrentCountSearch"
+		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
+		resultType="com.example.demo.dto.CurrentCountSearchTagVO">
+
+		SELECT
+		A.DEVICE_ID,
+		A.LOCATION,
+		B.ITEM_CODE,
+		B.ITEM_NAME,
+		B.ITEM_GROUP,
+		B.ITEM_STANDARD,
+		B.ITEM_ADMIN,
+		B.ITEM_DEPART,
+		B.ITEM_SITE,
+		B.ITEM_ROOM,
+		B.ITEM_GET_DATE,
+		B.ITEM_GET_PRICE,
+		B.ITEM_NOTE
+
+		FROM
+		tb_tag_current_location A
+		LEFT JOIN tb_item_info B
+		ON A.TAG = B.TAG
+
+		<trim prefix="WHERE" prefixOverrides="AND">
+
+			AND A.TAG = B.TAG
+
+			<if test="deviceId != null and deviceId != ''">
+				AND
+				A.DEVICE_ID = #{deviceId}
+			</if>
+
+			<if test="tag != null and tag != ''">
+				AND
+				B.TAG like CONCAT('%', #{tag},'%')
+			</if>
+
+			<if test="itemCode != null and itemCode != ''">
+				AND
+				B.ITEM_CODE like CONCAT('%',#{itemCode},'%')
+			</if>
+
+			<if test="itemName != null and itemName != ''">
+				AND
+				B.ITEM_NAME like CONCAT('%',#{itemName},'%')
+			</if>
+
+			<if test="itemGroup != null and itemGroup != ''">
+				AND
+				B.ITEM_GROUP like CONCAT('%',#{itemGroup},'%')
+			</if>
+
+			<if test="itemStandard != null and itemStandard != ''">
+				AND
+				B.ITEM_STANDARD like CONCAT('%',#{itemStandard},'%')
+			</if>
+
+			<if test="itemAdmin != null and itemAdmin != ''">
+				AND
+				B.ITEM_ADMIN like CONCAT('%',#{itemAdmin},'%')
+			</if>
+
+			<if test="itemDepart != null and itemDepart != ''">
+				AND
+				B.ITEM_DEPART like CONCAT('%',#{itemDepart},'%')
+			</if>
+
+			<if test="itemSite != null and itemSite != ''">
+				AND
+				B.ITEM_SITE like CONCAT('%',#{itemSite},'%')
+			</if>
+
+			<if test="itemRoom != null and itemRoom != ''">
+				AND
+				B.ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
+			</if>
+
+			<if test="itemGetDate != null and itemGetDate != ''">
+				AND
+				B.ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+			</if>
+
+			<if test="itemGetPrice != null and itemGetPrice != ''">
+				AND
+				B.ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+			</if>
+
+			<if test="itemNote != null and itemNote != ''">
+				AND
+				B.ITEM_NOTE like CONCAT('%',#{itemNote},'%')
+			</if>
+
+		</trim>
 	</select>
 
 </mapper>

@@ -5,15 +5,16 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.example.demo.dto.ApiChkDevVO;
+import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
-import com.example.demo.dto.ApiTagInfoVO;
-import com.example.demo.dto.ListResult;
+import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.DevConService;
 import com.example.demo.service.exeption.paramNotFoundException;
@@ -99,10 +100,10 @@ public class DeviceController {
 
 	// COL,ROW 개수 불러오기
 	@PostMapping(value = "/getColRowNum", produces = "application/json")
-	public @ResponseBody ListResult<ApiTagInfoVO> getColRowNum(@RequestBody HashMap<String, Object> map)
+	public @ResponseBody SingleResult<ApiColRowNumVO> getColRowNum(@RequestBody HashMap<String, Object> map)
 			throws paramNotFoundException {
 
-		ApiTagInfoVO param = new ApiTagInfoVO();
+		ApiTagInfoParam param = new ApiTagInfoParam();
 
 		param.setDeviceId(map.get("DEVICEID").toString());
 
@@ -113,9 +114,21 @@ public class DeviceController {
 		 * paramNotFoundException(String.format("DB에 파라미터'%s' 없음",
 		 * map.get("DEVICEID").toString())); }
 		 */
+
 		System.out.println(map.get("DEVICEID").toString());
 
-		return apiService.getListResult(devConService.getColRowNum(param));
+		return apiService.getSingleResult(devConService.getColRowNum(param));
 	}
 
+	// 선택한 장비의 정보 불러오기
+	@PostMapping(value = "/chkDevInfo", produces = "application/json")
+	public @ResponseBody SingleResult<ApiChkDevVO> chkDevInfo(@RequestBody HashMap<String, Object> map) {
+
+		ApiTagInfoParam param = new ApiTagInfoParam();
+
+		param.setDeviceId(map.get("DEVICEID").toString());
+
+		return apiService.getSingleResult(devConService.chkDevInfo(param));
+
+	}
 }

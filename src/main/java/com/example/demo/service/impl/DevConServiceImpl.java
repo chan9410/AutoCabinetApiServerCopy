@@ -1,14 +1,13 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demo.dao.DevConDao;
+import com.example.demo.dto.ApiChkDevVO;
+import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
-import com.example.demo.dto.ApiTagInfoVO;
+import com.example.demo.dto.ApiTagInfoParam;
 import com.example.demo.service.DevConService;
 
 @Service
@@ -58,18 +57,41 @@ public class DevConServiceImpl implements DevConService {
 
 	@Override
 	public int updateDevice(ApiDeviceControllVO param) {
-		return devConDao.updateDevice(param);
+
+		String chkDevId = devConDao.chkDeviceId(param);
+
+		if (chkDevId == null) {
+			System.out.println("No DeviceId");
+			return 100;
+		} else {
+			return devConDao.updateDevice(param);
+		}
 	}
 
 	@Override
-	public List<ApiTagInfoVO> getColRowNum(ApiTagInfoVO param) {
-		return devConDao.getColRowNum(param);
+	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param) {
+
+		String chkDevId = devConDao.chkDeviceId(param);
+
+		if (chkDevId == null) {
+			System.out.println("No DeviceId");
+			return null;
+		} else {
+			return devConDao.getColRowNum(param);
+		}
 	}
 
 	@Override
-	public List<ApiDeviceControllVO> getDeviceList() {
+	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param) {
 
-		return devConDao.getDeviceList();
+		String chkDevId = devConDao.chkDeviceId(param);
+
+		if (chkDevId == null) {
+			System.out.println("No DeviceId");
+			return null;
+		} else {
+			return devConDao.chkDevInfo(param);
+		}
 	}
 
 }

@@ -5,18 +5,19 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.dto.ApiItemTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.GetSearchTagVO;
 
 @Repository
 @Mapper
 public interface ItemTagDao {
 
-	public void regTag(ApiItemTagInfoVO param);
+	public void regTag(ApiItemTagInfoParam param);
 
-	public void updateTag(ApiItemTagInfoVO param);
+	public void updateTag(ApiItemTagInfoParam param);
 
-	public void deleteTag(ApiItemTagInfoVO param);
+	public void deleteTag(ApiItemTagInfoParam param);
 
-	public List<ApiItemTagInfoVO> getSearchTag(ApiItemTagInfoVO param);
+	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param);
 
 }

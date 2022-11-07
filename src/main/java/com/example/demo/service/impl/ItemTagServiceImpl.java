@@ -6,7 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ItemTagDao;
-import com.example.demo.dto.ApiItemTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.GetSearchTagVO;
 import com.example.demo.service.ItemTagService;
 
 @Service
@@ -20,12 +21,12 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
-	public List<ApiItemTagInfoVO> getSearchTag(ApiItemTagInfoVO param) {
+	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param) {
 		return itemTagDao.getSearchTag(param);
 	}
 
 	@Override
-	public Boolean regTag(ApiItemTagInfoVO param) {
+	public Boolean regTag(ApiItemTagInfoParam param) {
 		Boolean result;
 		try {
 			itemTagDao.regTag(param);
@@ -38,7 +39,7 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
-	public Boolean updateTag(ApiItemTagInfoVO param) {
+	public Boolean updateTag(ApiItemTagInfoParam param) {
 		Boolean result;
 		try {
 			itemTagDao.updateTag(param);
@@ -51,7 +52,7 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
-	public Boolean deleteTag(ApiItemTagInfoVO param) {
+	public Boolean deleteTag(ApiItemTagInfoParam param) {
 		Boolean result;
 		try {
 			itemTagDao.deleteTag(param);

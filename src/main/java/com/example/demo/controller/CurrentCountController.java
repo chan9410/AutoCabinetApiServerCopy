@@ -10,8 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.dto.ApiTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.ApiSearchTagInfoVO;
+import com.example.demo.dto.ApiTagCountVO;
+import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.CurrentCountSearchTagVO;
 import com.example.demo.dto.ListResult;
+import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.CurrentCountService;
 
@@ -33,9 +38,9 @@ public class CurrentCountController {
 
 	// 실시간 카운트 수 불러오기
 	@PostMapping(value = "/currentCount", produces = "application/json")
-	public @ResponseBody ListResult<ApiTagInfoVO> currentCount(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ListResult<ApiTagCountVO> currentCount(@RequestBody HashMap<String, Object> map) {
 
-		ApiTagInfoVO param = new ApiTagInfoVO();
+		ApiTagInfoParam param = new ApiTagInfoParam();
 		param.setDeviceId(map.get("DEVICEID").toString());
 
 		System.out.println(map.get("DEVICEID").toString());
@@ -45,16 +50,40 @@ public class CurrentCountController {
 
 	// 클릭한 구분영역의 정보 불러오기
 	@PostMapping(value = "/chkLocationInfo", produces = "application/json")
-	public @ResponseBody ListResult<ApiTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody SingleResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
 
-		ApiTagInfoVO param = new ApiTagInfoVO();
+		ApiTagInfoParam param = new ApiTagInfoParam();
 		param.setLocation((int) map.get("LOCATION"));
 		param.setDeviceId(map.get("DEVICEID").toString());
 
 		System.out.println(map.get("DEVICEID").toString());
 		System.out.println((int) map.get("LOCATION"));
 
-		return apiService.getListResult(currentCountService.chkLocationInfo(param));
+		return apiService.getSingleResult(currentCountService.chkLocationInfo(param));
+	}
+
+	// 리스트 형식의 실시간 재고 페이지에서 특정 조건으로 검색.
+	@PostMapping(value = "/getCurrentCountSearch", produces = "application/json")
+	public @ResponseBody ListResult<CurrentCountSearchTagVO> getCurrentCountSearch(
+			@RequestBody HashMap<String, Object> map) {
+
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
+		param.setTag((String) map.get("TAG"));
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
+
+		param.setDeviceId((String) map.get("DEVICEID"));
+
+		return apiService.getListResult(currentCountService.getCurrentCountSearch(param));
 	}
 
 }

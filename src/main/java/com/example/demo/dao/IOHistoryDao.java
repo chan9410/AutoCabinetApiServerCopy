@@ -5,14 +5,17 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.dto.ApiItemTagInfoVO;
+import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.IOHistotyVO;
 
 @Repository
 @Mapper
 public interface IOHistoryDao {
 
-	public List<ApiItemTagInfoVO> inputHistorySearch(ApiItemTagInfoVO param);
+	public List<IOHistotyVO> inputHistorySearch(ApiItemTagInfoParam param);
 
-	public List<ApiItemTagInfoVO> outputHistorySearch(ApiItemTagInfoVO param);
+	public List<IOHistotyVO> outputHistorySearch(ApiItemTagInfoParam param);
+
+	public String chkDeviceId(ApiItemTagInfoParam param);
 
 }

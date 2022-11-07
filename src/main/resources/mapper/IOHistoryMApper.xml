@@ -2,8 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.IOHistoryDao">
 
+<select id="chkDeviceId" resultType="String">
+
+		SELECT
+		DEVICE_ID
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID = #{deviceId};
+		AND
+		STATE = "1";
+
+	</select>
+
 <select id="inputHistorySearch"
-		resultType="com.example.demo.dto.ApiItemTagInfoVO">
+		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
+		resultType="com.example.demo.dto.IOHistotyVO">
 
 		SELECT
 		A.ITEM_CODE,
@@ -23,11 +37,14 @@
 		LEFT JOIN tb_tag_input_history B
 		ON A.TAG = B.TAG
 		
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<trim prefix="WHERE" prefixOverrides="AND">
 		
 		AND A.TAG = B.TAG
 		
-		AND DEVICE_ID = #{deviceId}
+		<if test="deviceId != null and deviceId != ''">
+		AND
+		B.DEVICE_ID = #{deviceId}
+		</if>
 		
 		<if test="tag != null and tag != ''">
 		AND
@@ -93,7 +110,8 @@
 	</select>
 	
 	<select id="outputHistorySearch"
-		resultType="com.example.demo.dto.ApiItemTagInfoVO">
+		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
+		resultType="com.example.demo.dto.IOHistotyVO">
 
 		SELECT
 		A.ITEM_CODE,
@@ -113,11 +131,14 @@
 		LEFT JOIN tb_tag_output_history B
 		ON A.TAG = B.TAG
 		
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		<trim prefix="WHERE" prefixOverrides="AND">
 		
 		AND A.TAG = B.TAG
 		
-		AND DEVICE_ID = #{deviceId}
+		<if test="deviceId != null and deviceId != ''">
+		AND
+		B.DEVICE_ID = #{deviceId}
+		</if>
 		
 		<if test="tag != null and tag != ''">
 		AND

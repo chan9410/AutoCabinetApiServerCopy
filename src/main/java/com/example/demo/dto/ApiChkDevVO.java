@@ -16,6 +16,9 @@ public class ApiChkDevVO {
 	@JsonProperty(value = "ROWNUM")
 	private int rowNum;
 
+	@JsonProperty(value = "STATE")
+	private String state;
+
 	public String getDeviceId() {
 		return deviceId;
 	}
@@ -48,4 +51,11 @@ public class ApiChkDevVO {
 		this.rowNum = rowNum;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
 }
