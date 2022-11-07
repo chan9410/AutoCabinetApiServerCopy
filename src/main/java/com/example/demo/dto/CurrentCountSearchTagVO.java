@@ -1,13 +1,14 @@
 package com.example.demo.dto;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ApiItemTagInfoVO {
+public class CurrentCountSearchTagVO {
 
-	@JsonProperty(value = "TAG")
-	private String tag;
+	@JsonProperty(value = "DEVICEID")
+	private String deviceId;
+
+	@JsonProperty(value = "LOCATION")
+	private int location;
 
 	@JsonProperty(value = "ITEMCODE")
 	private String itemCode;
@@ -24,7 +25,7 @@ public class ApiItemTagInfoVO {
 	@JsonProperty(value = "ITEMADMIN")
 	private String itemAdmin;
 
-	@JsonProperty(value = "ITEMDEPART")
+	@JsonProperty(value = "ITEAMDEPART")
 	private String itemDepart;
 
 	@JsonProperty(value = "ITEMSITE")
@@ -42,18 +43,20 @@ public class ApiItemTagInfoVO {
 	@JsonProperty(value = "ITEMNOTE")
 	private String itemNote;
 
-	@JsonProperty(value = "DEVICEID")
-	private String deviceId;
-
-	@JsonProperty(value = "DATETIME")
-	private Date dateTime;
-
-	public String getTag() {
-		return tag;
+	public String getDeviceId() {
+		return deviceId;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public int getLocation() {
+		return location;
+	}
+
+	public void setLocation(int location) {
+		this.location = location;
 	}
 
 	public String getItemCode() {
@@ -144,19 +147,4 @@ public class ApiItemTagInfoVO {
 		this.itemNote = itemNote;
 	}
 
-	public String getDeviceId() {
-		return deviceId;
-	}
-
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
-	}
-
-	public Date getDateTime() {
-		return dateTime;
-	}
-
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
-	}
 }

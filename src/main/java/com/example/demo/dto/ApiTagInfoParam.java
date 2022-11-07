@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ApiTagInfoVO {
+public class ApiTagInfoParam {
 
 	@JsonProperty(value = "TAG")
 	private String tag;

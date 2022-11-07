@@ -2,7 +2,7 @@ package com.example.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class ApiChkTagInfoVO {
+public class ApiSearchTagInfoVO {
 
 	@JsonProperty(value = "ITEMCODE")
 	private String itemCode;
