@@ -34,19 +34,17 @@ public class DevConServiceImpl implements DevConService {
 		return result;
 	}
 
-	// 트랜젝션 지금 작동 X.
 	@Override
-	@Transactional(rollbackFor = { Exception.class })
 	public Boolean delDevice(ApiDeviceControllVO param) {
 		Boolean result;
 		String chkDevId = devConDao.chkDeviceId(param);
 		System.out.println(chkDevId);
 
 		if (chkDevId == null) {
+			System.out.println("No DeviceId");
 			return false;
 		} else {
 			try {
-				devConDao.delPerDate(param);
 				devConDao.delDevice(param);
 				result = true;
 			} catch (RuntimeException e) {

@@ -48,25 +48,17 @@
 		DEVICE_ID = #{deviceId};
 
 	</select>
-	
-	<delete id="delPerDate"
+
+	<update id="delDevice"
 		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 
-		DELETE FROM tb_count_per_day
-		WHERE
-		DEVICE_ID =
-		#{deviceId};
-
-	</delete>
-
-	<delete id="delDevice"
-		parameterType="com.example.demo.dto.ApiDeviceControllVO">
-
-		DELETE FROM tb_device_info
+		UPDATE tb_device_info
+		SET
+		STATE = 0
 		WHERE
 		DEVICE_ID = #{deviceId};
 
-	</delete>
+	</update>
 	
 	<select id="getColRowNum"
 	parameterType="com.example.demo.dto.ApiTagInfoVO"
