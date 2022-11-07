@@ -34,14 +34,7 @@ public class DeviceController {
 		this.apiService = apiService;
 	}
 
-	// 장비 리스트 불러오기
-	@GetMapping(value = "/getDeviceList", produces = "application/json")
-	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
-		return apiService.getListResult(devConService.getDeviceList());
-	}
-
 	// 장비 등록
-
 	@PostMapping(value = "/saveDevice", produces = "application/json")
 	public @ResponseBody Boolean saveDevice(@RequestBody HashMap<String, Object> map) throws paramNotFoundException {
 

@@ -9,7 +9,8 @@
 		DEVICE_ID,
 		DEVICE_NAME
 		FROM
-		tb_device_info;
+		tb_device_info
+		WHERE STATE = "1";
 
 	</select>
 
