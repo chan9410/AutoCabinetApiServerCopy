@@ -9,7 +9,7 @@
 		FROM
 		tb_device_info
 		WHERE
-		DEVICE_ID = #{deviceId};
+		DEVICE_ID = #{deviceId}
 		AND
 		STATE = "1";
 
