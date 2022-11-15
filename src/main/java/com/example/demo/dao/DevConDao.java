@@ -12,9 +12,9 @@ import com.example.demo.dto.ApiTagInfoParam;
 @Mapper
 public interface DevConDao {
 
-	public void saveDevice(ApiDeviceControllVO param);
+	public int saveDevice(ApiDeviceControllVO param);
 
-	public void delDevice(ApiDeviceControllVO param);
+	public int delDevice(ApiDeviceControllVO param);
 
 	public int updateDevice(ApiDeviceControllVO param);
 

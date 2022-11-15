@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import com.example.demo.dto.ApiTagCountVO;
 import com.example.demo.dto.ApiTagInfoParam;
 import com.example.demo.dto.CurrentCountSearchTagVO;
 import com.example.demo.dto.ListResult;
-import com.example.demo.dto.SingleResult;
+import com.example.demo.dto.ReSingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.CurrentCountService;
 
@@ -45,12 +46,26 @@ public class CurrentCountController {
 
 		System.out.println(map.get("DEVICEID").toString());
 
-		return apiService.getListResult(currentCountService.currentCount(param));
+		List<ApiTagCountVO> dataList = currentCountService.currentCount(param);
+
+		String chkDev = currentCountService.chkDeviceId(param);
+
+		int statusCode;
+
+		if (chkDev == null) {
+			statusCode = 100;
+		} else if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
 	}
 
 	// 클릭한 구분영역의 정보 불러오기
 	@PostMapping(value = "/chkLocationInfo", produces = "application/json")
-	public @ResponseBody SingleResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ReSingleResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		param.setLocation((int) map.get("LOCATION"));
@@ -59,7 +74,21 @@ public class CurrentCountController {
 		System.out.println(map.get("DEVICEID").toString());
 		System.out.println((int) map.get("LOCATION"));
 
-		return apiService.getSingleResult(currentCountService.chkLocationInfo(param));
+		ApiSearchTagInfoVO data = currentCountService.chkLocationInfo(param);
+
+		String chkDev = currentCountService.chkDeviceId(param);
+
+		int statusCode;
+
+		if (chkDev == null) {
+			statusCode = 100;
+		} else if (data == null) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getSingleResult(data, statusCode);
 	}
 
 	// 리스트 형식의 실시간 재고 페이지에서 특정 조건으로 검색.
@@ -83,7 +112,17 @@ public class CurrentCountController {
 
 		param.setDeviceId((String) map.get("DEVICEID"));
 
-		return apiService.getListResult(currentCountService.getCurrentCountSearch(param));
+		List<CurrentCountSearchTagVO> dataList = currentCountService.getCurrentCountSearch(param);
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
 	}
 
 }

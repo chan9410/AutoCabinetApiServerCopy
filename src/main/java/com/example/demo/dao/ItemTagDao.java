@@ -12,12 +12,14 @@ import com.example.demo.dto.GetSearchTagVO;
 @Mapper
 public interface ItemTagDao {
 
-	public void regTag(ApiItemTagInfoParam param);
+	public int saveTag(ApiItemTagInfoParam param);
 
-	public void updateTag(ApiItemTagInfoParam param);
+	public int updateTag(ApiItemTagInfoParam param);
 
-	public void deleteTag(ApiItemTagInfoParam param);
+	public int deleteTag(ApiItemTagInfoParam param);
 
 	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param);
+
+	public String chkTag(ApiItemTagInfoParam param);
 
 }

@@ -3,6 +3,7 @@ package com.example.demo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ItemTagDao;
@@ -26,42 +27,66 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
-	public Boolean regTag(ApiItemTagInfoParam param) {
-		Boolean result;
-		try {
-			itemTagDao.regTag(param);
-			result = true;
-		} catch (Exception e) {
-			result = false;
-		}
+	public int saveTag(ApiItemTagInfoParam param) {
 
-		return result;
+		String chkTag = itemTagDao.chkTag(param);
+
+		if (chkTag != null) {
+			System.out.println("No Tag");
+			return 104;
+		} else {
+			try {
+				itemTagDao.saveTag(param);
+				return 200;
+			} catch (DuplicateKeyException e) {
+				return 104;
+			}
+		}
 	}
 
 	@Override
-	public Boolean updateTag(ApiItemTagInfoParam param) {
-		Boolean result;
-		try {
-			itemTagDao.updateTag(param);
-			result = true;
-		} catch (Exception e) {
-			result = false;
-		}
+	public int updateTag(ApiItemTagInfoParam param) {
 
-		return result;
+		String chkTag = itemTagDao.chkTag(param);
+
+		int result = itemTagDao.updateTag(param);
+
+		System.out.println(result);
+
+		/*
+		 * 파라미터 비정상적으로 입력 시 에러 발생. EX) 태그 값만 파라미터로 넣거나, 태그 값을 제외하고 바꿀 파라미터 값만 넣을 때 SQL
+		 * 문법에 맞지 않아 오류 발생
+		 */
+
+		if (chkTag == null) {
+			System.out.println("No Tag");
+			return 103;
+		} else if (result == 0) {
+			System.out.println("No Result");
+			return 101;
+		} else {
+			System.out.println("Success");
+			return 200;
+		}
 	}
 
 	@Override
-	public Boolean deleteTag(ApiItemTagInfoParam param) {
-		Boolean result;
-		try {
-			itemTagDao.deleteTag(param);
-			result = true;
-		} catch (Exception e) {
-			result = false;
-		}
+	public int deleteTag(ApiItemTagInfoParam param) {
 
-		return result;
+		String chkTag = itemTagDao.chkTag(param);
+
+		int result = itemTagDao.deleteTag(param);
+
+		if (chkTag == null) {
+			System.out.println("No Tag");
+			return 103;
+		} else if (result == 0) {
+			System.out.println("No Result");
+			return 101;
+		} else {
+			System.out.println("Success");
+			return 200;
+		}
 	}
 
 }

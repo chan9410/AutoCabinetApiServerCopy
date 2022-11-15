@@ -22,28 +22,12 @@ public class IOHistoryServiceImpl implements IOHistoryService {
 
 	@Override
 	public List<IOHistotyVO> inputHistorySearch(ApiItemTagInfoParam param) {
-
-		String chkDeviceId = iOHistoryDao.chkDeviceId(param);
-
-		if (chkDeviceId == null) {
-			System.out.println("No DeviceId");
-			return null;
-		} else {
-			return iOHistoryDao.inputHistorySearch(param);
-		}
+		return iOHistoryDao.inputHistorySearch(param);
 	}
 
 	@Override
 	public List<IOHistotyVO> outputHistorySearch(ApiItemTagInfoParam param) {
-
-		String chkDeviceId = iOHistoryDao.chkDeviceId(param);
-
-		if (chkDeviceId == null) {
-			System.out.println("No DeviceId");
-			return null;
-		} else {
-			return iOHistoryDao.outputHistorySearch(param);
-		}
+		return iOHistoryDao.outputHistorySearch(param);
 	}
 
 }

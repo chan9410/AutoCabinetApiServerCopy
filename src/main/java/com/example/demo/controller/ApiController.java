@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,7 +29,18 @@ public class ApiController {
 	// 장비 리스트 불러오기
 	@GetMapping(value = "/getDeviceList", produces = "application/json")
 	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
-		return apiService.getListResult(apiService.getDeviceList());
+
+		List<ApiDeviceControllVO> dataList = apiService.getDeviceList();
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
 	}
 
 }

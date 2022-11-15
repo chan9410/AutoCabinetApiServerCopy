@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.DevConDao;
@@ -21,37 +22,45 @@ public class DevConServiceImpl implements DevConService {
 	}
 
 	@Override
-	public Boolean saveDevice(ApiDeviceControllVO param) {
-		Boolean result;
-		try {
-			devConDao.saveDevice(param);
-			result = true;
-		} catch (Exception e) {
-			result = false;
-		}
-
-		return result;
+	public String chkDeviceId(ApiTagInfoParam param) {
+		return devConDao.chkDeviceId(param);
 	}
 
 	@Override
-	public Boolean delDevice(ApiDeviceControllVO param) {
-		Boolean result;
+	public int saveDevice(ApiDeviceControllVO param) {
+
 		String chkDevId = devConDao.chkDeviceId(param);
-		System.out.println(chkDevId);
+
+		if (chkDevId != null) {
+			System.out.println("No DeviceId");
+			return 102;
+		} else {
+
+			try {
+				devConDao.saveDevice(param);
+				return 200;
+			} catch (DuplicateKeyException e) {
+				return 102;
+			}
+		}
+
+	}
+
+	@Override
+	public int delDevice(ApiDeviceControllVO param) {
+
+		String chkDevId = devConDao.chkDeviceId(param);
+
+		int result = devConDao.delDevice(param);
+		System.out.println(result);
 
 		if (chkDevId == null) {
 			System.out.println("No DeviceId");
-			return false;
+			return 100;
+		} else if (result == 0) {
+			return 101;
 		} else {
-			try {
-				devConDao.delDevice(param);
-				result = true;
-			} catch (RuntimeException e) {
-				// System.out.println(e);
-				result = false;
-			}
-
-			return result;
+			return 200;
 		}
 	}
 
@@ -60,38 +69,27 @@ public class DevConServiceImpl implements DevConService {
 
 		String chkDevId = devConDao.chkDeviceId(param);
 
+		int result = devConDao.updateDevice(param);
+
 		if (chkDevId == null) {
 			System.out.println("No DeviceId");
 			return 100;
+		} else if (result == 0) {
+			return 101;
 		} else {
-			return devConDao.updateDevice(param);
+			return 200;
 		}
+
 	}
 
 	@Override
 	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param) {
-
-		String chkDevId = devConDao.chkDeviceId(param);
-
-		if (chkDevId == null) {
-			System.out.println("No DeviceId");
-			return null;
-		} else {
-			return devConDao.getColRowNum(param);
-		}
+		return devConDao.getColRowNum(param);
 	}
 
 	@Override
 	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param) {
-
-		String chkDevId = devConDao.chkDeviceId(param);
-
-		if (chkDevId == null) {
-			System.out.println("No DeviceId");
-			return null;
-		} else {
-			return devConDao.chkDevInfo(param);
-		}
+		return devConDao.chkDevInfo(param);
 	}
 
 }

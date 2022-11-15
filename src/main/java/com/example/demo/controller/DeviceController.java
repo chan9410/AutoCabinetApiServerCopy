@@ -14,14 +14,14 @@ import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.ReSingleResult;
 import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.DevConService;
-import com.example.demo.service.exeption.paramNotFoundException;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/DevCon")
+@RequestMapping("/api/devCon")
 
 public class DeviceController {
 
@@ -37,29 +37,19 @@ public class DeviceController {
 
 	// 장비 등록
 	@PostMapping(value = "/saveDevice", produces = "application/json")
-	public @ResponseBody Boolean saveDevice(@RequestBody HashMap<String, Object> map) throws paramNotFoundException {
+	public @ResponseBody SingleResult<Integer> saveDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		param.setDeviceId(map.get("DEVICEID").toString());
 		param.setDeviceName(map.get("DEVICENAME").toString());
 
-		Boolean result;
-
-		result = devConService.saveDevice(param);
-
-		if (result == false) {
-			throw new paramNotFoundException(String.format("DB에 param'%s' 존재", map.get("DEVICEID").toString()));
-		}
-
-		System.out.println(result);
-
-		return result;
+		return apiService.getSingleResult(devConService.saveDevice(param));
 	}
 
 	// 장비 데이터 수정
 
 	@PostMapping(value = "/updateDevice", produces = "application/json")
-	public @ResponseBody Boolean updateDevice(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody SingleResult<Integer> updateDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		param.setDeviceId(map.get("DEVICEID").toString());
@@ -68,67 +58,74 @@ public class DeviceController {
 		System.out.println(map.get("DEVICEID").toString());
 		System.out.println(map.get("DEVICENAME").toString());
 
-		int result;
-
-		result = devConService.updateDevice(param);
-
-		if (result == 1) {
-			return true;
-		}
-
-		return false;
+		return apiService.getSingleResult(devConService.updateDevice(param));
 	}
 
 	// 장비 제거
 
 	@PostMapping(value = "/delDevice", produces = "application/json")
-	public @ResponseBody Boolean delDevice(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody SingleResult<Integer> delDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		param.setDeviceId(map.get("DEVICEID").toString());
 
 		System.out.println(map.get("DEVICEID").toString());
 
-		Boolean result;
-
-		result = devConService.delDevice(param);
-
-		System.out.println(result);
-
-		return result;
+		return apiService.getSingleResult(devConService.delDevice(param));
 	}
 
 	// COL,ROW 개수 불러오기
 	@PostMapping(value = "/getColRowNum", produces = "application/json")
-	public @ResponseBody SingleResult<ApiColRowNumVO> getColRowNum(@RequestBody HashMap<String, Object> map)
-			throws paramNotFoundException {
+	public @ResponseBody ReSingleResult<ApiColRowNumVO> getColRowNum(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 
 		param.setDeviceId(map.get("DEVICEID").toString());
 
-		/*
-		 * if (map.get("DEVICEID").toString() == "") { throw new
-		 * paramNotFoundException(String.valueOf("DEVICE ID 빈값")); } else if
-		 * (apiService.getColRowNum(param) == null) { throw new
-		 * paramNotFoundException(String.format("DB에 파라미터'%s' 없음",
-		 * map.get("DEVICEID").toString())); }
-		 */
-
 		System.out.println(map.get("DEVICEID").toString());
 
-		return apiService.getSingleResult(devConService.getColRowNum(param));
+		ApiColRowNumVO data = devConService.getColRowNum(param);
+
+		String chkDev = devConService.chkDeviceId(param);
+
+		int statusCode;
+
+		if (chkDev == null) {
+			statusCode = 100;
+		} else if (data == null) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		System.out.println(statusCode);
+
+		return apiService.getSingleResult(data, statusCode);
 	}
 
 	// 선택한 장비의 정보 불러오기
 	@PostMapping(value = "/chkDevInfo", produces = "application/json")
-	public @ResponseBody SingleResult<ApiChkDevVO> chkDevInfo(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ReSingleResult<ApiChkDevVO> chkDevInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 
 		param.setDeviceId(map.get("DEVICEID").toString());
 
-		return apiService.getSingleResult(devConService.chkDevInfo(param));
+		ApiChkDevVO data = devConService.chkDevInfo(param);
+
+		String chkDev = devConService.chkDeviceId(param);
+
+		int statusCode;
+
+		if (chkDev == null) {
+			statusCode = 100;
+		} else if (data == null) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getSingleResult(data, statusCode);
 
 	}
 }

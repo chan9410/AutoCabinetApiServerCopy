@@ -24,42 +24,24 @@ public class CurrentCountServiceImpl implements CurrentCountService {
 	}
 
 	@Override
+	public String chkDeviceId(ApiTagInfoParam param) {
+
+		return currentCountDao.chkDeviceId(param);
+	}
+
+	@Override
 	public List<ApiTagCountVO> currentCount(ApiTagInfoParam param) {
-
-		String chkDevId = currentCountDao.chkDeviceId(param);
-
-		if (chkDevId == null) {
-			System.out.println("No DeviceId");
-			return null;
-		} else {
-			return currentCountDao.currentCount(param);
-		}
+		return currentCountDao.currentCount(param);
 	}
 
 	@Override
 	public ApiSearchTagInfoVO chkLocationInfo(ApiTagInfoParam param) {
-
-		String chkDevId = currentCountDao.chkDeviceId(param);
-
-		if (chkDevId == null) {
-			System.out.println("No DeviceId");
-			return null;
-		} else {
-			return currentCountDao.chkLocationInfo(param);
-		}
+		return currentCountDao.chkLocationInfo(param);
 	}
 
 	@Override
 	public List<CurrentCountSearchTagVO> getCurrentCountSearch(ApiItemTagInfoParam param) {
-
-		String chkDevId = currentCountDao.chkDeviceId(param);
-
-		if (chkDevId == null) {
-			System.out.println("No DeviceId");
-			return null;
-		} else {
-			return currentCountDao.getCurrentCountSearch(param);
-		}
+		return currentCountDao.getCurrentCountSearch(param);
 	}
 
 }

@@ -1,14 +1,14 @@
 package com.example.demo.dto;
 
-public class SingleResult<T> {
+public class SingleResult<T> extends CommonResult {
 
-	public T data;
+	public int data;
 
-	public T getData() {
+	public int getData() {
 		return data;
 	}
 
-	public void setData(T data) {
+	public void setData(int data) {
 		this.data = data;
 	}
 

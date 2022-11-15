@@ -16,4 +16,6 @@ public interface CurrentCountService {
 
 	public List<CurrentCountSearchTagVO> getCurrentCountSearch(ApiItemTagInfoParam param);
 
+	public String chkDeviceId(ApiTagInfoParam param);
+
 }

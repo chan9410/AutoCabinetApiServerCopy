@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.example.demo.dto.ApiItemTagInfoParam;
 import com.example.demo.dto.GetSearchTagVO;
 import com.example.demo.dto.ListResult;
+import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.ItemTagService;
 
@@ -55,14 +57,23 @@ public class ItemTagController {
 		System.out.println((String) map.get("ITEMNAME"));
 		System.out.println((String) map.get("ITEMNOTE"));
 
-		return apiService.getListResult(itemTagService.getSearchTag(param));
+		List<GetSearchTagVO> dataList = itemTagService.getSearchTag(param);
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
 	}
 
 	// 등록 현황 단일 품목 등록
 
-	@PostMapping(value = "/regTag", produces = "application/json")
-	public @ResponseBody Boolean regTag(@RequestBody HashMap<String, Object> map) {
-		Boolean result;
+	@PostMapping(value = "/saveTag", produces = "application/json")
+	public @ResponseBody SingleResult<Integer> saveTag(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
@@ -84,19 +95,17 @@ public class ItemTagController {
 		System.out.println(map.get("ITEMCODE").toString());
 		System.out.println(map.get("ITEMNAME").toString());
 
-		result = itemTagService.regTag(param);
-
-		System.out.println(result);
-
-		return result;
+		return apiService.getSingleResult(itemTagService.saveTag(param));
 	}
 
 	// 등록 현황 품목 수정
 	@PostMapping(value = "/updateTag", produces = "application/json")
-	public @ResponseBody Boolean updateTag(@RequestBody HashMap<String, Object> map) {
-		Boolean result;
+	public @ResponseBody SingleResult<Integer> updateTag(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
+
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
 		param.setItemGroup((String) map.get("ITEMGROUP"));
 		param.setItemStandard((String) map.get("ITEMSTANDARD"));
 		param.setItemAdmin((String) map.get("ITEMADMIN"));
@@ -107,32 +116,20 @@ public class ItemTagController {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
-		// TAG, ITEMCODE, ITEMNAME은 널 허용 X
 		param.setTag(map.get("TAG").toString());
-		param.setItemCode(map.get("ITEMCODE").toString());
-		param.setItemName(map.get("ITEMNAME").toString());
 
-		result = itemTagService.updateTag(param);
-
-		System.out.println(result);
-
-		return result;
+		return apiService.getSingleResult(itemTagService.updateTag(param));
 	}
 
 	// 등록 현황 품목 삭제
 	@PostMapping(value = "/deleteTag", produces = "application/json")
-	public @ResponseBody Boolean deleteTag(@RequestBody HashMap<String, Object> map) {
-		Boolean result;
+	public @ResponseBody SingleResult<Integer> deleteTag(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
 		param.setTag(map.get("TAG").toString());
 
-		result = itemTagService.deleteTag(param);
-
-		System.out.println(result);
-
-		return result;
+		return apiService.getSingleResult(itemTagService.deleteTag(param));
 	}
 
 }

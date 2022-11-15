@@ -2,19 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.IOHistoryDao">
 
-<select id="chkDeviceId" resultType="String">
-
-		SELECT
-		DEVICE_ID
-		FROM
-		tb_device_info
-		WHERE
-		DEVICE_ID = #{deviceId}
-		AND
-		STATE = "1";
-
-	</select>
-
 <select id="inputHistorySearch"
 		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
 		resultType="com.example.demo.dto.IOHistotyVO">

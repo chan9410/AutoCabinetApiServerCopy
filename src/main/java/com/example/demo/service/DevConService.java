@@ -9,11 +9,14 @@ public interface DevConService {
 
 	public int updateDevice(ApiDeviceControllVO param);
 
-	public Boolean saveDevice(ApiDeviceControllVO param);
+	public int saveDevice(ApiDeviceControllVO param);
 
-	public Boolean delDevice(ApiDeviceControllVO param);
+	public int delDevice(ApiDeviceControllVO param);
 
 	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param);
 
 	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param);
+
+	public String chkDeviceId(ApiTagInfoParam param);
+
 }

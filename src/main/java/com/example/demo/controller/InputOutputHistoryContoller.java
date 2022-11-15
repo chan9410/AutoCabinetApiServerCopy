@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import com.example.demo.service.IOHistoryService;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/IOHis")
+@RequestMapping("/api/ioHis")
 
 public class InputOutputHistoryContoller {
 
@@ -52,7 +53,17 @@ public class InputOutputHistoryContoller {
 
 		param.setDeviceId((String) map.get("DEVICEID"));
 
-		return apiService.getListResult(iOHistoryService.inputHistorySearch(param));
+		List<IOHistotyVO> dataList = iOHistoryService.inputHistorySearch(param);
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
 	}
 
 	// 출고 History 조회
@@ -75,7 +86,17 @@ public class InputOutputHistoryContoller {
 
 		param.setDeviceId((String) map.get("DEVICEID"));
 
-		return apiService.getListResult(iOHistoryService.outputHistorySearch(param));
+		List<IOHistotyVO> dataList = iOHistoryService.outputHistorySearch(param);
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
 	}
 
 }
