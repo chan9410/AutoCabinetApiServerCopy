@@ -13,7 +13,7 @@ public interface ApiService {
 
 	public <T> ListResult<T> getListResult(List<T> dataList, int statusCode);
 
-	public <T> SingleResult<T> getSingleResult(int data);
+	public <T> SingleResult<T> getSingleResult(Integer data);
 
 	public <T> ReSingleResult<T> getSingleResult(T data, int statusCode);
 

@@ -2,13 +2,13 @@ package com.example.demo.dto;
 
 public class SingleResult<T> extends CommonResult {
 
-	public int data;
+	public Integer data;
 
-	public int getData() {
+	public Integer getData() {
 		return data;
 	}
 
-	public void setData(int data) {
+	public void setData(Integer data) {
 		this.data = data;
 	}
 

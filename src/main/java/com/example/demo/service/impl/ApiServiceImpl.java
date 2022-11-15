@@ -49,10 +49,10 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public <T> ReSingleResult<T> getSingleResult(T data, int statusCode) {
 		ReSingleResult<T> singleResult = new ReSingleResult<>();
-		singleResult.setData(data);
 
 		switch (statusCode) {
 		case (200):
+			singleResult.setData(data);
 			setSuccessResult(singleResult);
 			System.out.println("SUCCESS");
 			return singleResult;
@@ -69,35 +69,42 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public <T> SingleResult<T> getSingleResult(int data) {
+	public <T> SingleResult<T> getSingleResult(Integer data) {
 		SingleResult<T> singleResult = new SingleResult<>();
-		singleResult.setData(data);
+
 		switch (data) {
 		case (200):
+			singleResult.setData(data);
 			setSuccessResult(singleResult);
 			System.out.println("SUCCESS");
 			return singleResult;
 		case (100):
+			data = null;
 			setNoDev(singleResult);
 			System.out.println("NO DEVICE");
 			return singleResult;
 		case (101):
+			data = null;
 			setNoData(singleResult);
 			System.out.println("NO RESULT");
 			return singleResult;
 		case (102):
+			data = null;
 			setExistDev(singleResult);
 			System.out.println("EXIST DEVICE");
 			return singleResult;
 		case (103):
+			data = null;
 			setNoTag(singleResult);
 			System.out.println("NO TAG");
 			return singleResult;
 		case (104):
+			data = null;
 			setExistTag(singleResult);
 			System.out.println("EXIST TAG");
 			return singleResult;
 		case (500):
+			data = null;
 			setError(singleResult);
 			System.out.println("ERROR");
 			return singleResult;
@@ -109,10 +116,10 @@ public class ApiServiceImpl implements ApiService {
 	@Override
 	public <T> ListResult<T> getListResult(List<T> dataList, int statusCode) {
 		ListResult<T> listResult = new ListResult<>();
-		listResult.setDataList(dataList);
 
 		switch (statusCode) {
 		case (200):
+			listResult.setDataList(dataList);
 			setSuccessResult(listResult);
 			System.out.println("SUCCESS");
 			return listResult;
