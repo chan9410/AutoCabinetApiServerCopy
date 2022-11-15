@@ -1,10 +1,12 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +16,7 @@ import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.ListResult;
 import com.example.demo.dto.ReSingleResult;
 import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
@@ -21,7 +24,7 @@ import com.example.demo.service.DevConService;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/devCon")
+@RequestMapping("devCon")
 
 public class DeviceController {
 
@@ -127,5 +130,22 @@ public class DeviceController {
 
 		return apiService.getSingleResult(data, statusCode);
 
+	}
+
+	// 장비 리스트 불러오기
+	@GetMapping(value = "/getDeviceList", produces = "application/json")
+	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
+
+		List<ApiDeviceControllVO> dataList = devConService.getDeviceList();
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
 	}
 }

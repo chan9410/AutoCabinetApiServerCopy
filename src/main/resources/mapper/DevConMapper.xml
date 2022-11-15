@@ -86,5 +86,17 @@
 		#{deviceId};
 
 	</select>
+	
+	<select id="getDeviceList"
+		resultType="com.example.demo.dto.ApiDeviceControllVO">
+
+		SELECT
+		DEVICE_ID,
+		DEVICE_NAME
+		FROM
+		tb_device_info
+		WHERE STATE = "1";
+
+	</select>
 
 </mapper>

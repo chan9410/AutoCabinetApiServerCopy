@@ -1,5 +1,7 @@
 package com.example.demo.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +23,8 @@ public interface DevConDao {
 	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param);
 
 	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param);
+
+	public List<ApiDeviceControllVO> getDeviceList();
 
 	public String chkDeviceId(ApiDeviceControllVO param);
 

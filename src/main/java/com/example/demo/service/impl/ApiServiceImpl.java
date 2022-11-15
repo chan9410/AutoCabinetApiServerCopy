@@ -2,11 +2,8 @@ package com.example.demo.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dao.ApiDao;
-import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.CommonResult;
 import com.example.demo.dto.ListResult;
 import com.example.demo.dto.ReSingleResult;
@@ -15,13 +12,6 @@ import com.example.demo.service.ApiService;
 
 @Service
 public class ApiServiceImpl implements ApiService {
-
-	private ApiDao apiDao;
-
-	@Autowired
-	public ApiServiceImpl(ApiDao apiDao) {
-		this.apiDao = apiDao;
-	}
 
 	public enum CommonResponse {
 
@@ -173,12 +163,6 @@ public class ApiServiceImpl implements ApiService {
 	private void setError(CommonResult result) {
 		result.setCode(CommonResponse.ERROR.getCode());
 		result.setMessage(CommonResponse.ERROR.getMessage());
-	}
-
-	@Override
-	public List<ApiDeviceControllVO> getDeviceList() {
-
-		return apiDao.getDeviceList();
 	}
 
 }

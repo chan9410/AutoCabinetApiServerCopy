@@ -20,16 +20,16 @@ import com.example.demo.service.ItemTagService;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/itemTag")
+@RequestMapping("/itemCon")
 
-public class ItemTagController {
+public class RegistrationItemController {
 
 	private ItemTagService itemTagService;
 
 	private ApiService apiService;
 
 	@Autowired
-	public ItemTagController(ItemTagService itemTagService, ApiService apiService) {
+	public RegistrationItemController(ItemTagService itemTagService, ApiService apiService) {
 		this.itemTagService = itemTagService;
 		this.apiService = apiService;
 	}

@@ -1,5 +1,7 @@
 package com.example.demo.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -90,6 +92,11 @@ public class DevConServiceImpl implements DevConService {
 	@Override
 	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param) {
 		return devConDao.chkDevInfo(param);
+	}
+
+	@Override
+	public List<ApiDeviceControllVO> getDeviceList() {
+		return devConDao.getDeviceList();
 	}
 
 }

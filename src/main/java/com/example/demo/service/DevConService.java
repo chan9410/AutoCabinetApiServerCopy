@@ -1,5 +1,7 @@
 package com.example.demo.service;
 
+import java.util.List;
+
 import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
@@ -16,6 +18,8 @@ public interface DevConService {
 	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param);
 
 	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param);
+
+	public List<ApiDeviceControllVO> getDeviceList();
 
 	public String chkDeviceId(ApiTagInfoParam param);
 

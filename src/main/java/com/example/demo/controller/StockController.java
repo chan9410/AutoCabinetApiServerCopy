@@ -16,24 +16,39 @@ import com.example.demo.dto.ApiSearchTagInfoVO;
 import com.example.demo.dto.ApiTagCountVO;
 import com.example.demo.dto.ApiTagInfoParam;
 import com.example.demo.dto.CurrentCountSearchTagVO;
+import com.example.demo.dto.IOHistotyVO;
 import com.example.demo.dto.ListResult;
 import com.example.demo.dto.ReSingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.CurrentCountService;
+import com.example.demo.service.IOHistoryService;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("/api/currentCnt")
+@RequestMapping("/stockCon")
 
-public class CurrentCountController {
+public class StockController {
 
 	private CurrentCountService currentCountService;
+
+	private IOHistoryService iOHistoryService;
+
+	// private ReportStatisticsService reportStatisticsService;
 
 	private ApiService apiService;
 
 	@Autowired
-	public CurrentCountController(CurrentCountService currentCountService, ApiService apiService) {
+	public StockController(CurrentCountService currentCountService, IOHistoryService iOHistoryService,
+			ApiService apiService) {
+		/*
+		 * @Autowired public StockController(CurrentCountService currentCountService,
+		 * IOHistoryService iOHistoryService, ReportStatisticsService
+		 * reportStatisticsService, ApiService apiService) {
+		 */
+
 		this.currentCountService = currentCountService;
+		this.iOHistoryService = iOHistoryService;
+		// this.reportStatisticsService = reportStatisticsService;
 		this.apiService = apiService;
 	}
 
@@ -113,6 +128,72 @@ public class CurrentCountController {
 		param.setDeviceId((String) map.get("DEVICEID"));
 
 		List<CurrentCountSearchTagVO> dataList = currentCountService.getCurrentCountSearch(param);
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
+	}
+
+	// 입고 History 조회
+	@PostMapping(value = "/inputHistorySearch", produces = "application/json")
+	public @ResponseBody ListResult<IOHistotyVO> inputHistorySearch(@RequestBody HashMap<String, Object> map) {
+
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
+		param.setTag((String) map.get("TAG"));
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
+
+		param.setDeviceId((String) map.get("DEVICEID"));
+
+		List<IOHistotyVO> dataList = iOHistoryService.inputHistorySearch(param);
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
+	}
+
+	// 출고 History 조회
+	@PostMapping(value = "/outputHistorySearch", produces = "application/json")
+	public @ResponseBody ListResult<IOHistotyVO> outputHistorySearch(@RequestBody HashMap<String, Object> map) {
+
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
+		param.setTag((String) map.get("TAG"));
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetDate((String) map.get("ITEMGETDATE"));
+		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
+
+		param.setDeviceId((String) map.get("DEVICEID"));
+
+		List<IOHistotyVO> dataList = iOHistoryService.outputHistorySearch(param);
 
 		int statusCode;
 
