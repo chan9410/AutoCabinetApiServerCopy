@@ -2,6 +2,7 @@ package com.example.demo.dto;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApiItemTagInfoParam {
@@ -46,6 +47,7 @@ public class ApiItemTagInfoParam {
 	private String deviceId;
 
 	@JsonProperty(value = "DATETIME")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "GMT+9")
 	private Date dateTime;
 
 	@JsonProperty(value = "LOCATION")
