@@ -18,7 +18,6 @@ import com.example.demo.dto.ApiTagInfoParam;
 import com.example.demo.dto.CurrentCountSearchTagVO;
 import com.example.demo.dto.IOHistotyVO;
 import com.example.demo.dto.ListResult;
-import com.example.demo.dto.ReSingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.CurrentCountService;
 import com.example.demo.service.IOHistoryService;
@@ -80,7 +79,7 @@ public class StockController {
 
 	// 클릭한 구분영역의 정보 불러오기
 	@PostMapping(value = "/chkLocationInfo", produces = "application/json")
-	public @ResponseBody ReSingleResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
+	public @ResponseBody ListResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		param.setLocation((int) map.get("LOCATION"));
@@ -89,7 +88,7 @@ public class StockController {
 		System.out.println(map.get("DEVICEID").toString());
 		System.out.println((int) map.get("LOCATION"));
 
-		ApiSearchTagInfoVO data = currentCountService.chkLocationInfo(param);
+		List<ApiSearchTagInfoVO> dataList = currentCountService.chkLocationInfo(param);
 
 		String chkDev = currentCountService.chkDeviceId(param);
 
@@ -97,13 +96,13 @@ public class StockController {
 
 		if (chkDev == null) {
 			statusCode = 100;
-		} else if (data == null) {
+		} else if (dataList.isEmpty()) {
 			statusCode = 101;
 		} else {
 			statusCode = 200;
 		}
 
-		return apiService.getSingleResult(data, statusCode);
+		return apiService.getListResult(dataList, statusCode);
 	}
 
 	// 리스트 형식의 실시간 재고 페이지에서 특정 조건으로 검색.

@@ -12,7 +12,7 @@ public interface CurrentCountService {
 
 	public List<ApiTagCountVO> currentCount(ApiTagInfoParam param);
 
-	public ApiSearchTagInfoVO chkLocationInfo(ApiTagInfoParam param);
+	public List<ApiSearchTagInfoVO> chkLocationInfo(ApiTagInfoParam param);
 
 	public List<CurrentCountSearchTagVO> getCurrentCountSearch(ApiItemTagInfoParam param);
 

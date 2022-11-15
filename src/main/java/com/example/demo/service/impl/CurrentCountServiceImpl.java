@@ -35,7 +35,7 @@ public class CurrentCountServiceImpl implements CurrentCountService {
 	}
 
 	@Override
-	public ApiSearchTagInfoVO chkLocationInfo(ApiTagInfoParam param) {
+	public List<ApiSearchTagInfoVO> chkLocationInfo(ApiTagInfoParam param) {
 		return currentCountDao.chkLocationInfo(param);
 	}
 
