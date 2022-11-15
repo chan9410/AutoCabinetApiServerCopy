@@ -22,7 +22,7 @@ public class IOHistotyVO {
 	@JsonProperty(value = "ITEMADMIN")
 	private String itemAdmin;
 
-	@JsonProperty(value = "ITEAMDEPART")
+	@JsonProperty(value = "ITEMDEPART")
 	private String itemDepart;
 
 	@JsonProperty(value = "ITEMSITE")
