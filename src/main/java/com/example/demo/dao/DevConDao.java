@@ -30,4 +30,6 @@ public interface DevConDao {
 
 	public String chkDeviceId(ApiTagInfoParam param);
 
+	public int updateColRowNum(ApiTagInfoParam param);
+
 }

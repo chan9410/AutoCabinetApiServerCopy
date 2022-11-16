@@ -23,4 +23,6 @@ public interface DevConService {
 
 	public String chkDeviceId(ApiTagInfoParam param);
 
+	public int updateColRowNum(ApiTagInfoParam param);
+
 }

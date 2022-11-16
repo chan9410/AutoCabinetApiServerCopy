@@ -148,4 +148,18 @@ public class DeviceController {
 
 		return apiService.getListResult(dataList, statusCode);
 	}
+
+	@PostMapping(value = "/updateColRowNum", produces = "application/json")
+	public @ResponseBody SingleResult<Integer> updateColRowNum(@RequestBody HashMap<String, Object> map) {
+
+		ApiTagInfoParam param = new ApiTagInfoParam();
+
+		param.setColNum((int) map.get("COLNUM"));
+
+		param.setRowNum((int) map.get("ROWNUM"));
+
+		param.setDeviceId(map.get("DEVICEID").toString());
+
+		return apiService.getSingleResult(devConService.updateColRowNum(param));
+	}
 }

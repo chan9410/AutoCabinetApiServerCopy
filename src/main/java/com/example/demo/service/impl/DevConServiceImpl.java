@@ -99,4 +99,22 @@ public class DevConServiceImpl implements DevConService {
 		return devConDao.getDeviceList();
 	}
 
+	@Override
+	public int updateColRowNum(ApiTagInfoParam param) {
+
+		String chkDevId = devConDao.chkDeviceId(param);
+
+		int result = devConDao.updateColRowNum(param);
+
+		if (chkDevId == null) {
+			System.out.println("No Device");
+			return 100;
+		} else if (result == 0) {
+			return 101;
+		} else {
+			return 200;
+		}
+
+	}
+
 }

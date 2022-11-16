@@ -98,5 +98,17 @@
 		WHERE STATE = "1";
 
 	</select>
+	
+	<update id="updateColRowNum"
+		parameterType="com.example.demo.dto.ApiTagInfoParam">
+
+		UPDATE tb_device_info
+		SET
+		COL_NUM = #{colNum},
+		ROW_NUM = #{rowNum}
+		WHERE
+		DEVICE_ID = #{deviceId};
+
+	</update>
 
 </mapper>
