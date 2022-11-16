@@ -40,9 +40,21 @@ public class IOHistotyVO {
 	@JsonProperty(value = "ITEMNOTE")
 	private String itemNote;
 
+	@JsonProperty(value = "DEVICE_ID")
+	private String deviceId;
+
+	@JsonProperty(value = "WORKER_ID")
+	private String workerId;
+
+	@JsonProperty(value = "LOCATION")
+	private int location;
+
 	@JsonProperty(value = "DATETIME")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "GMT+9")
 	private Date dateTime;
+
+	@JsonProperty(value = "STATE")
+	private String state;
 
 	public String getItemCode() {
 		return itemCode;
@@ -130,6 +142,38 @@ public class IOHistotyVO {
 
 	public void setItemNote(String itemNote) {
 		this.itemNote = itemNote;
+	}
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
+
+	public String getWorkerId() {
+		return workerId;
+	}
+
+	public void setWorkerId(String workerId) {
+		this.workerId = workerId;
+	}
+
+	public int getLocation() {
+		return location;
+	}
+
+	public void setLocation(int location) {
+		this.location = location;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 	public Date getDateTime() {

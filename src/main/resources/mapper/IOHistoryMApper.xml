@@ -18,7 +18,13 @@
 		A.ITEM_GET_DATE,
 		A.ITEM_GET_PRICE,
 		A.ITEM_NOTE,
-		B.DATE_TIME
+		B.DEVICE_ID,
+		B.WORKER_ID,
+		B.LOCATION,
+		B.DATE_TIME,
+		CASE (B.STATE)
+        WHEN "1" THEN '입고'
+        END AS STATE
 		FROM
 		tb_item_info A
 		LEFT JOIN
@@ -111,7 +117,13 @@
 		A.ITEM_GET_DATE,
 		A.ITEM_GET_PRICE,
 		A.ITEM_NOTE,
-		B.DATE_TIME
+		B.DEVICE_ID,
+		B.WORKER_ID,
+		B.LOCATION,
+		B.DATE_TIME,
+		CASE (B.STATE)
+        WHEN "0" THEN '출고'
+        END AS STATE
 		FROM
 		tb_item_info A
 		LEFT JOIN
