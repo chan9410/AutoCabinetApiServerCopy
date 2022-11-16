@@ -76,15 +76,13 @@
 
 			AND A.TAG = B.TAG
 
-			<if test="deviceId != null and deviceId != ''">
-				AND
-				A.DEVICE_ID = #{deviceId}
-			</if>
-
-			<if test="tag != null and tag != ''">
-				AND
-				B.TAG like CONCAT('%', #{tag},'%')
-			</if>
+			AND
+			A.DEVICE_ID IN(
+			<foreach collection="deviceIdArr" item="deviceIdArr"
+				separator=",">
+				#{deviceIdArr}
+			</foreach>
+			)
 
 			<if test="itemCode != null and itemCode != ''">
 				AND

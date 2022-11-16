@@ -39,7 +39,7 @@ public class RegistrationItemController {
 	public @ResponseBody ListResult<GetSearchTagVO> getSearchTag(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
-		param.setTag((String) map.get("TAG"));
+
 		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
 		param.setItemGroup((String) map.get("ITEMGROUP"));
@@ -51,11 +51,6 @@ public class RegistrationItemController {
 		param.setItemGetDate((String) map.get("ITEMGETDATE"));
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
-
-		System.out.println((String) map.get("TAG"));
-		System.out.println((String) map.get("ITEMCODE"));
-		System.out.println((String) map.get("ITEMNAME"));
-		System.out.println((String) map.get("ITEMNOTE"));
 
 		List<GetSearchTagVO> dataList = itemTagService.getSearchTag(param);
 
@@ -104,7 +99,6 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
 		param.setItemGroup((String) map.get("ITEMGROUP"));
 		param.setItemStandard((String) map.get("ITEMSTANDARD"));
@@ -116,7 +110,7 @@ public class RegistrationItemController {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
-		param.setTag(map.get("TAG").toString());
+		param.setItemCode(map.get("ITEMCODE").toString());
 
 		return apiService.getSingleResult(itemTagService.updateTag(param));
 	}
@@ -127,7 +121,7 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setTag(map.get("TAG").toString());
+		param.setItemCode(map.get("ITEMCODE").toString());
 
 		return apiService.getSingleResult(itemTagService.deleteTag(param));
 	}

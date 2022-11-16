@@ -1,6 +1,7 @@
 package com.example.demo.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -45,6 +46,9 @@ public class ApiItemTagInfoParam {
 
 	@JsonProperty(value = "DEVICEID")
 	private String deviceId;
+
+	@JsonProperty(value = "DEVICEIDARR")
+	private List<String> deviceIdArr;
 
 	@JsonProperty(value = "DATETIME")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "GMT+9")
@@ -155,6 +159,14 @@ public class ApiItemTagInfoParam {
 
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+
+	public List<String> getDeviceIdArr() {
+		return deviceIdArr;
+	}
+
+	public void setDeviceIdArr(List<String> deviceIdArr) {
+		this.deviceIdArr = deviceIdArr;
 	}
 
 	public Date getDateTime() {

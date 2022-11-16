@@ -28,6 +28,8 @@ public interface DevConDao {
 
 	public String chkDeviceId(ApiDeviceControllVO param);
 
+	public String saveChkDeviceId(ApiDeviceControllVO param);
+
 	public String chkDeviceId(ApiTagInfoParam param);
 
 	public int updateColRowNum(ApiTagInfoParam param);

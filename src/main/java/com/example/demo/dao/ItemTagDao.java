@@ -22,4 +22,6 @@ public interface ItemTagDao {
 
 	public String chkTag(ApiItemTagInfoParam param);
 
+	public String chkItemCode(ApiItemTagInfoParam param);
+
 }

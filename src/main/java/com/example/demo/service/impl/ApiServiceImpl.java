@@ -16,7 +16,8 @@ public class ApiServiceImpl implements ApiService {
 	public enum CommonResponse {
 
 		SUCCESS(200, "성공했습니다."), NODEVICE(400, "디바이스가 없습니다."), NODATA(404, "API 결과가 없습니다."), NOTAG(400, "태그가 없습니다."),
-		EXISTDEV(401, "DeviceId가 존재합니다."), EXISTTAG(401, "Tag가 존재합니다."), ERROR(500, "알 수 없는 에러 발생");
+		EXISTDEV(401, "Device가 존재합니다."), EXISTTAG(401, "Tag가 존재합니다."), EXISTITEMCODE(401, "존재하는 ITEM CODE입니다."),
+		EXISTDEVID(401, "Device Id가 존재합니다."), ERROR(500, "알 수 없는 에러 발생");
 
 		int code;
 		String message;
@@ -93,6 +94,16 @@ public class ApiServiceImpl implements ApiService {
 			setExistTag(singleResult);
 			System.out.println("EXIST TAG");
 			return singleResult;
+		case (105):
+			data = null;
+			setExistItemCode(singleResult);
+			System.out.println("EXIST ITEM CODE");
+			return singleResult;
+		case (106):
+			data = null;
+			setExistDevId(singleResult);
+			System.out.println("EXIST DEVICE ID");
+			return singleResult;
 		case (500):
 			data = null;
 			setError(singleResult);
@@ -158,6 +169,16 @@ public class ApiServiceImpl implements ApiService {
 	private void setExistTag(CommonResult result) {
 		result.setCode(CommonResponse.EXISTTAG.getCode());
 		result.setMessage(CommonResponse.EXISTTAG.getMessage());
+	}
+
+	private void setExistItemCode(CommonResult result) {
+		result.setCode(CommonResponse.EXISTITEMCODE.getCode());
+		result.setMessage(CommonResponse.EXISTITEMCODE.getMessage());
+	}
+
+	private void setExistDevId(CommonResult result) {
+		result.setCode(CommonResponse.EXISTDEVID.getCode());
+		result.setMessage(CommonResponse.EXISTDEVID.getMessage());
 	}
 
 	private void setError(CommonResult result) {

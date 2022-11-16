@@ -58,8 +58,6 @@ public class StockController {
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		param.setDeviceId(map.get("DEVICEID").toString());
 
-		System.out.println(map.get("DEVICEID").toString());
-
 		List<ApiTagCountVO> dataList = currentCountService.currentCount(param);
 
 		String chkDev = currentCountService.chkDeviceId(param);
@@ -85,9 +83,6 @@ public class StockController {
 		param.setLocation((int) map.get("LOCATION"));
 		param.setDeviceId(map.get("DEVICEID").toString());
 
-		System.out.println(map.get("DEVICEID").toString());
-		System.out.println((int) map.get("LOCATION"));
-
 		List<ApiSearchTagInfoVO> dataList = currentCountService.chkLocationInfo(param);
 
 		String chkDev = currentCountService.chkDeviceId(param);
@@ -106,12 +101,13 @@ public class StockController {
 	}
 
 	// 리스트 형식의 실시간 재고 페이지에서 특정 조건으로 검색.
+	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/getCurrentCountSearch", produces = "application/json")
 	public @ResponseBody ListResult<CurrentCountSearchTagVO> getCurrentCountSearch(
 			@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
-		param.setTag((String) map.get("TAG"));
+
 		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
 		param.setItemGroup((String) map.get("ITEMGROUP"));
@@ -124,27 +120,37 @@ public class StockController {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
-		param.setDeviceId((String) map.get("DEVICEID"));
-
-		List<CurrentCountSearchTagVO> dataList = currentCountService.getCurrentCountSearch(param);
+		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
 
 		int statusCode;
 
-		if (dataList.isEmpty()) {
-			statusCode = 101;
-		} else {
-			statusCode = 200;
-		}
+		List<CurrentCountSearchTagVO> dataList;
 
+		if ((List<String>) map.get("DEVICEIDARR") == null) {
+
+			statusCode = 100;
+			dataList = null;
+
+		} else {
+
+			dataList = currentCountService.getCurrentCountSearch(param);
+
+			if (dataList.isEmpty()) {
+				statusCode = 101;
+			} else {
+				statusCode = 200;
+			}
+		}
 		return apiService.getListResult(dataList, statusCode);
 	}
 
 	// 입고 History 조회
+	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/inputHistorySearch", produces = "application/json")
 	public @ResponseBody ListResult<IOHistotyVO> inputHistorySearch(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
-		param.setTag((String) map.get("TAG"));
+
 		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
 		param.setItemGroup((String) map.get("ITEMGROUP"));
@@ -157,27 +163,40 @@ public class StockController {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
-		param.setDeviceId((String) map.get("DEVICEID"));
+		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
 
-		List<IOHistotyVO> dataList = iOHistoryService.inputHistorySearch(param);
+		System.out.println((List<String>) map.get("DEVICEIDARR"));
+
+		List<IOHistotyVO> dataList;
 
 		int statusCode;
 
-		if (dataList.isEmpty()) {
-			statusCode = 101;
+		if ((List<String>) map.get("DEVICEIDARR") == null) {
+
+			dataList = null;
+			statusCode = 100;
+
 		} else {
-			statusCode = 200;
+
+			dataList = iOHistoryService.inputHistorySearch(param);
+
+			if (dataList.isEmpty()) {
+				statusCode = 101;
+			} else {
+				statusCode = 200;
+			}
 		}
 
 		return apiService.getListResult(dataList, statusCode);
 	}
 
 	// 출고 History 조회
+	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/outputHistorySearch", produces = "application/json")
 	public @ResponseBody ListResult<IOHistotyVO> outputHistorySearch(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
-		param.setTag((String) map.get("TAG"));
+
 		param.setItemCode((String) map.get("ITEMCODE"));
 		param.setItemName((String) map.get("ITEMNAME"));
 		param.setItemGroup((String) map.get("ITEMGROUP"));
@@ -190,16 +209,28 @@ public class StockController {
 		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
-		param.setDeviceId((String) map.get("DEVICEID"));
+		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
 
-		List<IOHistotyVO> dataList = iOHistoryService.outputHistorySearch(param);
+		System.out.println((List<String>) map.get("DEVICEIDARR"));
+
+		List<IOHistotyVO> dataList;
 
 		int statusCode;
 
-		if (dataList.isEmpty()) {
-			statusCode = 101;
+		if ((List<String>) map.get("DEVICEIDARR") == null) {
+
+			dataList = null;
+			statusCode = 100;
+
 		} else {
-			statusCode = 200;
+
+			dataList = iOHistoryService.outputHistorySearch(param);
+
+			if (dataList.isEmpty()) {
+				statusCode = 101;
+			} else {
+				statusCode = 200;
+			}
 		}
 
 		return apiService.getListResult(dataList, statusCode);

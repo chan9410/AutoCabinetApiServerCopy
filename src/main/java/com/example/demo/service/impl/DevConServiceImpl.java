@@ -33,11 +33,15 @@ public class DevConServiceImpl implements DevConService {
 
 		String chkDevId = devConDao.chkDeviceId(param);
 
-		if (chkDevId != null) {
-			System.out.println("No DeviceId");
-			return 102;
-		} else {
+		String saveChkDeviceId = devConDao.saveChkDeviceId(param);
 
+		if (chkDevId != null) {
+			System.out.println("EXIST DEVICE");
+			return 102;
+		} else if (saveChkDeviceId != null) {
+			System.out.println("EXIST DEVICEID");
+			return 106;
+		} else {
 			try {
 				devConDao.saveDevice(param);
 				return 200;
@@ -57,7 +61,7 @@ public class DevConServiceImpl implements DevConService {
 		System.out.println(result);
 
 		if (chkDevId == null) {
-			System.out.println("No DeviceId");
+			System.out.println("No Device");
 			return 100;
 		} else if (result == 0) {
 			return 101;
@@ -74,7 +78,7 @@ public class DevConServiceImpl implements DevConService {
 		int result = devConDao.updateDevice(param);
 
 		if (chkDevId == null) {
-			System.out.println("No DeviceId");
+			System.out.println("No Device");
 			return 100;
 		} else if (result == 0) {
 			return 101;

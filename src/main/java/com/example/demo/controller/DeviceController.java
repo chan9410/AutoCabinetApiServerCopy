@@ -58,9 +58,6 @@ public class DeviceController {
 		param.setDeviceId(map.get("DEVICEID").toString());
 		param.setDeviceName(map.get("DEVICENAME").toString());
 
-		System.out.println(map.get("DEVICEID").toString());
-		System.out.println(map.get("DEVICENAME").toString());
-
 		return apiService.getSingleResult(devConService.updateDevice(param));
 	}
 
@@ -72,8 +69,6 @@ public class DeviceController {
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		param.setDeviceId(map.get("DEVICEID").toString());
 
-		System.out.println(map.get("DEVICEID").toString());
-
 		return apiService.getSingleResult(devConService.delDevice(param));
 	}
 
@@ -84,8 +79,6 @@ public class DeviceController {
 		ApiTagInfoParam param = new ApiTagInfoParam();
 
 		param.setDeviceId(map.get("DEVICEID").toString());
-
-		System.out.println(map.get("DEVICEID").toString());
 
 		ApiColRowNumVO data = devConService.getColRowNum(param);
 

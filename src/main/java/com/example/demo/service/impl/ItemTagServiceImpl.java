@@ -31,9 +31,14 @@ public class ItemTagServiceImpl implements ItemTagService {
 
 		String chkTag = itemTagDao.chkTag(param);
 
+		String chkItemCode = itemTagDao.chkItemCode(param);
+
 		if (chkTag != null) {
-			System.out.println("No Tag");
+			System.out.println("EXIST TAG");
 			return 104;
+		} else if (chkItemCode != null) {
+			System.out.println("EXIST ITEM CODE");
+			return 105;
 		} else {
 			try {
 				itemTagDao.saveTag(param);
@@ -47,7 +52,7 @@ public class ItemTagServiceImpl implements ItemTagService {
 	@Override
 	public int updateTag(ApiItemTagInfoParam param) {
 
-		String chkTag = itemTagDao.chkTag(param);
+		String chkItemCode = itemTagDao.chkItemCode(param);
 
 		int result = itemTagDao.updateTag(param);
 
@@ -58,7 +63,7 @@ public class ItemTagServiceImpl implements ItemTagService {
 		 * 문법에 맞지 않아 오류 발생
 		 */
 
-		if (chkTag == null) {
+		if (chkItemCode == null) {
 			System.out.println("No Tag");
 			return 103;
 		} else if (result == 0) {
@@ -73,11 +78,11 @@ public class ItemTagServiceImpl implements ItemTagService {
 	@Override
 	public int deleteTag(ApiItemTagInfoParam param) {
 
-		String chkTag = itemTagDao.chkTag(param);
+		String chkItemCode = itemTagDao.chkItemCode(param);
 
 		int result = itemTagDao.deleteTag(param);
 
-		if (chkTag == null) {
+		if (chkItemCode == null) {
 			System.out.println("No Tag");
 			return 103;
 		} else if (result == 0) {
