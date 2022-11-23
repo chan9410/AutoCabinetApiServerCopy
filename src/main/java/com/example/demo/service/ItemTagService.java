@@ -13,6 +13,8 @@ public interface ItemTagService {
 
 	public int deleteTag(ApiItemTagInfoParam param);
 
+	public List<String> chkItemCodeArr(ApiItemTagInfoParam param);
+
 	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param);
 
 }

@@ -23,6 +23,21 @@
 		ITEM_CODE = #{itemCode};
 
 	</select>
+	
+	<select id="chkItemCodeArr" resultType="String">
+
+		SELECT
+		ITEM_CODE
+		FROM
+		tb_item_info
+		WHERE
+		ITEM_CODE IN(
+		<foreach collection="itemCodeArr" item="itemCodeArr"
+				separator=",">
+				#{itemCodeArr}
+			</foreach>
+		)
+	</select>
 
 	<insert id="saveTag"
 		parameterType="com.example.demo.dto.ApiItemTagInfoParam">
@@ -194,8 +209,12 @@
 
 		DELETE FROM tb_item_info
 		WHERE
-		ITEM_CODE =
-		#{itemCode};
+		ITEM_CODE IN(
+		<foreach collection="itemCodeArr" item="itemCodeArr"
+				separator=",">
+				#{itemCodeArr}
+			</foreach>
+		)
 
 	</delete>
 

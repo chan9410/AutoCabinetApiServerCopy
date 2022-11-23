@@ -14,6 +14,9 @@ public class ApiItemTagInfoParam {
 	@JsonProperty(value = "ITEMCODE")
 	private String itemCode;
 
+	@JsonProperty(value = "ITEMCODEARR")
+	private List<String> itemCodeArr;
+
 	@JsonProperty(value = "ITEMNAME")
 	private String itemName;
 
@@ -71,6 +74,14 @@ public class ApiItemTagInfoParam {
 
 	public void setItemCode(String itemCode) {
 		this.itemCode = itemCode;
+	}
+
+	public List<String> getItemCodeArr() {
+		return itemCodeArr;
+	}
+
+	public void setItemCodeArr(List<String> itemCodeArr) {
+		this.itemCodeArr = itemCodeArr;
 	}
 
 	public String getItemName() {

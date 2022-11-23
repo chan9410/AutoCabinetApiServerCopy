@@ -76,16 +76,15 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
+	public List<String> chkItemCodeArr(ApiItemTagInfoParam param) {
+		return itemTagDao.chkItemCodeArr(param);
+	}
+
+	@Override
 	public int deleteTag(ApiItemTagInfoParam param) {
-
-		String chkItemCode = itemTagDao.chkItemCode(param);
-
 		int result = itemTagDao.deleteTag(param);
 
-		if (chkItemCode == null) {
-			System.out.println("No Tag");
-			return 103;
-		} else if (result == 0) {
+		if (result == 0) {
 			System.out.println("No Result");
 			return 101;
 		} else {

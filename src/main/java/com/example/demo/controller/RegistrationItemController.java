@@ -116,14 +116,31 @@ public class RegistrationItemController {
 	}
 
 	// 등록 현황 품목 삭제
+	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/deleteTag", produces = "application/json")
 	public @ResponseBody SingleResult<Integer> deleteTag(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemCode(map.get("ITEMCODE").toString());
+		List<String> itemCodeArr = (List<String>) map.get("ITEMCODEARR");
 
-		return apiService.getSingleResult(itemTagService.deleteTag(param));
+		param.setItemCodeArr(itemCodeArr);
+
+		List<String> itemCodeArrChk = itemTagService.chkItemCodeArr(param);
+
+		Integer result;
+
+		System.out.println(itemCodeArr);
+		System.out.println(itemCodeArrChk);
+
+		if (itemCodeArrChk.equals(itemCodeArr)) {
+
+			result = itemTagService.deleteTag(param);
+		} else {
+			System.out.println("No ItemCodeArr");
+			result = 103;
+		}
+		return apiService.getSingleResult(result);
 	}
 
 }
