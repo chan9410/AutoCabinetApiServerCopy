@@ -133,7 +133,7 @@ public class RegistrationItemController {
 		System.out.println(itemCodeArr);
 		System.out.println(itemCodeArrChk);
 
-		if (itemCodeArrChk.equals(itemCodeArr)) {
+		if (itemCodeArrChk.containsAll(itemCodeArr)) {
 
 			result = itemTagService.deleteTag(param);
 		} else {
