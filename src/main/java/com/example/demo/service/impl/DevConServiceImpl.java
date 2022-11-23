@@ -33,17 +33,18 @@ public class DevConServiceImpl implements DevConService {
 
 		String chkDevId = devConDao.chkDeviceId(param);
 
-		String saveChkDeviceId = devConDao.saveChkDeviceId(param);
+		int recycleDevId = devConDao.recycleDevId(param);
 
 		if (chkDevId != null) {
 			System.out.println("EXIST DEVICE");
 			return 102;
-		} else if (saveChkDeviceId != null) {
-			System.out.println("EXIST DEVICEID");
-			return 106;
+		} else if (recycleDevId == 1) {
+			System.out.println("SUCCESS");
+			return 200;
 		} else {
 			try {
 				devConDao.saveDevice(param);
+				System.out.println("SUCCESS");
 				return 200;
 			} catch (DuplicateKeyException e) {
 				return 102;

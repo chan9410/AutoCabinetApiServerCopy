@@ -99,11 +99,6 @@ public class ApiServiceImpl implements ApiService {
 			setExistItemCode(singleResult);
 			System.out.println("EXIST ITEM CODE");
 			return singleResult;
-		case (106):
-			data = null;
-			setExistDevId(singleResult);
-			System.out.println("EXIST DEVICE ID");
-			return singleResult;
 		case (500):
 			data = null;
 			setError(singleResult);
@@ -174,11 +169,6 @@ public class ApiServiceImpl implements ApiService {
 	private void setExistItemCode(CommonResult result) {
 		result.setCode(CommonResponse.EXISTITEMCODE.getCode());
 		result.setMessage(CommonResponse.EXISTITEMCODE.getMessage());
-	}
-
-	private void setExistDevId(CommonResult result) {
-		result.setCode(CommonResponse.EXISTDEVID.getCode());
-		result.setMessage(CommonResponse.EXISTDEVID.getMessage());
 	}
 
 	private void setError(CommonResult result) {

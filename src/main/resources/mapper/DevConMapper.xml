@@ -15,16 +15,17 @@
 
 	</select>
 	
-	<select id="saveChkDeviceId" resultType="String">
+	<update id="recycleDevId"
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 
-		SELECT
-		DEVICE_ID
-		FROM
-		tb_device_info
+		UPDATE tb_device_info
+		SET
+		DEVICE_NAME = #{deviceName},
+		STATE = 1
 		WHERE
 		DEVICE_ID = #{deviceId};
 
-	</select>
+	</update>
 	
 	<insert id="saveDevice"
 		parameterType="com.example.demo.dto.ApiDeviceControllVO">

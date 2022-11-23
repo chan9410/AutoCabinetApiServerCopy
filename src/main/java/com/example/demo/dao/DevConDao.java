@@ -34,4 +34,6 @@ public interface DevConDao {
 
 	public int updateColRowNum(ApiTagInfoParam param);
 
+	public int recycleDevId(ApiDeviceControllVO param);
+
 }

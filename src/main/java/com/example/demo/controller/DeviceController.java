@@ -24,7 +24,7 @@ import com.example.demo.service.DevConService;
 
 @CrossOrigin("*")
 @Controller
-@RequestMapping("devCon")
+@RequestMapping("/devCon")
 
 public class DeviceController {
 
