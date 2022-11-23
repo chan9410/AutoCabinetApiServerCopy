@@ -17,7 +17,8 @@ public class ApiServiceImpl implements ApiService {
 
 		SUCCESS(200, "성공했습니다."), NODEVICE(400, "디바이스가 없습니다."), NODATA(404, "API 결과가 없습니다."), NOTAG(400, "태그가 없습니다."),
 		EXISTDEV(401, "Device가 존재합니다."), EXISTTAG(401, "Tag가 존재합니다."), EXISTITEMCODE(401, "존재하는 ITEM CODE입니다."),
-		EXISTDEVID(401, "Device Id가 존재합니다."), ERROR(500, "알 수 없는 에러 발생");
+		LOGINSUCCESS(200, "로그인에 성공하였습니다."), LOGINFAIL(400, "로그인에 실패하였습니다."), LOGOUTSUCCESS(200, "로그아웃에 성공하였습니다."),
+		SESSIONNULL(400, "Session이 Null 값입니다.");
 
 		int code;
 		String message;
@@ -54,6 +55,26 @@ public class ApiServiceImpl implements ApiService {
 		case (101):
 			setNoData(singleResult);
 			System.out.println("NO RESULT");
+			return singleResult;
+		case (201):
+			singleResult.setData(data);
+			setLoginSuccess(singleResult);
+			System.out.println("LOGIN SUCCESS");
+			return singleResult;
+		case (202):
+			singleResult.setData(data);
+			setLogoutSuccess(singleResult);
+			System.out.println("LOGOUT SUCCESS");
+			return singleResult;
+		case (106):
+			data = null;
+			setLoginFail(singleResult);
+			System.out.println("LOGIN FAIL");
+			return singleResult;
+		case (107):
+			data = null;
+			setSessionNull(singleResult);
+			System.out.println("SESSION IS NULL");
 			return singleResult;
 		}
 		return singleResult;
@@ -99,10 +120,25 @@ public class ApiServiceImpl implements ApiService {
 			setExistItemCode(singleResult);
 			System.out.println("EXIST ITEM CODE");
 			return singleResult;
-		case (500):
+		case (201):
+			singleResult.setData(data);
+			setLoginSuccess(singleResult);
+			System.out.println("LOGIN SUCCESS");
+			return singleResult;
+		case (202):
+			singleResult.setData(data);
+			setLogoutSuccess(singleResult);
+			System.out.println("LOGOUT SUCCESS");
+			return singleResult;
+		case (106):
 			data = null;
-			setError(singleResult);
-			System.out.println("ERROR");
+			setLoginFail(singleResult);
+			System.out.println("LOGIN FAIL");
+			return singleResult;
+		case (107):
+			data = null;
+			setSessionNull(singleResult);
+			System.out.println("SESSION IS NULL");
 			return singleResult;
 		}
 		return singleResult;
@@ -171,9 +207,24 @@ public class ApiServiceImpl implements ApiService {
 		result.setMessage(CommonResponse.EXISTITEMCODE.getMessage());
 	}
 
-	private void setError(CommonResult result) {
-		result.setCode(CommonResponse.ERROR.getCode());
-		result.setMessage(CommonResponse.ERROR.getMessage());
+	private void setLoginSuccess(CommonResult result) {
+		result.setCode(CommonResponse.LOGINSUCCESS.getCode());
+		result.setMessage(CommonResponse.LOGINSUCCESS.getMessage());
+	}
+
+	private void setLogoutSuccess(CommonResult result) {
+		result.setCode(CommonResponse.LOGOUTSUCCESS.getCode());
+		result.setMessage(CommonResponse.LOGOUTSUCCESS.getMessage());
+	}
+
+	private void setLoginFail(CommonResult result) {
+		result.setCode(CommonResponse.LOGINFAIL.getCode());
+		result.setMessage(CommonResponse.LOGINFAIL.getMessage());
+	}
+
+	private void setSessionNull(CommonResult result) {
+		result.setCode(CommonResponse.SESSIONNULL.getCode());
+		result.setMessage(CommonResponse.SESSIONNULL.getMessage());
 	}
 
 }
