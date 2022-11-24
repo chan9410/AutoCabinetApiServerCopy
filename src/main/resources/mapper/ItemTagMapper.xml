@@ -33,9 +33,9 @@
 		WHERE
 		ITEM_CODE IN(
 		<foreach collection="itemCodeArr" item="itemCodeArr"
-				separator=",">
-				#{itemCodeArr}
-			</foreach>
+			separator=",">
+			#{itemCodeArr}
+		</foreach>
 		)
 	</select>
 
@@ -134,14 +134,16 @@
 				ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
 			</if>
 
-			<if test="itemGetDate != null and itemGetDate != ''">
+			<if test="itemGetStartDate != null and itemGetStartDate != '' and itemGetEndDate != null and itemGetEndDate != ''">
 				AND
-				ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+				ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
+				#{itemGetEndDate}
 			</if>
 
-			<if test="itemGetPrice != null and itemGetPrice != ''">
+			<if test="itemGetLowPrice != null and itemGetLowPrice != '' and itemGetHighPrice != null and itemGetHighPrice != ''">
 				AND
-				ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+				ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
+				#{itemGetHighPrice}
 			</if>
 
 			<if test="itemNote != null and itemNote != ''">
@@ -151,59 +153,59 @@
 		</trim>
 
 	</select>
-	
+
 	<update id="updateTag"
 		parameterType="com.example.demo.dto.ApiItemTagInfoParam">
 
 		UPDATE tb_item_info
-		<trim prefix = "SET" suffixOverrides = ",">
-		
-		<if test="itemName != null and itemName != ''">
-		ITEM_NAME = #{itemName},
-		</if>
-		
-		<if test="itemGroup != null and itemGroup != ''">
-		ITEM_GROUP = #{itemGroup},
-		</if>
-		
-		<if test="itemStandard != null and itemStandard != ''">
-		ITEM_STANDARD = #{itemStandard},
-		</if>
-		
-		<if test="itemAdmin != null and itemAdmin != ''">
-		ITEM_ADMIN = #{itemAdmin},
-		</if>
-		
-		<if test="itemDepart != null and itemDepart != ''">
-		ITEM_DEPART = #{itemDepart},
-		</if>
-		
-		<if test="itemSite != null and itemSite != ''">
-		ITEM_SITE = #{itemSite},
-		</if>
-		
-		<if test="itemRoom != null and itemRoom != ''">
-		ITEM_ROOM = #{itemRoom},
-		</if>
-		
-		<if test="itemGetDate != null and itemGetDate != ''">
-		ITEM_GET_DATE = #{itemGetDate},
-		</if>
-		
-		<if test="itemGetPrice != null and itemGetPrice != ''">
-		ITEM_GET_PRICE = #{itemGetPrice},
-		</if>
-		
-		<if test="itemNote != null and itemNote != ''">
-		ITEM_NOTE = #{itemNote},
-		</if>
+		<trim prefix="SET" suffixOverrides=",">
+
+			<if test="itemName != null and itemName != ''">
+				ITEM_NAME = #{itemName},
+			</if>
+
+			<if test="itemGroup != null and itemGroup != ''">
+				ITEM_GROUP = #{itemGroup},
+			</if>
+
+			<if test="itemStandard != null and itemStandard != ''">
+				ITEM_STANDARD = #{itemStandard},
+			</if>
+
+			<if test="itemAdmin != null and itemAdmin != ''">
+				ITEM_ADMIN = #{itemAdmin},
+			</if>
+
+			<if test="itemDepart != null and itemDepart != ''">
+				ITEM_DEPART = #{itemDepart},
+			</if>
+
+			<if test="itemSite != null and itemSite != ''">
+				ITEM_SITE = #{itemSite},
+			</if>
+
+			<if test="itemRoom != null and itemRoom != ''">
+				ITEM_ROOM = #{itemRoom},
+			</if>
+
+			<if test="itemGetDate != null and itemGetDate != ''">
+				ITEM_GET_DATE = #{itemGetDate},
+			</if>
+
+			<if test="itemGetPrice != null and itemGetPrice != ''">
+				ITEM_GET_PRICE = #{itemGetPrice},
+			</if>
+
+			<if test="itemNote != null and itemNote != ''">
+				ITEM_NOTE = #{itemNote},
+			</if>
 		</trim>
-		
+
 		WHERE
 		ITEM_CODE = #{itemCode};
 
 	</update>
-	
+
 	<delete id="deleteTag"
 		parameterType="com.example.demo.dto.ApiItemTagInfoParam">
 
@@ -211,9 +213,9 @@
 		WHERE
 		ITEM_CODE IN(
 		<foreach collection="itemCodeArr" item="itemCodeArr"
-				separator=",">
-				#{itemCodeArr}
-			</foreach>
+			separator=",">
+			#{itemCodeArr}
+		</foreach>
 		)
 
 	</delete>

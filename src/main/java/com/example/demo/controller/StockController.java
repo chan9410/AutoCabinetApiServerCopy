@@ -116,8 +116,10 @@ public class StockController {
 		param.setItemDepart((String) map.get("ITEMDEPART"));
 		param.setItemSite((String) map.get("ITEMSITE"));
 		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetDate((String) map.get("ITEMGETDATE"));
-		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));
+		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
+		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));
+		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
 		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
@@ -159,8 +161,10 @@ public class StockController {
 		param.setItemDepart((String) map.get("ITEMDEPART"));
 		param.setItemSite((String) map.get("ITEMSITE"));
 		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetDate((String) map.get("ITEMGETDATE"));
-		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));
+		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
+		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));
+		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
 		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
@@ -205,8 +209,10 @@ public class StockController {
 		param.setItemDepart((String) map.get("ITEMDEPART"));
 		param.setItemSite((String) map.get("ITEMSITE"));
 		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetDate((String) map.get("ITEMGETDATE"));
-		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
+		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));
+		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
+		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));
+		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
 		param.setItemNote((String) map.get("ITEMNOTE"));
 
 		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));

@@ -60,6 +60,18 @@ public class ApiItemTagInfoParam {
 	@JsonProperty(value = "LOCATION")
 	private int location;
 
+	@JsonProperty(value = "ITEMGETSTARTDATE")
+	private String itemGetStartDate;
+
+	@JsonProperty(value = "ITEMGETENDDATE")
+	private String itemGetEndDate;
+
+	@JsonProperty(value = "ITEMGETLOWPRICE")
+	private String itemGetLowPrice;
+
+	@JsonProperty(value = "ITEMGETHIGHPRICE")
+	private String itemGetHighPrice;
+
 	public String getTag() {
 		return tag;
 	}
@@ -195,4 +207,37 @@ public class ApiItemTagInfoParam {
 	public void setLocation(int location) {
 		this.location = location;
 	}
+
+	public String getItemGetStartDate() {
+		return itemGetStartDate;
+	}
+
+	public void setItemGetStartDate(String itemGetStartDate) {
+		this.itemGetStartDate = itemGetStartDate;
+	}
+
+	public String getItemGetEndDate() {
+		return itemGetEndDate;
+	}
+
+	public void setItemGetEndDate(String itemGetEndDate) {
+		this.itemGetEndDate = itemGetEndDate;
+	}
+
+	public String getItemGetLowPrice() {
+		return itemGetLowPrice;
+	}
+
+	public void setItemGetLowPrice(String itemGetLowPrice) {
+		this.itemGetLowPrice = itemGetLowPrice;
+	}
+
+	public String getItemGetHighPrice() {
+		return itemGetHighPrice;
+	}
+
+	public void setItemGetHighPrice(String itemGetHighPrice) {
+		this.itemGetHighPrice = itemGetHighPrice;
+	}
+
 }

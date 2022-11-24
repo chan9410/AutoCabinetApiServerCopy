@@ -124,14 +124,16 @@
 				B.ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
 			</if>
 
-			<if test="itemGetDate != null and itemGetDate != ''">
+			<if test="itemGetStartDate != null and itemGetStartDate != '' and itemGetEndDate != null and itemGetEndDate != ''">
 				AND
-				B.ITEM_GET_DATE like CONCAT('%',#{itemGetDate},'%')
+				ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
+				#{itemGetEndDate}
 			</if>
 
-			<if test="itemGetPrice != null and itemGetPrice != ''">
+			<if test="itemGetLowPrice != null and itemGetLowPrice != '' and itemGetHighPrice != null and itemGetHighPrice != ''">
 				AND
-				B.ITEM_GET_PRICE like CONCAT('%',#{itemGetPrice},'%')
+				ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
+				#{itemGetHighPrice}
 			</if>
 
 			<if test="itemNote != null and itemNote != ''">
