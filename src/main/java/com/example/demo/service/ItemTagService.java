@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.dto.ApiItemTagInfoParam;
 import com.example.demo.dto.GetSearchTagVO;
+import com.example.demo.dto.GetTagVO;
 
 public interface ItemTagService {
 
@@ -16,5 +17,7 @@ public interface ItemTagService {
 	public List<String> chkItemCodeArr(ApiItemTagInfoParam param);
 
 	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param);
+
+	public List<GetTagVO> getTag();
 
 }

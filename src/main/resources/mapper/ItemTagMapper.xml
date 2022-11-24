@@ -219,5 +219,15 @@
 		)
 
 	</delete>
+	
+	<select id="getTag"
+		resultType="com.example.demo.dto.GetTagVO">
+
+		SELECT 
+		TAG
+		FROM tb_item_info;
+
+	</select>
+	
 
 </mapper>

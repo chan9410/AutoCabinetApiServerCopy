@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dao.ItemTagDao;
 import com.example.demo.dto.ApiItemTagInfoParam;
 import com.example.demo.dto.GetSearchTagVO;
+import com.example.demo.dto.GetTagVO;
 import com.example.demo.service.ItemTagService;
 
 @Service
@@ -91,6 +92,11 @@ public class ItemTagServiceImpl implements ItemTagService {
 			System.out.println("Success");
 			return 200;
 		}
+	}
+
+	@Override
+	public List<GetTagVO> getTag() {
+		return itemTagDao.getTag();
 	}
 
 }

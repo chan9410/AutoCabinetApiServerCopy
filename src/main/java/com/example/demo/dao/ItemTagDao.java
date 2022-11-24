@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.example.demo.dto.ApiItemTagInfoParam;
 import com.example.demo.dto.GetSearchTagVO;
+import com.example.demo.dto.GetTagVO;
 
 @Repository
 @Mapper
@@ -25,5 +26,7 @@ public interface ItemTagDao {
 	public String chkItemCode(ApiItemTagInfoParam param);
 
 	public List<String> chkItemCodeArr(ApiItemTagInfoParam param);
+
+	public List<GetTagVO> getTag();
 
 }

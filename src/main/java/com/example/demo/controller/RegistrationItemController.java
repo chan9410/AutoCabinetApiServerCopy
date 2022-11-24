@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.ApiItemTagInfoParam;
 import com.example.demo.dto.GetSearchTagVO;
+import com.example.demo.dto.GetTagVO;
 import com.example.demo.dto.ListResult;
 import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
@@ -143,6 +145,24 @@ public class RegistrationItemController {
 			result = 103;
 		}
 		return apiService.getSingleResult(result);
+	}
+
+	@GetMapping(value = "/getTag", produces = "application/json")
+	public @ResponseBody ListResult<GetTagVO> getTag() {
+
+		List<GetTagVO> data = itemTagService.getTag();
+
+		System.out.println(data);
+
+		int statusCode;
+
+		if (data == null) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(data, statusCode);
 	}
 
 }
