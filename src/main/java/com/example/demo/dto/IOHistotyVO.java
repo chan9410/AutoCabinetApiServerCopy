@@ -50,7 +50,7 @@ public class IOHistotyVO {
 	private int location;
 
 	@JsonProperty(value = "DATETIME")
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "GMT+9")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
 	private Date dateTime;
 
 	@JsonProperty(value = "STATE")

@@ -15,4 +15,7 @@ public interface IOHistoryDao {
 	public List<IOHistotyVO> inputHistorySearch(ApiItemTagInfoParam param);
 
 	public List<IOHistotyVO> outputHistorySearch(ApiItemTagInfoParam param);
+
+	public List<IOHistotyVO> IOHistorySearch(ApiItemTagInfoParam param);
+
 }

@@ -242,4 +242,55 @@ public class StockController {
 		return apiService.getListResult(dataList, statusCode);
 	}
 
+	// 입출고 통합 History 조회
+	@SuppressWarnings("unchecked")
+	@PostMapping(value = "/IOHistorySearch", produces = "application/json")
+	public @ResponseBody ListResult<IOHistotyVO> IOHistorySearch(@RequestBody HashMap<String, Object> map) {
+
+		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
+
+		param.setItemCode((String) map.get("ITEMCODE"));
+		param.setItemName((String) map.get("ITEMNAME"));
+		param.setItemGroup((String) map.get("ITEMGROUP"));
+		param.setItemStandard((String) map.get("ITEMSTANDARD"));
+		param.setItemAdmin((String) map.get("ITEMADMIN"));
+		param.setItemDepart((String) map.get("ITEMDEPART"));
+		param.setItemSite((String) map.get("ITEMSITE"));
+		param.setItemRoom((String) map.get("ITEMROOM"));
+		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));// 취득 일자
+		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
+		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));// 취득 가격
+		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
+		param.setItemNote((String) map.get("ITEMNOTE"));
+		param.setStartDateTime((String) map.get("STARTDATETIME"));// 입출고 시간
+		param.setEndDateTime((String) map.get("ENDDATETIME"));
+		param.setWorkerId((String) map.get("WORKERID"));
+		param.setState((String) map.get("STATE"));
+
+		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
+
+		System.out.println((List<String>) map.get("DEVICEIDARR"));
+
+		List<IOHistotyVO> dataList;
+
+		int statusCode;
+
+		if ((List<String>) map.get("DEVICEIDARR") == null) {
+
+			dataList = null;
+			statusCode = 100;
+
+		} else {
+
+			dataList = iOHistoryService.IOHistorySearch(param);
+
+			if (dataList.isEmpty()) {
+				statusCode = 101;
+			} else {
+				statusCode = 200;
+			}
+		}
+
+		return apiService.getListResult(dataList, statusCode);
+	}
 }

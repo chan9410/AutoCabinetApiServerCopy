@@ -85,13 +85,13 @@
 
 			<if test="itemGetStartDate != null and itemGetStartDate != '' and itemGetEndDate != null and itemGetEndDate != ''">
 				AND
-				ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
+				A.ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
 				#{itemGetEndDate}
 			</if>
 
 			<if test="itemGetLowPrice != null and itemGetLowPrice != '' and itemGetHighPrice != null and itemGetHighPrice != ''">
 				AND
-				ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
+				A.ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
 				#{itemGetHighPrice}
 			</if>
 
@@ -186,13 +186,13 @@
 
 			<if test="itemGetStartDate != null and itemGetStartDate != '' and itemGetEndDate != null and itemGetEndDate != ''">
 				AND
-				ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
+				A.ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
 				#{itemGetEndDate}
 			</if>
 
 			<if test="itemGetLowPrice != null and itemGetLowPrice != '' and itemGetHighPrice != null and itemGetHighPrice != ''">
 				AND
-				ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
+				A.ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
 				#{itemGetHighPrice}
 			</if>
 
@@ -204,5 +204,156 @@
 
 		</trim>
 	</select>
+	
+	<select id="IOHistorySearch"
+		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
+		resultType="com.example.demo.dto.IOHistotyVO">
 
+		SELECT
+		IOHistory.*
+		FROM
+		(SELECT
+		A.ITEM_CODE,
+		A.ITEM_NAME,
+		A.ITEM_GROUP,
+		A.ITEM_STANDARD,
+		A.ITEM_ADMIN,
+		A.ITEM_DEPART,
+		A.ITEM_SITE,
+		A.ITEM_ROOM,
+		A.ITEM_GET_DATE,
+		A.ITEM_GET_PRICE,
+		A.ITEM_NOTE,
+		B.DEVICE_ID,
+		B.WORKER_ID,
+		B.LOCATION,
+		B.DATE_TIME,
+		CASE (B.STATE)
+        WHEN "1" THEN '입고'
+        END AS STATE
+		FROM
+		tb_item_info A
+		LEFT JOIN
+		tb_tag_input_history B
+		ON A.TAG = B.TAG
+		
+		WHERE A.TAG = B.TAG
+
+		UNION
+		
+		SELECT
+		A.ITEM_CODE,
+		A.ITEM_NAME,
+		A.ITEM_GROUP,
+		A.ITEM_STANDARD,
+		A.ITEM_ADMIN,
+		A.ITEM_DEPART,
+		A.ITEM_SITE,
+		A.ITEM_ROOM,
+		A.ITEM_GET_DATE,
+		A.ITEM_GET_PRICE,
+		A.ITEM_NOTE,
+		B.DEVICE_ID,
+		B.WORKER_ID,
+		B.LOCATION,
+		B.DATE_TIME,
+		CASE (B.STATE)
+        WHEN "0" THEN '출고'
+        END AS STATE
+		FROM
+		tb_item_info A
+		LEFT JOIN
+		tb_tag_output_history B
+		ON A.TAG = B.TAG
+		
+		WHERE A.TAG = B.TAG) IOHistory
+		
+		<trim prefix="WHERE" prefixOverrides="AND">
+
+			AND
+			IOHistory.DEVICE_ID IN(
+			<foreach collection="deviceIdArr" item="deviceIdArr"
+				separator=",">
+				#{deviceIdArr}
+			</foreach>
+			)
+
+			<if test="itemCode != null and itemCode != ''">
+				AND
+				IOHistory.ITEM_CODE like CONCAT('%',#{itemCode},'%')
+			</if>
+
+			<if test="itemName != null and itemName != ''">
+				AND
+				IOHistory.ITEM_NAME like CONCAT('%',#{itemName},'%')
+			</if>
+
+			<if test="itemGroup != null and itemGroup != ''">
+				AND
+				IOHistory.ITEM_GROUP like CONCAT('%',#{itemGroup},'%')
+			</if>
+
+			<if test="itemStandard != null and itemStandard != ''">
+				AND
+				IOHistory.ITEM_STANDARD like CONCAT('%',#{itemStandard},'%')
+			</if>
+
+			<if test="itemAdmin != null and itemAdmin != ''">
+				AND
+				IOHistory.ITEM_ADMIN like CONCAT('%',#{itemAdmin},'%')
+			</if>
+
+			<if test="itemDepart != null and itemDepart != ''">
+				AND
+				IOHistory.ITEM_DEPART like CONCAT('%',#{itemDepart},'%')
+			</if>
+
+			<if test="itemSite != null and itemSite != ''">
+				AND
+				IOHistory.ITEM_SITE like CONCAT('%',#{itemSite},'%')
+			</if>
+
+			<if test="itemRoom != null and itemRoom != ''">
+				AND
+				IOHistory.ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
+			</if>
+
+			<if test="itemGetStartDate != null and itemGetStartDate != '' and itemGetEndDate != null and itemGetEndDate != ''">
+				AND
+				IOHistory.ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
+				#{itemGetEndDate}
+			</if>
+
+			<if test="itemGetLowPrice != null and itemGetLowPrice != '' and itemGetHighPrice != null and itemGetHighPrice != ''">
+				AND
+				IOHistory.ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
+				#{itemGetHighPrice}
+			</if>
+
+			<if test="itemNote != null and itemNote != ''">
+				AND
+				IOHistory.ITEM_NOTE like CONCAT('%',#{itemNote},'%')
+			</if>
+			
+			<if test="startDateTime != null and startDateTime != '' and endDateTime != null and endDateTime != ''">
+				AND
+				IOHistory.DATE_TIME BETWEEN #{startDateTime} AND
+				#{endDateTime}
+			</if>
+			
+			<if test="workerId != null and workerId != ''">
+				AND
+				IOHistory.WORKER_ID like CONCAT('%',#{workerId},'%')
+			</if>
+			
+			<if test="state != null and state != ''">
+				AND
+				IOHistory.STATE like CONCAT('%',#{state},'%')
+			</if>
+
+		</trim>
+
+
+	</select>
+	
 </mapper>

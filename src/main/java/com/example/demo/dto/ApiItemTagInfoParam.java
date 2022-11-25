@@ -72,6 +72,18 @@ public class ApiItemTagInfoParam {
 	@JsonProperty(value = "ITEMGETHIGHPRICE")
 	private String itemGetHighPrice;
 
+	@JsonProperty(value = "STARTDATETIME")
+	private String startDateTime;
+
+	@JsonProperty(value = "ENDDATETIME")
+	private String endDateTime;
+
+	@JsonProperty(value = "WORKERID")
+	private String workerId;
+
+	@JsonProperty(value = "STATE")
+	private String state;
+
 	public String getTag() {
 		return tag;
 	}
@@ -238,6 +250,38 @@ public class ApiItemTagInfoParam {
 
 	public void setItemGetHighPrice(String itemGetHighPrice) {
 		this.itemGetHighPrice = itemGetHighPrice;
+	}
+
+	public String getStartDateTime() {
+		return startDateTime;
+	}
+
+	public void setStartDateTime(String startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public String getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(String endDateTime) {
+		this.endDateTime = endDateTime;
+	}
+
+	public String getWorkerId() {
+		return workerId;
+	}
+
+	public void setWorkerId(String workerId) {
+		this.workerId = workerId;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
 	}
 
 }

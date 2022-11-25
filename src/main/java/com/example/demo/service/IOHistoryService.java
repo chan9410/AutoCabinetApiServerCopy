@@ -11,4 +11,6 @@ public interface IOHistoryService {
 
 	public List<IOHistotyVO> outputHistorySearch(ApiItemTagInfoParam param);
 
+	public List<IOHistotyVO> IOHistorySearch(ApiItemTagInfoParam param);
+
 }
