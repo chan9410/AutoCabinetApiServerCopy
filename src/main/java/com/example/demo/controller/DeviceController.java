@@ -1,12 +1,10 @@
 package com.example.demo.controller;
 
 import java.util.HashMap;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +14,6 @@ import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
-import com.example.demo.dto.ListResult;
 import com.example.demo.dto.ReSingleResult;
 import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
@@ -125,34 +122,4 @@ public class DeviceController {
 
 	}
 
-	// 장비 리스트 불러오기
-	@GetMapping(value = "/getDeviceList", produces = "application/json")
-	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
-
-		List<ApiDeviceControllVO> dataList = devConService.getDeviceList();
-
-		int statusCode;
-
-		if (dataList.isEmpty()) {
-			statusCode = 101;
-		} else {
-			statusCode = 200;
-		}
-
-		return apiService.getListResult(dataList, statusCode);
-	}
-
-	@PostMapping(value = "/updateColRowNum", produces = "application/json")
-	public @ResponseBody SingleResult<Integer> updateColRowNum(@RequestBody HashMap<String, Object> map) {
-
-		ApiTagInfoParam param = new ApiTagInfoParam();
-
-		param.setColNum((int) map.get("COLNUM"));
-
-		param.setRowNum((int) map.get("ROWNUM"));
-
-		param.setDeviceId(map.get("DEVICEID").toString());
-
-		return apiService.getSingleResult(devConService.updateColRowNum(param));
-	}
 }
