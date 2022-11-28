@@ -269,29 +269,32 @@ public class StockController {
 
 		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 
-		System.out.println((List<String>) map.get("DEVICE_ID_ARR"));
-		System.out.println((List<String>) map.get("DEVICE_ID_ARR"));
+		List<String> devIdArr = (List<String>) map.get("DEVICE_ID_ARR");
 
 		List<IOHistotyVO> dataList;
 
 		int statusCode;
 
-		if ((List<String>) map.get("DEVICE_ID_ARR") == null) {
+		List<String> chkDevIdArr = iOHistoryService.chkDevIdArr(param);
 
+		System.out.println(chkDevIdArr.containsAll(devIdArr));
+
+		if (chkDevIdArr.containsAll(devIdArr) == false) {
 			dataList = null;
 			statusCode = 100;
-
 		} else {
 
 			dataList = iOHistoryService.IOHistorySearch(param);
 
 			if (dataList.isEmpty()) {
+				dataList = null;
+
 				statusCode = 101;
 			} else {
 				statusCode = 200;
 			}
-		}
 
+		}
 		return apiService.getListResult(dataList, statusCode);
 	}
 }

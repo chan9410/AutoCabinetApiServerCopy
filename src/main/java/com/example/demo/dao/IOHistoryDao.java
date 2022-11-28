@@ -18,4 +18,6 @@ public interface IOHistoryDao {
 
 	public List<IOHistotyVO> IOHistorySearch(ApiItemTagInfoParam param);
 
+	public List<String> chkDevIdArr(ApiItemTagInfoParam param);
+
 }

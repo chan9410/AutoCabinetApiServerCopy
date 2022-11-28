@@ -35,4 +35,8 @@ public class IOHistoryServiceImpl implements IOHistoryService {
 		return iOHistoryDao.IOHistorySearch(param);
 	}
 
+	@Override
+	public List<String> chkDevIdArr(ApiItemTagInfoParam param) {
+		return iOHistoryDao.chkDevIdArr(param);
+	}
 }
