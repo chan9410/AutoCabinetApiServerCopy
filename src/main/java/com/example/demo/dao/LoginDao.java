@@ -11,6 +11,10 @@ public interface LoginDao {
 
 	public String login(LoginParam param);
 
+	public String selectUserId(LoginParam param);
+
+	public String selectUserPW(LoginParam param);
+
 	public String selectUser(LoginParam param);
 
 }

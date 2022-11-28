@@ -68,18 +68,26 @@ public class LoginController {
 		try {
 			encryptPassword = SHA256.encrypt(userPw);
 		} catch (Exception e) {
-			System.out.println("Login Fail");
-			statusCode = 106;
+			System.out.println("PW fails to SHA256");
+			statusCode = 108;
 		}
 
 		param.setWorkerId(map.get("WORKERID").toString());
 		param.setWorkerPw(encryptPassword);
 
+		String selectUserId = loginService.selectUserId(param);
+		String selectUserPW = loginService.selectUserPW(param);
 		String selectUser = loginService.selectUser(param);
 
-		System.out.println(selectUser);
-
-		if (selectUser == null) {
+		if (selectUserId == null) {
+			System.out.println("UserId is Null");
+			statusCode = 109;
+			data = null;
+		} else if(selectUserPW == null) {
+			System.out.println("UserPW is Null");
+			statusCode = 110;
+			data = null;
+		} else if (selectUser == null) {
 			System.out.println("Login Fail");
 			statusCode = 106;
 			data = null;
@@ -92,10 +100,10 @@ public class LoginController {
 			UpdateCookie.setMaxAge(60 * 60 * 24 * 7);// 쿠키 유효 시간 일주일
 			response.addCookie(UpdateCookie);
 
-			session.setAttribute("loginUser", selectUser);// 로그인 성공 시 session 기본 객체의 "loginUser" 속성에 아이디 정보 기록
+			session.setAttribute("loginUser", selectUserId);// 로그인 성공 시 session 기본 객체의 "loginUser" 속성에 아이디 정보 기록
 
 			statusCode = 201;
-			data = selectUser;
+			data = selectUserId;
 		}
 
 		return apiService.getSingleResult(data, statusCode);
@@ -120,7 +128,12 @@ public class LoginController {
 		}
 
 		return apiService.getSingleResult(data, statusCode);
+	}
 
+	@GetMapping(value = "/loginResult")
+	public @ResponseBody ReSingleResult<String> loginResult(HttpServletRequest request) {
+
+		return apiService.getSingleResult(null, 106);
 	}
 
 }

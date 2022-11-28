@@ -21,6 +21,16 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
+	public String selectUserId(LoginParam param) {
+		return loginDao.selectUserId(param);
+	}
+
+	@Override
+	public String selectUserPW(LoginParam param) {
+		return loginDao.selectUserPW(param);
+	}
+
+	@Override
 	public String selectUser(LoginParam param) {
 		return loginDao.selectUser(param);
 	}
