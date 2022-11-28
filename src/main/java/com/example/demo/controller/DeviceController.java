@@ -125,7 +125,7 @@ public class DeviceController {
 
 	}
 
-	@GetMapping(value = "/webGetDeviceList", produces = "application/json")
+	@GetMapping(value = "/getDeviceList", produces = "application/json")
 	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
 
 		List<ApiDeviceControllVO> dataList = devConService.getDeviceList();

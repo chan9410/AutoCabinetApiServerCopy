@@ -41,7 +41,7 @@ public class MiddleWareController {
 	}
 
 	// 장비 리스트 불러오기
-	@GetMapping(value = "/mwGetDeviceList", produces = "application/json")
+	@GetMapping(value = "/getDeviceList", produces = "application/json")
 	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
 
 		List<ApiDeviceControllVO> dataList = devConService.getDeviceList();
