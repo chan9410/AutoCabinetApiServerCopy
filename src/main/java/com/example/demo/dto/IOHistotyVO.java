@@ -7,37 +7,37 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IOHistotyVO {
 
-	@JsonProperty(value = "ITEMCODE")
+	@JsonProperty(value = "ITEM_CODE")
 	private String itemCode;
 
-	@JsonProperty(value = "ITEMNAME")
+	@JsonProperty(value = "ITEM_NAME")
 	private String itemName;
 
-	@JsonProperty(value = "ITEMGROUP")
+	@JsonProperty(value = "ITEM_GROUP")
 	private String itemGroup;
 
-	@JsonProperty(value = "ITEMSTANDARD")
+	@JsonProperty(value = "ITEM_STANDARD")
 	private String itemStandard;
 
-	@JsonProperty(value = "ITEMADMIN")
+	@JsonProperty(value = "ITEM_ADMIN")
 	private String itemAdmin;
 
-	@JsonProperty(value = "ITEMDEPART")
+	@JsonProperty(value = "ITEM_DEPART")
 	private String itemDepart;
 
-	@JsonProperty(value = "ITEMSITE")
+	@JsonProperty(value = "ITEM_SITE")
 	private String itemSite;
 
-	@JsonProperty(value = "ITEMROOM")
+	@JsonProperty(value = "ITEM_ROOM")
 	private String itemRoom;
 
-	@JsonProperty(value = "ITEMGETDATE")
+	@JsonProperty(value = "ITEM_GET_DATE")
 	private String itemGetDate;
 
-	@JsonProperty(value = "ITEMGETPRICE")
+	@JsonProperty(value = "ITEM_GET_PRICE")
 	private String itemGetPrice;
 
-	@JsonProperty(value = "ITEMNOTE")
+	@JsonProperty(value = "ITEM_NOTE")
 	private String itemNote;
 
 	@JsonProperty(value = "DEVICE_ID")
@@ -49,7 +49,7 @@ public class IOHistotyVO {
 	@JsonProperty(value = "LOCATION")
 	private int location;
 
-	@JsonProperty(value = "DATETIME")
+	@JsonProperty(value = "DATE_TIME")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+9")
 	private Date dateTime;
 

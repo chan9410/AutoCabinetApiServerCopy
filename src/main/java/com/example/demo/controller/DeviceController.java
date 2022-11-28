@@ -40,8 +40,8 @@ public class DeviceController {
 	public @ResponseBody SingleResult<Integer> saveDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
-		param.setDeviceId(map.get("DEVICEID").toString());
-		param.setDeviceName(map.get("DEVICENAME").toString());
+		param.setDeviceId(map.get("DEVICE_ID").toString());
+		param.setDeviceName(map.get("DEVICE_NAME").toString());
 
 		return apiService.getSingleResult(devConService.saveDevice(param));
 	}
@@ -52,8 +52,8 @@ public class DeviceController {
 	public @ResponseBody SingleResult<Integer> updateDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
-		param.setDeviceId(map.get("DEVICEID").toString());
-		param.setDeviceName(map.get("DEVICENAME").toString());
+		param.setDeviceId(map.get("DEVICE_ID").toString());
+		param.setDeviceName(map.get("DEVICE_NAME").toString());
 
 		return apiService.getSingleResult(devConService.updateDevice(param));
 	}
@@ -64,7 +64,7 @@ public class DeviceController {
 	public @ResponseBody SingleResult<Integer> delDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
-		param.setDeviceId(map.get("DEVICEID").toString());
+		param.setDeviceId(map.get("DEVICE_ID").toString());
 
 		return apiService.getSingleResult(devConService.delDevice(param));
 	}
@@ -75,7 +75,7 @@ public class DeviceController {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 
-		param.setDeviceId(map.get("DEVICEID").toString());
+		param.setDeviceId(map.get("DEVICE_ID").toString());
 
 		ApiColRowNumVO data = devConService.getColRowNum(param);
 
@@ -102,7 +102,7 @@ public class DeviceController {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 
-		param.setDeviceId(map.get("DEVICEID").toString());
+		param.setDeviceId(map.get("DEVICE_ID").toString());
 
 		ApiChkDevVO data = devConService.chkDevInfo(param);
 

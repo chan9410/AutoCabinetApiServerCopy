@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApiColRowNumVO {
 
-	@JsonProperty(value = "COLNUM")
+	@JsonProperty(value = "COL_NUM")
 	private int colNum;
 
-	@JsonProperty(value = "ROWNUM")
+	@JsonProperty(value = "ROW_NUM")
 	private int rowNum;
 
 	public int getColNum() {

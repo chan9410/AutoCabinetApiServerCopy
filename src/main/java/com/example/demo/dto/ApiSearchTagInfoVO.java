@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApiSearchTagInfoVO {
 
-	@JsonProperty(value = "ITEMCODE")
+	@JsonProperty(value = "ITEM_CODE")
 	private String itemCode;
 
-	@JsonProperty(value = "ITEMNAME")
+	@JsonProperty(value = "ITEM_NAME")
 	private String itemName;
 
 	public String getItemCode() {

@@ -40,19 +40,19 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemCode((String) map.get("ITEMCODE"));
-		param.setItemName((String) map.get("ITEMNAME"));
-		param.setItemGroup((String) map.get("ITEMGROUP"));
-		param.setItemStandard((String) map.get("ITEMSTANDARD"));
-		param.setItemAdmin((String) map.get("ITEMADMIN"));
-		param.setItemDepart((String) map.get("ITEMDEPART"));
-		param.setItemSite((String) map.get("ITEMSITE"));
-		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));
-		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
-		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));
-		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
-		param.setItemNote((String) map.get("ITEMNOTE"));
+		param.setItemCode((String) map.get("ITEM_CODE"));
+		param.setItemName((String) map.get("ITEM_NAME"));
+		param.setItemGroup((String) map.get("ITEM_GROUP"));
+		param.setItemStandard((String) map.get("ITEM_STANDARD"));
+		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
+		param.setItemDepart((String) map.get("ITEM_DEPART"));
+		param.setItemSite((String) map.get("ITEM_SITE"));
+		param.setItemRoom((String) map.get("ITEM_ROOM"));
+		param.setItemGetStartDate((String) map.get("ITEM_GET_START_DATE"));
+		param.setItemGetEndDate((String) map.get("ITEM_GET_END_DATE"));
+		param.setItemGetLowPrice((String) map.get("ITEM_GET_LOW_PRICE"));
+		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
+		param.setItemNote((String) map.get("ITEM_NOTE"));
 
 		List<GetSearchTagVO> dataList = itemTagService.getSearchTag(param);
 
@@ -75,22 +75,22 @@ public class RegistrationItemController {
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
 		param.setTag(map.get("TAG").toString());
-		param.setItemCode(map.get("ITEMCODE").toString());
-		param.setItemName(map.get("ITEMNAME").toString());
-		param.setItemGroup((String) map.get("ITEMGROUP"));
-		param.setItemStandard((String) map.get("ITEMSTANDARD"));
-		param.setItemAdmin((String) map.get("ITEMADMIN"));
-		param.setItemDepart((String) map.get("ITEMDEPART"));
-		param.setItemSite((String) map.get("ITEMSITE"));
-		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetDate((String) map.get("ITEMGETDATE"));
-		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
-		param.setItemNote((String) map.get("ITEMNOTE"));
+		param.setItemCode(map.get("ITEM_CODE").toString());
+		param.setItemName(map.get("ITEM_NAME").toString());
+		param.setItemGroup((String) map.get("ITEM_GROUP"));
+		param.setItemStandard((String) map.get("ITEM_STANDARD"));
+		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
+		param.setItemDepart((String) map.get("ITEM_DEPART"));
+		param.setItemSite((String) map.get("ITEM_SITE"));
+		param.setItemRoom((String) map.get("ITEM_ROOM"));
+		param.setItemGetDate((String) map.get("ITEM_GET_DATE"));
+		param.setItemGetPrice((String) map.get("ITEM_GET_PRICE"));
+		param.setItemNote((String) map.get("ITEM_NOTE"));
 
 		// TAG, ITEMCODE, ITEMNAME 필수로 필요
 		System.out.println(map.get("TAG").toString());
-		System.out.println(map.get("ITEMCODE").toString());
-		System.out.println(map.get("ITEMNAME").toString());
+		System.out.println(map.get("ITEM_CODE").toString());
+		System.out.println(map.get("ITEM_NAME").toString());
 
 		return apiService.getSingleResult(itemTagService.saveTag(param));
 	}
@@ -101,18 +101,18 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemName((String) map.get("ITEMNAME"));
-		param.setItemGroup((String) map.get("ITEMGROUP"));
-		param.setItemStandard((String) map.get("ITEMSTANDARD"));
-		param.setItemAdmin((String) map.get("ITEMADMIN"));
-		param.setItemDepart((String) map.get("ITEMDEPART"));
-		param.setItemSite((String) map.get("ITEMSITE"));
-		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetDate((String) map.get("ITEMGETDATE"));
-		param.setItemGetPrice((String) map.get("ITEMGETPRICE"));
-		param.setItemNote((String) map.get("ITEMNOTE"));
+		param.setItemName((String) map.get("ITEM_NAME"));
+		param.setItemGroup((String) map.get("ITEM_GROUP"));
+		param.setItemStandard((String) map.get("ITEM_STANDARD"));
+		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
+		param.setItemDepart((String) map.get("ITEM_DEPART"));
+		param.setItemSite((String) map.get("ITEM_SITE"));
+		param.setItemRoom((String) map.get("ITEM_ROOM"));
+		param.setItemGetDate((String) map.get("ITEM_GET_DATE"));
+		param.setItemGetPrice((String) map.get("ITEM_GET_PRICE"));
+		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		param.setItemCode(map.get("ITEMCODE").toString());
+		param.setItemCode(map.get("ITEM_CODE").toString());
 
 		return apiService.getSingleResult(itemTagService.updateTag(param));
 	}
@@ -124,7 +124,7 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		List<String> itemCodeArr = (List<String>) map.get("ITEMCODEARR");
+		List<String> itemCodeArr = (List<String>) map.get("ITEM_CODE_ARR");
 
 		param.setItemCodeArr(itemCodeArr);
 

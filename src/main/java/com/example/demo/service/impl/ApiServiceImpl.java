@@ -15,10 +15,11 @@ public class ApiServiceImpl implements ApiService {
 
 	public enum CommonResponse {
 
-		SUCCESS(200, "성공했습니다."), NODEVICE(400, "디바이스가 없습니다."), NODATA(404, "API 결과가 없습니다."), NOTAG(400, "태그가 없습니다."),
-		EXISTDEV(401, "Device가 존재합니다."), EXISTTAG(401, "Tag가 존재합니다."), EXISTITEMCODE(401, "존재하는 ITEM CODE입니다."),
-		LOGINSUCCESS(200, "로그인에 성공하였습니다."), LOGINFAIL(400, "로그인에 실패하였습니다."), LOGOUTSUCCESS(200, "로그아웃에 성공하였습니다."),
-		SESSIONNULL(400, "Session이 Null 값입니다.");
+		SUCCESS(200, "성공했습니다."), NO_DEVICE(400, "디바이스가 없습니다."), NO_DATA(404, "API 결과가 없습니다."), NO_TAG(400, "태그가 없습니다."),
+		EXIST_DEV(401, "Device가 존재합니다."), EXIST_TAG(401, "Tag가 존재합니다."), EXIST_ITEM_CODE(401, "존재하는 ITEM CODE입니다."),
+		LOGIN_SUCCESS(200, "로그인에 성공하였습니다."), LOGIN_FAIL(400, "로그인에 실패하였습니다."), LOGOUT_SUCCESS(200, "로그아웃에 성공하였습니다."),
+		SESSION_NULL(400, "Session이 Null 값입니다."), SHA_NULL(400, "PW를 SHA256화하는데 실패하였습니다."),
+		USER_ID_NULL(400, "User ID가 Null 값입니다."), USER_PW_NULL(400, "User PW가 Null 값입니다.");
 
 		int code;
 		String message;
@@ -76,6 +77,21 @@ public class ApiServiceImpl implements ApiService {
 			setSessionNull(singleResult);
 			System.out.println("SESSION IS NULL");
 			return singleResult;
+		case (108):
+			data = null;
+			setSHAFail(singleResult);
+			System.out.println("PW Fails to SHA256");
+			return singleResult;
+		case (109):
+			data = null;
+			setUserIdNull(singleResult);
+			System.out.println("ID IS NULL");
+			return singleResult;
+		case (110):
+			data = null;
+			setUserPWNull(singleResult);
+			System.out.println("PW IS NULL");
+			return singleResult;
 		}
 		return singleResult;
 	}
@@ -120,26 +136,6 @@ public class ApiServiceImpl implements ApiService {
 			setExistItemCode(singleResult);
 			System.out.println("EXIST ITEM CODE");
 			return singleResult;
-		case (201):
-			singleResult.setData(data);
-			setLoginSuccess(singleResult);
-			System.out.println("LOGIN SUCCESS");
-			return singleResult;
-		case (202):
-			singleResult.setData(data);
-			setLogoutSuccess(singleResult);
-			System.out.println("LOGOUT SUCCESS");
-			return singleResult;
-		case (106):
-			data = null;
-			setLoginFail(singleResult);
-			System.out.println("LOGIN FAIL");
-			return singleResult;
-		case (107):
-			data = null;
-			setSessionNull(singleResult);
-			System.out.println("SESSION IS NULL");
-			return singleResult;
 		}
 		return singleResult;
 	}
@@ -178,53 +174,68 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	private void setNoDev(CommonResult result) {
-		result.setCode(CommonResponse.NODEVICE.getCode());
-		result.setMessage(CommonResponse.NODEVICE.getMessage());
+		result.setCode(CommonResponse.NO_DEVICE.getCode());
+		result.setMessage(CommonResponse.NO_DEVICE.getMessage());
 	}
 
 	private void setNoData(CommonResult result) {
-		result.setCode(CommonResponse.NODATA.getCode());
-		result.setMessage(CommonResponse.NODATA.getMessage());
+		result.setCode(CommonResponse.NO_DATA.getCode());
+		result.setMessage(CommonResponse.NO_DATA.getMessage());
 	}
 
 	private void setExistDev(CommonResult result) {
-		result.setCode(CommonResponse.EXISTDEV.getCode());
-		result.setMessage(CommonResponse.EXISTDEV.getMessage());
+		result.setCode(CommonResponse.EXIST_DEV.getCode());
+		result.setMessage(CommonResponse.EXIST_DEV.getMessage());
 	}
 
 	private void setNoTag(CommonResult result) {
-		result.setCode(CommonResponse.NOTAG.getCode());
-		result.setMessage(CommonResponse.NOTAG.getMessage());
+		result.setCode(CommonResponse.NO_TAG.getCode());
+		result.setMessage(CommonResponse.NO_TAG.getMessage());
 	}
 
 	private void setExistTag(CommonResult result) {
-		result.setCode(CommonResponse.EXISTTAG.getCode());
-		result.setMessage(CommonResponse.EXISTTAG.getMessage());
+		result.setCode(CommonResponse.EXIST_TAG.getCode());
+		result.setMessage(CommonResponse.EXIST_TAG.getMessage());
 	}
 
 	private void setExistItemCode(CommonResult result) {
-		result.setCode(CommonResponse.EXISTITEMCODE.getCode());
-		result.setMessage(CommonResponse.EXISTITEMCODE.getMessage());
+		result.setCode(CommonResponse.EXIST_ITEM_CODE.getCode());
+		result.setMessage(CommonResponse.EXIST_ITEM_CODE.getMessage());
 	}
 
 	private void setLoginSuccess(CommonResult result) {
-		result.setCode(CommonResponse.LOGINSUCCESS.getCode());
-		result.setMessage(CommonResponse.LOGINSUCCESS.getMessage());
+		result.setCode(CommonResponse.LOGIN_SUCCESS.getCode());
+		result.setMessage(CommonResponse.LOGIN_SUCCESS.getMessage());
 	}
 
 	private void setLogoutSuccess(CommonResult result) {
-		result.setCode(CommonResponse.LOGOUTSUCCESS.getCode());
-		result.setMessage(CommonResponse.LOGOUTSUCCESS.getMessage());
+		result.setCode(CommonResponse.LOGOUT_SUCCESS.getCode());
+		result.setMessage(CommonResponse.LOGOUT_SUCCESS.getMessage());
 	}
 
 	private void setLoginFail(CommonResult result) {
-		result.setCode(CommonResponse.LOGINFAIL.getCode());
-		result.setMessage(CommonResponse.LOGINFAIL.getMessage());
+		result.setCode(CommonResponse.LOGIN_FAIL.getCode());
+		result.setMessage(CommonResponse.LOGIN_FAIL.getMessage());
 	}
 
 	private void setSessionNull(CommonResult result) {
-		result.setCode(CommonResponse.SESSIONNULL.getCode());
-		result.setMessage(CommonResponse.SESSIONNULL.getMessage());
+		result.setCode(CommonResponse.SESSION_NULL.getCode());
+		result.setMessage(CommonResponse.SESSION_NULL.getMessage());
+	}
+
+	private void setSHAFail(CommonResult result) {
+		result.setCode(CommonResponse.SHA_NULL.getCode());
+		result.setMessage(CommonResponse.SHA_NULL.getMessage());
+	}
+
+	private void setUserIdNull(CommonResult result) {
+		result.setCode(CommonResponse.USER_ID_NULL.getCode());
+		result.setMessage(CommonResponse.USER_ID_NULL.getMessage());
+	}
+
+	private void setUserPWNull(CommonResult result) {
+		result.setCode(CommonResponse.USER_PW_NULL.getCode());
+		result.setMessage(CommonResponse.USER_PW_NULL.getMessage());
 	}
 
 }

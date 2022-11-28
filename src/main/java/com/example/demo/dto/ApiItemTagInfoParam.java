@@ -11,74 +11,74 @@ public class ApiItemTagInfoParam {
 	@JsonProperty(value = "TAG")
 	private String tag;
 
-	@JsonProperty(value = "ITEMCODE")
+	@JsonProperty(value = "ITEM_CODE")
 	private String itemCode;
 
-	@JsonProperty(value = "ITEMCODEARR")
+	@JsonProperty(value = "ITEM_CODE_ARR")
 	private List<String> itemCodeArr;
 
-	@JsonProperty(value = "ITEMNAME")
+	@JsonProperty(value = "ITEM_NAME")
 	private String itemName;
 
-	@JsonProperty(value = "ITEMGROUP")
+	@JsonProperty(value = "ITEM_GROUP")
 	private String itemGroup;
 
-	@JsonProperty(value = "ITEMSTANDARD")
+	@JsonProperty(value = "ITEM_STANDARD")
 	private String itemStandard;
 
-	@JsonProperty(value = "ITEMADMIN")
+	@JsonProperty(value = "ITEM_ADMIN")
 	private String itemAdmin;
 
-	@JsonProperty(value = "ITEMDEPART")
+	@JsonProperty(value = "ITEM_DEPART")
 	private String itemDepart;
 
-	@JsonProperty(value = "ITEMSITE")
+	@JsonProperty(value = "ITEM_SITE")
 	private String itemSite;
 
-	@JsonProperty(value = "ITEMROOM")
+	@JsonProperty(value = "ITEM_ROOM")
 	private String itemRoom;
 
-	@JsonProperty(value = "ITEMGETDATE")
+	@JsonProperty(value = "ITEM_GET_DATE")
 	private String itemGetDate;
 
-	@JsonProperty(value = "ITEMGETPRICE")
+	@JsonProperty(value = "ITEM_GET_PRICE")
 	private String itemGetPrice;
 
-	@JsonProperty(value = "ITEMNOTE")
+	@JsonProperty(value = "ITEM_NOTE")
 	private String itemNote;
 
-	@JsonProperty(value = "DEVICEID")
+	@JsonProperty(value = "DEVICE_ID")
 	private String deviceId;
 
-	@JsonProperty(value = "DEVICEIDARR")
+	@JsonProperty(value = "DEVICE_ID_ARR")
 	private List<String> deviceIdArr;
 
-	@JsonProperty(value = "DATETIME")
+	@JsonProperty(value = "DATE_TIME")
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss", timezone = "GMT+9")
 	private Date dateTime;
 
 	@JsonProperty(value = "LOCATION")
 	private int location;
 
-	@JsonProperty(value = "ITEMGETSTARTDATE")
+	@JsonProperty(value = "ITEM_GET_START_DATE")
 	private String itemGetStartDate;
 
-	@JsonProperty(value = "ITEMGETENDDATE")
+	@JsonProperty(value = "ITEM_GET_END_DATE")
 	private String itemGetEndDate;
 
-	@JsonProperty(value = "ITEMGETLOWPRICE")
+	@JsonProperty(value = "ITEM_GET_LOW_PRICE")
 	private String itemGetLowPrice;
 
-	@JsonProperty(value = "ITEMGETHIGHPRICE")
+	@JsonProperty(value = "ITEM_GET_HIGH_PRICE")
 	private String itemGetHighPrice;
 
-	@JsonProperty(value = "STARTDATETIME")
+	@JsonProperty(value = "START_DATE_TIME")
 	private String startDateTime;
 
-	@JsonProperty(value = "ENDDATETIME")
+	@JsonProperty(value = "END_DATE_TIME")
 	private String endDateTime;
 
-	@JsonProperty(value = "WORKERID")
+	@JsonProperty(value = "WORKER_ID")
 	private String workerId;
 
 	@JsonProperty(value = "STATE")

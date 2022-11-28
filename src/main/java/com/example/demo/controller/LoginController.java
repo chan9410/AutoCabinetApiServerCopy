@@ -60,7 +60,7 @@ public class LoginController {
 			HttpServletRequest request, HttpServletResponse response) {
 
 		LoginParam param = new LoginParam();
-		String userPw = map.get("WORKERPW").toString();
+		String userPw = map.get("WORKER_PW").toString();
 		int statusCode;
 		String data;
 
@@ -72,7 +72,7 @@ public class LoginController {
 			statusCode = 108;
 		}
 
-		param.setWorkerId(map.get("WORKERID").toString());
+		param.setWorkerId(map.get("WORKER_ID").toString());
 		param.setWorkerPw(encryptPassword);
 
 		String selectUserId = loginService.selectUserId(param);
@@ -83,7 +83,7 @@ public class LoginController {
 			System.out.println("UserId is Null");
 			statusCode = 109;
 			data = null;
-		} else if(selectUserPW == null) {
+		} else if (selectUserPW == null) {
 			System.out.println("UserPW is Null");
 			statusCode = 110;
 			data = null;

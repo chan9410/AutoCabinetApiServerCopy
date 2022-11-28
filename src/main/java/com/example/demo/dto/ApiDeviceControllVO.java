@@ -4,10 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ApiDeviceControllVO {
 
-	@JsonProperty(value = "DEVICEID")
+	@JsonProperty(value = "DEVICE_ID")
 	private String deviceId;
 
-	@JsonProperty(value = "DEVICENAME")
+	@JsonProperty(value = "DEVICE_NAME")
 	private String deviceName;
 
 	public String getDeviceId() {

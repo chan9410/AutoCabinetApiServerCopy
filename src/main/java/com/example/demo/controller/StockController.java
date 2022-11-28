@@ -56,7 +56,7 @@ public class StockController {
 	public @ResponseBody ListResult<ApiTagCountVO> currentCount(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
-		param.setDeviceId(map.get("DEVICEID").toString());
+		param.setDeviceId(map.get("DEVICE_ID").toString());
 
 		List<ApiTagCountVO> dataList = currentCountService.currentCount(param);
 
@@ -81,7 +81,7 @@ public class StockController {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		param.setLocation((int) map.get("LOCATION"));
-		param.setDeviceId(map.get("DEVICEID").toString());
+		param.setDeviceId(map.get("DEVICE_ID").toString());
 
 		List<ApiSearchTagInfoVO> dataList = currentCountService.chkLocationInfo(param);
 
@@ -108,27 +108,27 @@ public class StockController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemCode((String) map.get("ITEMCODE"));
-		param.setItemName((String) map.get("ITEMNAME"));
-		param.setItemGroup((String) map.get("ITEMGROUP"));
-		param.setItemStandard((String) map.get("ITEMSTANDARD"));
-		param.setItemAdmin((String) map.get("ITEMADMIN"));
-		param.setItemDepart((String) map.get("ITEMDEPART"));
-		param.setItemSite((String) map.get("ITEMSITE"));
-		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));
-		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
-		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));
-		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
-		param.setItemNote((String) map.get("ITEMNOTE"));
+		param.setItemCode((String) map.get("ITEM_CODE"));
+		param.setItemName((String) map.get("ITEM_NAME"));
+		param.setItemGroup((String) map.get("ITEM_GROUP"));
+		param.setItemStandard((String) map.get("ITEM_STANDARD"));
+		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
+		param.setItemDepart((String) map.get("ITEM_DEPART"));
+		param.setItemSite((String) map.get("ITEM_SITE"));
+		param.setItemRoom((String) map.get("ITEM_ROOM"));
+		param.setItemGetStartDate((String) map.get("ITEM_GET_START_DATE"));
+		param.setItemGetEndDate((String) map.get("ITEM_GET_END_DATE"));
+		param.setItemGetLowPrice((String) map.get("ITEM_GET_LOW_PRICE"));
+		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
+		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
+		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 
 		int statusCode;
 
 		List<CurrentCountSearchTagVO> dataList;
 
-		if ((List<String>) map.get("DEVICEIDARR") == null) {
+		if ((List<String>) map.get("DEVICE_ID_ARR") == null) {
 
 			statusCode = 100;
 			dataList = null;
@@ -153,29 +153,29 @@ public class StockController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemCode((String) map.get("ITEMCODE"));
-		param.setItemName((String) map.get("ITEMNAME"));
-		param.setItemGroup((String) map.get("ITEMGROUP"));
-		param.setItemStandard((String) map.get("ITEMSTANDARD"));
-		param.setItemAdmin((String) map.get("ITEMADMIN"));
-		param.setItemDepart((String) map.get("ITEMDEPART"));
-		param.setItemSite((String) map.get("ITEMSITE"));
-		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));
-		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
-		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));
-		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
-		param.setItemNote((String) map.get("ITEMNOTE"));
+		param.setItemCode((String) map.get("ITEM_CODE"));
+		param.setItemName((String) map.get("ITEM_NAME"));
+		param.setItemGroup((String) map.get("ITEM_GROUP"));
+		param.setItemStandard((String) map.get("ITEM_STANDARD"));
+		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
+		param.setItemDepart((String) map.get("ITEM_DEPART"));
+		param.setItemSite((String) map.get("ITEM_SITE"));
+		param.setItemRoom((String) map.get("ITEM_ROOM"));
+		param.setItemGetStartDate((String) map.get("ITEM_GET_START_DATE"));
+		param.setItemGetEndDate((String) map.get("ITEM_GET_END_DATE"));
+		param.setItemGetLowPrice((String) map.get("ITEM_GET_LOW_PRICE"));
+		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
+		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
+		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 
-		System.out.println((List<String>) map.get("DEVICEIDARR"));
+		System.out.println((List<String>) map.get("DEVICE_ID_ARR"));
 
 		List<IOHistotyVO> dataList;
 
 		int statusCode;
 
-		if ((List<String>) map.get("DEVICEIDARR") == null) {
+		if ((List<String>) map.get("DEVICE_ID_ARR") == null) {
 
 			dataList = null;
 			statusCode = 100;
@@ -201,29 +201,29 @@ public class StockController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemCode((String) map.get("ITEMCODE"));
-		param.setItemName((String) map.get("ITEMNAME"));
-		param.setItemGroup((String) map.get("ITEMGROUP"));
-		param.setItemStandard((String) map.get("ITEMSTANDARD"));
-		param.setItemAdmin((String) map.get("ITEMADMIN"));
-		param.setItemDepart((String) map.get("ITEMDEPART"));
-		param.setItemSite((String) map.get("ITEMSITE"));
-		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));
-		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
-		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));
-		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
-		param.setItemNote((String) map.get("ITEMNOTE"));
+		param.setItemCode((String) map.get("ITEM_CODE"));
+		param.setItemName((String) map.get("ITEM_NAME"));
+		param.setItemGroup((String) map.get("ITEM_GROUP"));
+		param.setItemStandard((String) map.get("ITEM_STANDARD"));
+		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
+		param.setItemDepart((String) map.get("ITEM_DEPART"));
+		param.setItemSite((String) map.get("ITEM_SITE"));
+		param.setItemRoom((String) map.get("ITEM_ROOM"));
+		param.setItemGetStartDate((String) map.get("ITEM_GET_START_DATE"));
+		param.setItemGetEndDate((String) map.get("ITEM_GET_END_DATE"));
+		param.setItemGetLowPrice((String) map.get("ITEM_GET_LOW_PRICE"));
+		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
+		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
+		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 
-		System.out.println((List<String>) map.get("DEVICEIDARR"));
+		System.out.println((List<String>) map.get("DEVICE_ID_ARR"));
 
 		List<IOHistotyVO> dataList;
 
 		int statusCode;
 
-		if ((List<String>) map.get("DEVICEIDARR") == null) {
+		if ((List<String>) map.get("DEVICE_ID_ARR") == null) {
 
 			dataList = null;
 			statusCode = 100;
@@ -249,33 +249,34 @@ public class StockController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setItemCode((String) map.get("ITEMCODE"));
-		param.setItemName((String) map.get("ITEMNAME"));
-		param.setItemGroup((String) map.get("ITEMGROUP"));
-		param.setItemStandard((String) map.get("ITEMSTANDARD"));
-		param.setItemAdmin((String) map.get("ITEMADMIN"));
-		param.setItemDepart((String) map.get("ITEMDEPART"));
-		param.setItemSite((String) map.get("ITEMSITE"));
-		param.setItemRoom((String) map.get("ITEMROOM"));
-		param.setItemGetStartDate((String) map.get("ITEMGETSTARTDATE"));// 취득 일자
-		param.setItemGetEndDate((String) map.get("ITEMGETENDDATE"));
-		param.setItemGetLowPrice((String) map.get("ITEMGETLOWPRICE"));// 취득 가격
-		param.setItemGetHighPrice((String) map.get("ITEMGETHIGHPRICE"));
-		param.setItemNote((String) map.get("ITEMNOTE"));
-		param.setStartDateTime((String) map.get("STARTDATETIME"));// 입출고 시간
-		param.setEndDateTime((String) map.get("ENDDATETIME"));
-		param.setWorkerId((String) map.get("WORKERID"));
+		param.setItemCode((String) map.get("ITEM_CODE"));
+		param.setItemName((String) map.get("ITEM_NAME"));
+		param.setItemGroup((String) map.get("ITEM_GROUP"));
+		param.setItemStandard((String) map.get("ITEM_STANDARD"));
+		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
+		param.setItemDepart((String) map.get("ITEM_DEPART"));
+		param.setItemSite((String) map.get("ITEM_SITE"));
+		param.setItemRoom((String) map.get("ITEM_ROOM"));
+		param.setItemGetStartDate((String) map.get("ITEM_GET_START_DATE"));// 취득 일자
+		param.setItemGetEndDate((String) map.get("ITEM_GET_END_DATE"));
+		param.setItemGetLowPrice((String) map.get("ITEM_GET_LOW_PRICE"));// 취득 가격
+		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
+		param.setItemNote((String) map.get("ITEM_NOTE"));
+		param.setStartDateTime((String) map.get("START_DATE_TIME"));// 입출고 시간
+		param.setEndDateTime((String) map.get("END_DATE_TIME"));
+		param.setWorkerId((String) map.get("WORKER_ID"));
 		param.setState((String) map.get("STATE"));
 
-		param.setDeviceIdArr((List<String>) map.get("DEVICEIDARR"));
+		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 
-		System.out.println((List<String>) map.get("DEVICEIDARR"));
+		System.out.println((List<String>) map.get("DEVICE_ID_ARR"));
+		System.out.println((List<String>) map.get("DEVICE_ID_ARR"));
 
 		List<IOHistotyVO> dataList;
 
 		int statusCode;
 
-		if ((List<String>) map.get("DEVICEIDARR") == null) {
+		if ((List<String>) map.get("DEVICE_ID_ARR") == null) {
 
 			dataList = null;
 			statusCode = 100;

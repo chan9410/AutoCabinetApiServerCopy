@@ -7,7 +7,7 @@ public class ApiTagInfoParam {
 	@JsonProperty(value = "TAG")
 	private String tag;
 
-	@JsonProperty(value = "DEVICEID")
+	@JsonProperty(value = "DEVICE_ID")
 	private String deviceId;
 
 	@JsonProperty(value = "LOCATION")
@@ -16,16 +16,16 @@ public class ApiTagInfoParam {
 	@JsonProperty(value = "COUNT")
 	private int count;
 
-	@JsonProperty(value = "ITEMCODE")
+	@JsonProperty(value = "ITEM_CODE")
 	private String itemCode;
 
-	@JsonProperty(value = "ITEMNAME")
+	@JsonProperty(value = "ITEM_NAME")
 	private String itemName;
 
-	@JsonProperty(value = "COLNUM")
+	@JsonProperty(value = "COL_NUM")
 	private int colNum;
 
-	@JsonProperty(value = "ROWNUM")
+	@JsonProperty(value = "ROW_NUM")
 	private int rowNum;
 
 	public String getTag() {

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class LoginParam {
 
-	@JsonProperty(value = "WORKERID")
+	@JsonProperty(value = "WORKER_ID")
 	private String workerId;
 
-	@JsonProperty(value = "WORKERPW")
+	@JsonProperty(value = "WORKER_PW")
 	private String workerPw;
 
-	@JsonProperty(value = "WORKERNAME")
+	@JsonProperty(value = "WORKER_NAME")
 	private String workerName;
 
 	public String getWorkerId() {
