@@ -69,7 +69,6 @@ public class LoginController {
 			encryptPassword = SHA256.encrypt(userPw);
 		} catch (Exception e) {
 			System.out.println("PW fails to SHA256");
-			statusCode = 108;
 		}
 
 		param.setWorkerId(map.get("WORKER_ID").toString());
@@ -81,11 +80,11 @@ public class LoginController {
 
 		if (selectUserId == null) {
 			System.out.println("UserId is Null");
-			statusCode = 109;
+			statusCode = 107;
 			data = null;
 		} else if (selectUserPW == null) {
 			System.out.println("UserPW is Null");
-			statusCode = 110;
+			statusCode = 108;
 			data = null;
 		} else if (selectUser == null) {
 			System.out.println("Login Fail");
@@ -122,12 +121,12 @@ public class LoginController {
 
 			session.invalidate();// session 날림
 			statusCode = 202;
-		} else {
-			statusCode = 107;
-			data = null;
-		}
+			return apiService.getSingleResult(data, statusCode);
 
-		return apiService.getSingleResult(data, statusCode);
+		} else {
+			System.out.println("Logout Fail");
+			return null;
+		}
 	}
 
 	@GetMapping(value = "/loginResult")

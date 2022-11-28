@@ -15,11 +15,11 @@ public class ApiServiceImpl implements ApiService {
 
 	public enum CommonResponse {
 
-		SUCCESS(200, "성공했습니다."), NO_DEVICE(400, "디바이스가 없습니다."), NO_DATA(404, "API 결과가 없습니다."), NO_TAG(400, "태그가 없습니다."),
-		EXIST_DEV(401, "Device가 존재합니다."), EXIST_TAG(401, "Tag가 존재합니다."), EXIST_ITEM_CODE(401, "존재하는 ITEM CODE입니다."),
-		LOGIN_SUCCESS(200, "로그인에 성공하였습니다."), LOGIN_FAIL(400, "로그인에 실패하였습니다."), LOGOUT_SUCCESS(200, "로그아웃에 성공하였습니다."),
-		SESSION_NULL(400, "Session이 Null 값입니다."), SHA_NULL(400, "PW를 SHA256화하는데 실패하였습니다."),
-		USER_ID_NULL(400, "User ID가 Null 값입니다."), USER_PW_NULL(400, "User PW가 Null 값입니다.");
+		SUCCESS(200, "API가 성공했습니다."), NO_DEVICE(204, "DB 상에 등록되지 않는 Device입니다."), NO_DATA(204, "API의 결과값이 없습니다."),
+		NO_TAG(204, "DB 상에 등록되지 않는 Tag입니다."), EXIST_DEV(203, "DeviceId가 중복되는 값입니다."), EXIST_TAG(203, "Tag가 중복되는 값입니다."),
+		EXIST_ITEM_CODE(203, "ITEM CODE가 중복되는 값입니다."), LOGIN_SUCCESS(200, "로그인에 성공하였습니다."),
+		LOGIN_FAIL(401, "로그인에 실패하였습니다."), LOGOUT_SUCCESS(200, "로그아웃에 성공하였습니다."),
+		USER_ID_NULL(205, "DB 상에 등록되지 않은 ID입니다."), USER_PW_NULL(206, "DB 상에 등록되지 않은 PW입니다.");
 
 		int code;
 		String message;
@@ -74,20 +74,10 @@ public class ApiServiceImpl implements ApiService {
 			return singleResult;
 		case (107):
 			data = null;
-			setSessionNull(singleResult);
-			System.out.println("SESSION IS NULL");
-			return singleResult;
-		case (108):
-			data = null;
-			setSHAFail(singleResult);
-			System.out.println("PW Fails to SHA256");
-			return singleResult;
-		case (109):
-			data = null;
 			setUserIdNull(singleResult);
 			System.out.println("ID IS NULL");
 			return singleResult;
-		case (110):
+		case (108):
 			data = null;
 			setUserPWNull(singleResult);
 			System.out.println("PW IS NULL");
@@ -216,16 +206,6 @@ public class ApiServiceImpl implements ApiService {
 	private void setLoginFail(CommonResult result) {
 		result.setCode(CommonResponse.LOGIN_FAIL.getCode());
 		result.setMessage(CommonResponse.LOGIN_FAIL.getMessage());
-	}
-
-	private void setSessionNull(CommonResult result) {
-		result.setCode(CommonResponse.SESSION_NULL.getCode());
-		result.setMessage(CommonResponse.SESSION_NULL.getMessage());
-	}
-
-	private void setSHAFail(CommonResult result) {
-		result.setCode(CommonResponse.SHA_NULL.getCode());
-		result.setMessage(CommonResponse.SHA_NULL.getMessage());
 	}
 
 	private void setUserIdNull(CommonResult result) {
