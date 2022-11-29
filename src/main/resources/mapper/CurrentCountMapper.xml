@@ -35,7 +35,8 @@
 
 		SELECT
 		B.ITEM_CODE,
-		B.ITEM_NAME
+		B.ITEM_NAME,
+		A.DATE_TIME
 		FROM
 		tb_tag_current_location A
 		LEFT JOIN tb_item_info B
