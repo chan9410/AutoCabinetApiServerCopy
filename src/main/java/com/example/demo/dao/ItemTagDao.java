@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.ExcelData;
 import com.example.demo.dto.GetSearchTagVO;
 import com.example.demo.dto.GetTagVO;
 
@@ -28,5 +29,19 @@ public interface ItemTagDao {
 	public List<String> chkItemCodeArr(ApiItemTagInfoParam param);
 
 	public List<GetTagVO> getTag();
+
+	public int excelUpload(ExcelData data);
+
+	public String chkTag(ExcelData data);
+
+	public String chkItemCode(ExcelData data);
+
+	public void excelTempUpload(ExcelData data);
+
+	public int getCountexcelTemp();
+
+	public void excelUpload();
+
+	public void deleteExcelTemp();
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ItemTagDao;
 import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.ExcelData;
 import com.example.demo.dto.GetSearchTagVO;
 import com.example.demo.dto.GetTagVO;
 import com.example.demo.service.ItemTagService;
@@ -44,7 +45,7 @@ public class ItemTagServiceImpl implements ItemTagService {
 			try {
 				itemTagDao.saveTag(param);
 				return 200;
-			} catch (DuplicateKeyException e) {
+			} catch (DuplicateKeyException e) {/* 이거 꼭 필요하나? */
 				return 104;
 			}
 		}
@@ -99,4 +100,35 @@ public class ItemTagServiceImpl implements ItemTagService {
 		return itemTagDao.getTag();
 	}
 
+	@Override
+	public void excelTempUpload(ExcelData data) {
+
+		String chkTag = itemTagDao.chkTag(data);
+
+		String chkItemCode = itemTagDao.chkItemCode(data);
+
+		if (chkTag != null) {
+			System.out.println("EXIST TAG");
+
+		} else if (chkItemCode != null) {
+			System.out.println("EXIST ITEM CODE");
+		} else {
+			itemTagDao.excelTempUpload(data);
+		}
+	}
+
+	@Override
+	public int getCountexcelTemp() {
+		return itemTagDao.getCountexcelTemp();
+	}
+
+	@Override
+	public void excelUpload() {
+		itemTagDao.excelUpload();
+	}
+
+	@Override
+	public void deleteExcelTemp() {
+		itemTagDao.deleteExcelTemp();
+	}
 }
