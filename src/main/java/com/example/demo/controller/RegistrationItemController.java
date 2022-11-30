@@ -200,7 +200,8 @@ public class RegistrationItemController {
 					data.setItemName(row.getCell(2).getStringCellValue());
 					data.setItemGroup(row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
 					data.setItemAdmin(row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
-					data.setItemGetDate((Date) row.getCell(5).getDateCellValue());
+					data.setItemGetDate(
+							(Date) row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getDateCellValue());
 					data.setItemStandard(
 							row.getCell(6, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
 					data.setItemDepart(row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
