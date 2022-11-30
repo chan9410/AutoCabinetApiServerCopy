@@ -21,6 +21,12 @@ public interface ItemTagService {
 
 	public List<GetTagVO> getTag();
 
-	public int excelUpload(ExcelData data);
+	public void excelTempUpload(ExcelData data);
+
+	public int getCountexcelTemp();
+
+	public void excelUpload();
+
+	public void deleteExcelTemp();
 
 }

@@ -19,7 +19,8 @@ public class ApiServiceImpl implements ApiService {
 		NO_TAG(204, "DB 상에 등록되지 않는 Tag입니다."), EXIST_DEV(203, "DeviceId가 중복되는 값입니다."), EXIST_TAG(203, "Tag가 중복되는 값입니다."),
 		EXIST_ITEM_CODE(203, "ITEM CODE가 중복되는 값입니다."), LOGIN_SUCCESS(200, "로그인에 성공하였습니다."),
 		LOGIN_FAIL(401, "로그인에 실패하였습니다."), LOGOUT_SUCCESS(200, "로그아웃에 성공하였습니다."),
-		USER_ID_NULL(205, "DB 상에 등록되지 않은 ID입니다."), USER_PW_NULL(206, "DB 상에 등록되지 않은 PW입니다.");
+		USER_ID_NULL(205, "DB 상에 등록되지 않은 ID입니다."), USER_PW_NULL(206, "DB 상에 등록되지 않은 PW입니다."),
+		EXCEL_UPLOAD_FAIL(204, "Excel Upload에 실패하였습니다. Excel 파일을 형식에 맞추어 작성하였는지 다시 한번 확인바랍니다.");
 
 		int code;
 		String message;
@@ -126,6 +127,11 @@ public class ApiServiceImpl implements ApiService {
 			setExistItemCode(singleResult);
 			System.out.println("EXIST ITEM CODE");
 			return singleResult;
+		case (109):
+			data = null;
+			setExcelUploadFail(singleResult);
+			System.out.println("EXCEL UPLOAD FAIL");
+			return singleResult;
 		}
 		return singleResult;
 	}
@@ -216,6 +222,11 @@ public class ApiServiceImpl implements ApiService {
 	private void setUserPWNull(CommonResult result) {
 		result.setCode(CommonResponse.USER_PW_NULL.getCode());
 		result.setMessage(CommonResponse.USER_PW_NULL.getMessage());
+	}
+
+	private void setExcelUploadFail(CommonResult result) {
+		result.setCode(CommonResponse.EXCEL_UPLOAD_FAIL.getCode());
+		result.setMessage(CommonResponse.EXCEL_UPLOAD_FAIL.getMessage());
 	}
 
 }

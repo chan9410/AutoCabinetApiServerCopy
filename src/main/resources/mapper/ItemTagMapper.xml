@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.ItemTagDao">
-	
+
 	<select id="chkTag" resultType="String">
 
 		SELECT
@@ -12,7 +12,7 @@
 		TAG = #{tag};
 
 	</select>
-	
+
 	<select id="chkItemCode" resultType="String">
 
 		SELECT
@@ -23,7 +23,7 @@
 		ITEM_CODE = #{itemCode};
 
 	</select>
-	
+
 	<select id="chkItemCodeArr" resultType="String">
 
 		SELECT
@@ -134,13 +134,15 @@
 				ITEM_ROOM like CONCAT('%',#{itemRoom},'%')
 			</if>
 
-			<if test="itemGetStartDate != null and itemGetStartDate != '' and itemGetEndDate != null and itemGetEndDate != ''">
+			<if
+				test="itemGetStartDate != null and itemGetStartDate != '' and itemGetEndDate != null and itemGetEndDate != ''">
 				AND
 				ITEM_GET_DATE BETWEEN #{itemGetStartDate} AND
 				#{itemGetEndDate}
 			</if>
 
-			<if test="itemGetLowPrice != null and itemGetLowPrice != '' and itemGetHighPrice != null and itemGetHighPrice != ''">
+			<if
+				test="itemGetLowPrice != null and itemGetLowPrice != '' and itemGetHighPrice != null and itemGetHighPrice != ''">
 				AND
 				ITEM_GET_PRICE BETWEEN #{itemGetLowPrice} AND
 				#{itemGetHighPrice}
@@ -219,22 +221,21 @@
 		)
 
 	</delete>
-	
-	<select id="getTag"
-		resultType="com.example.demo.dto.GetTagVO">
 
-		SELECT 
+	<select id="getTag" resultType="com.example.demo.dto.GetTagVO">
+
+		SELECT
 		TAG
 		FROM tb_item_info;
 
 	</select>
-	
-	<insert id="excelUpload" 
+
+	<insert id="excelTempUpload"
 		parameterType="com.example.demo.dto.ExcelData">
 		<!-- parameterType="List"> -->
 
 		INSERT INTO
-		tb_item_info(
+		tb_item_temp(
 		TAG,
 		ITEM_CODE,
 		ITEM_NAME,
@@ -248,9 +249,7 @@
 		ITEM_GET_PRICE,
 		ITEM_NOTE
 
-		)VALUES 
-		<!-- <foreach collection = "list" item = "dataList"
-			separator=","> -->
+		)VALUES
 		(
 		#{tag},
 		#{itemCode},
@@ -265,7 +264,22 @@
 		#{itemGetPrice},
 		#{itemNote}
 		)
-		<!-- </foreach> -->
 	</insert>
+
+	<select id="getCountexcelTemp" resultType="int">
+		SELECT
+		COUNT(TAG)
+		FROM tb_item_temp;
+
+	</select>
+
+	<insert id="excelUpload">
+		INSERT INTO tb_item_info
+		SELECT * FROM tb_item_temp;
+	</insert>
+
+	<delete id="deleteExcelTemp">
+		DELETE FROM tb_item_temp
+	</delete>
 
 </mapper>

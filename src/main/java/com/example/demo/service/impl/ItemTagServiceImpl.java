@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import com.example.demo.dao.ItemTagDao;
 import com.example.demo.dto.ApiItemTagInfoParam;
@@ -20,12 +18,9 @@ public class ItemTagServiceImpl implements ItemTagService {
 
 	private ItemTagDao itemTagDao;
 
-	private final TransactionTemplate transactionTemplate;
-
 	@Autowired
-	public ItemTagServiceImpl(ItemTagDao itemTagDao, PlatformTransactionManager transactionManager) {
+	public ItemTagServiceImpl(ItemTagDao itemTagDao) {
 		this.itemTagDao = itemTagDao;
-		this.transactionTemplate = new TransactionTemplate(transactionManager);
 	}
 
 	@Override
@@ -105,39 +100,35 @@ public class ItemTagServiceImpl implements ItemTagService {
 		return itemTagDao.getTag();
 	}
 
-	/*
-	 * @Override public int excelUpload(ExcelData data) {
-	 * 
-	 * String chkTag = itemTagDao.chkTag(data);
-	 * 
-	 * String chkItemCode = itemTagDao.chkItemCode(data);
-	 * 
-	 * if (chkTag != null)
-	 * 
-	 * { System.out.println("EXIST TAG"); return 104; } else if (chkItemCode !=
-	 * null) { System.out.println("EXIST ITEM CODE"); return 105; } else {
-	 * 
-	 * itemTagDao.excelUpload(data); return 200; } } }
-	 */
-
 	@Override
-	public int excelUpload(ExcelData data) {
+	public void excelTempUpload(ExcelData data) {
 
 		String chkTag = itemTagDao.chkTag(data);
 
 		String chkItemCode = itemTagDao.chkItemCode(data);
 
-		if (chkTag != null)
-
-		{
+		if (chkTag != null) {
 			System.out.println("EXIST TAG");
-			return 104;
+
 		} else if (chkItemCode != null) {
 			System.out.println("EXIST ITEM CODE");
-			return 105;
 		} else {
-			itemTagDao.excelUpload(data);
-			return 200;
+			itemTagDao.excelTempUpload(data);
 		}
+	}
+
+	@Override
+	public int getCountexcelTemp() {
+		return itemTagDao.getCountexcelTemp();
+	}
+
+	@Override
+	public void excelUpload() {
+		itemTagDao.excelUpload();
+	}
+
+	@Override
+	public void deleteExcelTemp() {
+		itemTagDao.deleteExcelTemp();
 	}
 }
