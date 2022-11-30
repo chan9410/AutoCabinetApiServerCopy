@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import com.example.demo.dao.ItemTagDao;
 import com.example.demo.dto.ApiItemTagInfoParam;
+import com.example.demo.dto.ExcelData;
 import com.example.demo.dto.GetSearchTagVO;
 import com.example.demo.dto.GetTagVO;
 import com.example.demo.service.ItemTagService;
@@ -17,9 +20,12 @@ public class ItemTagServiceImpl implements ItemTagService {
 
 	private ItemTagDao itemTagDao;
 
+	private final TransactionTemplate transactionTemplate;
+
 	@Autowired
-	public ItemTagServiceImpl(ItemTagDao itemTagDao) {
+	public ItemTagServiceImpl(ItemTagDao itemTagDao, PlatformTransactionManager transactionManager) {
 		this.itemTagDao = itemTagDao;
+		this.transactionTemplate = new TransactionTemplate(transactionManager);
 	}
 
 	@Override
@@ -44,7 +50,7 @@ public class ItemTagServiceImpl implements ItemTagService {
 			try {
 				itemTagDao.saveTag(param);
 				return 200;
-			} catch (DuplicateKeyException e) {
+			} catch (DuplicateKeyException e) {/* 이거 꼭 필요하나? */
 				return 104;
 			}
 		}
@@ -99,4 +105,39 @@ public class ItemTagServiceImpl implements ItemTagService {
 		return itemTagDao.getTag();
 	}
 
+	/*
+	 * @Override public int excelUpload(ExcelData data) {
+	 * 
+	 * String chkTag = itemTagDao.chkTag(data);
+	 * 
+	 * String chkItemCode = itemTagDao.chkItemCode(data);
+	 * 
+	 * if (chkTag != null)
+	 * 
+	 * { System.out.println("EXIST TAG"); return 104; } else if (chkItemCode !=
+	 * null) { System.out.println("EXIST ITEM CODE"); return 105; } else {
+	 * 
+	 * itemTagDao.excelUpload(data); return 200; } } }
+	 */
+
+	@Override
+	public int excelUpload(ExcelData data) {
+
+		String chkTag = itemTagDao.chkTag(data);
+
+		String chkItemCode = itemTagDao.chkItemCode(data);
+
+		if (chkTag != null)
+
+		{
+			System.out.println("EXIST TAG");
+			return 104;
+		} else if (chkItemCode != null) {
+			System.out.println("EXIST ITEM CODE");
+			return 105;
+		} else {
+			itemTagDao.excelUpload(data);
+			return 200;
+		}
+	}
 }

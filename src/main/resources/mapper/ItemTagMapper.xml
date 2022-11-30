@@ -229,5 +229,43 @@
 
 	</select>
 	
+	<insert id="excelUpload" 
+		parameterType="com.example.demo.dto.ExcelData">
+		<!-- parameterType="List"> -->
+
+		INSERT INTO
+		tb_item_info(
+		TAG,
+		ITEM_CODE,
+		ITEM_NAME,
+		ITEM_GROUP,
+		ITEM_STANDARD,
+		ITEM_ADMIN,
+		ITEM_DEPART,
+		ITEM_SITE,
+		ITEM_ROOM,
+		ITEM_GET_DATE,
+		ITEM_GET_PRICE,
+		ITEM_NOTE
+
+		)VALUES 
+		<!-- <foreach collection = "list" item = "dataList"
+			separator=","> -->
+		(
+		#{tag},
+		#{itemCode},
+		#{itemName},
+		#{itemGroup},
+		#{itemStandard},
+		#{itemAdmin},
+		#{itemDepart},
+		#{itemSite},
+		#{itemRoom},
+		#{itemGetDate},
+		#{itemGetPrice},
+		#{itemNote}
+		)
+		<!-- </foreach> -->
+	</insert>
 
 </mapper>
