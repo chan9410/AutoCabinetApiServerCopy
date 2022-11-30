@@ -43,6 +43,9 @@ public class CurrentCountSearchTagVO {
 	@JsonProperty(value = "ITEM_NOTE")
 	private String itemNote;
 
+	@JsonProperty(value = "DATE_TIME")
+	private String dateTime;
+
 	public String getDeviceId() {
 		return deviceId;
 	}
@@ -145,6 +148,14 @@ public class CurrentCountSearchTagVO {
 
 	public void setItemNote(String itemNote) {
 		this.itemNote = itemNote;
+	}
+
+	public String getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(String dateTime) {
+		this.dateTime = dateTime;
 	}
 
 }
