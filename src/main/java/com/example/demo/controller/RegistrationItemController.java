@@ -58,6 +58,7 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
+		param.setTag((String) map.get("TAG"));
 		param.setItemCode((String) map.get("ITEM_CODE"));
 		param.setItemName((String) map.get("ITEM_NAME"));
 		param.setItemGroup((String) map.get("ITEM_GROUP"));

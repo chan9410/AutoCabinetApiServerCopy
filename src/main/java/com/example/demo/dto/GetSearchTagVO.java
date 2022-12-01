@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class GetSearchTagVO {
 
+	@JsonProperty(value = "TAG")
+	private String tag;
+
 	@JsonProperty(value = "ITEM_CODE")
 	private String itemCode;
 
@@ -36,6 +39,14 @@ public class GetSearchTagVO {
 
 	@JsonProperty(value = "ITEM_NOTE")
 	private String itemNote;
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
 	public String getItemCode() {
 		return itemCode;
