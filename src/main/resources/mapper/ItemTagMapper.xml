@@ -78,6 +78,7 @@
 		resultType="com.example.demo.dto.GetSearchTagVO">
 
 		SELECT
+		TAG,
 		ITEM_CODE,
 		ITEM_NAME,
 		ITEM_GROUP,
@@ -93,6 +94,11 @@
 		FROM tb_item_info
 
 		<trim prefix="WHERE" prefixOverrides="AND">
+
+			<if test="tag != null and tag != ''">
+				AND
+				TAG like CONCAT('%',#{tag},'%')
+			</if>
 
 			<if test="itemCode != null and itemCode != ''">
 				AND
