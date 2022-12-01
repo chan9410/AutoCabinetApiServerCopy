@@ -250,7 +250,7 @@
 		B.LOCATION,
 		B.DATE_TIME,
 		CASE (B.STATE)
-		WHEN "1" THEN '입고'
+		WHEN "1" THEN 'IN'
 		END AS STATE
 		FROM
 		tb_item_info A
@@ -280,7 +280,7 @@
 		B.LOCATION,
 		B.DATE_TIME,
 		CASE (B.STATE)
-		WHEN "0" THEN '출고'
+		WHEN "0" THEN 'OUT'
 		END AS STATE
 		FROM
 		tb_item_info A
