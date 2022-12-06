@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import com.example.demo.dto.ApiTagInfoParam;
 import com.example.demo.dto.ListResult;
 import com.example.demo.dto.ReSingleResult;
 import com.example.demo.dto.SingleResult;
+import com.example.demo.dto.SysCodeParam;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.DevConService;
 
@@ -42,11 +45,19 @@ public class DeviceController {
 	@PostMapping(value = "/saveDevice", produces = "application/json")
 	public @ResponseBody SingleResult<Integer> saveDevice(@RequestBody HashMap<String, Object> map) {
 
-		ApiDeviceControllVO param = new ApiDeviceControllVO();
+		String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+		ApiTagInfoParam param = new ApiTagInfoParam();
 		param.setDeviceId(map.get("DEVICE_ID").toString());
 		param.setDeviceName(map.get("DEVICE_NAME").toString());
+		param.setRecentTime(now);
 
-		return apiService.getSingleResult(devConService.saveDevice(param));
+		int result = devConService.saveDevice(param);
+
+		System.out.println(result);
+
+		return apiService.getSingleResult(result);
+
 	}
 
 	// 장비 데이터 수정
@@ -139,6 +150,20 @@ public class DeviceController {
 		}
 
 		return apiService.getListResult(dataList, statusCode);
+	}
+
+	@PostMapping(value = "updateSysCode", produces = "application/json")
+	public @ResponseBody SingleResult<Integer> updateSysCode(@RequestBody HashMap<String, Object> map) {
+
+		SysCodeParam param = new SysCodeParam();
+
+		param.setCodeValue((int) map.get("CODE_VALUE"));
+		param.setCodeName(map.get("CODE_NAME").toString());
+		// param.setUseYn((String) map.get("USE_YN"));
+
+		int result = devConService.updateSysCode(param);
+
+		return apiService.getSingleResult(result);
 	}
 
 }

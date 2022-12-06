@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.DevConDao;
@@ -11,6 +10,7 @@ import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.SysCodeParam;
 import com.example.demo.service.DevConService;
 
 @Service
@@ -29,25 +29,32 @@ public class DevConServiceImpl implements DevConService {
 	}
 
 	@Override
-	public int saveDevice(ApiDeviceControllVO param) {
+	public int saveDevice(ApiTagInfoParam param) {
 
 		String chkDevId = devConDao.chkDeviceId(param);
 
-		int recycleDevId = devConDao.recycleDevId(param);
+		String chkDeviceYN = devConDao.chkDeviceYN(param);
 
 		if (chkDevId != null) {
 			System.out.println("EXIST DEVICE");
 			return 102;
-		} else if (recycleDevId == 1) {
-			System.out.println("SUCCESS");
-			return 200;
+		} else if (chkDeviceYN != null) {
+			try {
+				devConDao.recycleDevId(param);
+				devConDao.saveDeviceState(param);
+				return 200;
+			} catch (Exception e) {
+				System.out.println(e);
+				return 101;
+			}
 		} else {
 			try {
 				devConDao.saveDevice(param);
-				System.out.println("SUCCESS");
+				devConDao.saveDeviceState(param);
 				return 200;
-			} catch (DuplicateKeyException e) {
-				return 102;
+			} catch (Exception e) {
+				System.out.println(e);
+				return 101;
 			}
 		}
 
@@ -120,6 +127,25 @@ public class DevConServiceImpl implements DevConService {
 			return 200;
 		}
 
+	}
+
+	@Override
+	public int updateSysCode(SysCodeParam param) {
+
+		String chkCodeName = devConDao.chkCodeName(param);
+
+		int statusCode;
+		int result = devConDao.updateSysCode(param);
+
+		if (chkCodeName == null) {
+			statusCode = 102;// 따로 코드 추가 필요
+		} else if (result == 0) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return statusCode;
 	}
 
 }

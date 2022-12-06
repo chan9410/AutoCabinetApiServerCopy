@@ -6,12 +6,13 @@ import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.SysCodeParam;
 
 public interface DevConService {
 
 	public int updateDevice(ApiDeviceControllVO param);
 
-	public int saveDevice(ApiDeviceControllVO param);
+	public int saveDevice(ApiTagInfoParam param);
 
 	public int delDevice(ApiDeviceControllVO param);
 
@@ -24,5 +25,7 @@ public interface DevConService {
 	public String chkDeviceId(ApiTagInfoParam param);
 
 	public int updateColRowNum(ApiTagInfoParam param);
+
+	public int updateSysCode(SysCodeParam param);
 
 }

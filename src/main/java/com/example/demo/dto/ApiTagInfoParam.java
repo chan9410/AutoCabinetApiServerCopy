@@ -28,6 +28,12 @@ public class ApiTagInfoParam {
 	@JsonProperty(value = "ROW_NUM")
 	private int rowNum;
 
+	@JsonProperty(value = "DEVICE_NAME")
+	private String deviceName;
+
+	@JsonProperty(value = "RECENT_TIME")
+	private String recentTime;
+
 	public String getTag() {
 		return tag;
 	}
@@ -91,4 +97,21 @@ public class ApiTagInfoParam {
 	public void setRowNum(int rowNum) {
 		this.rowNum = rowNum;
 	}
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
+	}
+
+	public String getRecentTime() {
+		return recentTime;
+	}
+
+	public void setRecentTime(String recentTime) {
+		this.recentTime = recentTime;
+	}
+
 }

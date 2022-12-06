@@ -9,12 +9,15 @@ import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
+import com.example.demo.dto.SysCodeParam;
 
 @Repository
 @Mapper
 public interface DevConDao {
 
-	public int saveDevice(ApiDeviceControllVO param);
+	public void saveDeviceState(ApiTagInfoParam param);
+
+	public int saveDevice(ApiTagInfoParam param);
 
 	public int delDevice(ApiDeviceControllVO param);
 
@@ -34,6 +37,12 @@ public interface DevConDao {
 
 	public int updateColRowNum(ApiTagInfoParam param);
 
-	public int recycleDevId(ApiDeviceControllVO param);
+	public int recycleDevId(ApiTagInfoParam param);
+
+	public String chkDeviceYN(ApiTagInfoParam param);
+
+	public String chkCodeName(SysCodeParam param);
+
+	public int updateSysCode(SysCodeParam param);
 
 }
