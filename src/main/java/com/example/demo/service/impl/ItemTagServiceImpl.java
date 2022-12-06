@@ -42,12 +42,8 @@ public class ItemTagServiceImpl implements ItemTagService {
 			System.out.println("EXIST ITEM CODE");
 			return 105;
 		} else {
-			try {
-				itemTagDao.saveTag(param);
-				return 200;
-			} catch (DuplicateKeyException e) {/* 이거 꼭 필요하나? */
-				return 104;
-			}
+			itemTagDao.saveTag(param);
+			return 200;
 		}
 	}
 
@@ -59,11 +55,6 @@ public class ItemTagServiceImpl implements ItemTagService {
 		int result = itemTagDao.updateTag(param);
 
 		System.out.println(result);
-
-		/*
-		 * 파라미터 비정상적으로 입력 시 에러 발생. EX) 태그 값만 파라미터로 넣거나, 태그 값을 제외하고 바꿀 파라미터 값만 넣을 때 SQL
-		 * 문법에 맞지 않아 오류 발생
-		 */
 
 		if (chkItemCode == null) {
 			System.out.println("No Tag");

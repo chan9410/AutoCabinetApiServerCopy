@@ -20,7 +20,8 @@ public class ApiServiceImpl implements ApiService {
 		EXIST_ITEM_CODE(203, "ITEM CODE가 중복되는 값입니다."), LOGIN_SUCCESS(200, "로그인에 성공하였습니다."),
 		LOGIN_FAIL(401, "로그인에 실패하였습니다."), LOGOUT_SUCCESS(200, "로그아웃에 성공하였습니다."),
 		USER_ID_NULL(205, "DB 상에 등록되지 않은 ID입니다."), USER_PW_NULL(206, "DB 상에 등록되지 않은 PW입니다."),
-		EXCEL_UPLOAD_FAIL(204, "Excel Upload에 실패하였습니다. Excel 파일을 형식에 맞추어 작성하였는지 다시 한번 확인바랍니다.");
+		EXCEL_UPLOAD_FAIL(204, "Excel Upload에 실패하였습니다. Excel 파일을 형식에 맞추어 작성하였는지 다시 한번 확인바랍니다."),
+		NO_CODE_NAME(204, "DB 상에 등록되지 않는 CodeName입니다.");
 
 		int code;
 		String message;
@@ -132,6 +133,11 @@ public class ApiServiceImpl implements ApiService {
 			setExcelUploadFail(singleResult);
 			System.out.println("EXCEL UPLOAD FAIL");
 			return singleResult;
+		case (110):
+			data = null;
+			setNoCodeName(singleResult);
+			System.out.println("No CODE NAME");
+			return singleResult;
 		}
 		return singleResult;
 	}
@@ -227,6 +233,11 @@ public class ApiServiceImpl implements ApiService {
 	private void setExcelUploadFail(CommonResult result) {
 		result.setCode(CommonResponse.EXCEL_UPLOAD_FAIL.getCode());
 		result.setMessage(CommonResponse.EXCEL_UPLOAD_FAIL.getMessage());
+	}
+
+	private void setNoCodeName(CommonResult result) {
+		result.setCode(CommonResponse.NO_CODE_NAME.getCode());
+		result.setMessage(CommonResponse.NO_CODE_NAME.getMessage());
 	}
 
 }

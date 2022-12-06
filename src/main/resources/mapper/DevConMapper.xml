@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.dao.DevConDao">
-	
+
 	<select id="chkDeviceId" resultType="String">
 
 		SELECT
@@ -14,9 +14,22 @@
 		STATE = "1";
 
 	</select>
-	
+
+	<select id="chkDeviceYN" resultType="String">
+
+		SELECT
+		DEVICE_ID
+		FROM
+		tb_device_info
+		WHERE
+		DEVICE_ID = #{deviceId}
+		AND
+		STATE = "0";
+
+	</select>
+
 	<update id="recycleDevId"
-		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+		parameterType="com.example.demo.dto.ApiTagInfoParam">
 
 		UPDATE tb_device_info
 		SET
@@ -26,9 +39,39 @@
 		DEVICE_ID = #{deviceId};
 
 	</update>
-	
+
+	<!-- <insert id="saveDevice" parameterType="com.example.demo.dto.ApiTagInfoParam"> 
+		INSERT INTO tb_device_info( DEVICE_ID, DEVICE_NAME )VALUES ( #{deviceId}, 
+		#{deviceName} ) </insert> -->
+
+	<select id="chkCodeName" resultType="String">
+
+		SELECT
+		CODE_NAME
+		FROM
+		tb_sys_code
+		WHERE
+		CODE_NAME = #{codeName};
+
+	</select>
+
+	<insert id="saveDeviceState"
+		parameterType="com.example.demo.dto.ApiTagInfoParam">
+
+		INSERT INTO
+		tb_device_connection_state(
+		DEVICE_ID,
+		RECENT_TIME
+
+		)VALUES (
+
+		#{deviceId},
+		#{recentTime}
+		)
+	</insert>
+
 	<insert id="saveDevice"
-		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+		parameterType="com.example.demo.dto.ApiTagInfoParam">
 
 		INSERT INTO
 		tb_device_info(
@@ -51,6 +94,12 @@
 		DEVICE_ID = #{deviceId};
 
 	</update>
+	
+	<delete id="delDeviceState"
+		parameterType="com.example.demo.dto.ApiDeviceControllVO">
+		DELETE FROM tb_device_connection_state
+		WHERE DEVICE_ID = #{deviceId};
+	</delete>
 
 	<update id="delDevice"
 		parameterType="com.example.demo.dto.ApiDeviceControllVO">
@@ -59,13 +108,14 @@
 		SET
 		STATE = 0
 		WHERE
-		DEVICE_ID = #{deviceId};
+		DEVICE_ID =
+		#{deviceId};
 
 	</update>
-	
+
 	<select id="getColRowNum"
-	parameterType="com.example.demo.dto.ApiTagInfoParam"
-	resultType="com.example.demo.dto.ApiColRowNumVO">
+		parameterType="com.example.demo.dto.ApiTagInfoParam"
+		resultType="com.example.demo.dto.ApiColRowNumVO">
 
 		SELECT
 		COL_NUM,
@@ -77,10 +127,10 @@
 		#{deviceId};
 
 	</select>
-	
+
 	<select id="chkDevInfo"
-	parameterType="com.example.demo.dto.ApiTagInfoParam"
-	resultType="com.example.demo.dto.ApiChkDevVO">
+		parameterType="com.example.demo.dto.ApiTagInfoParam"
+		resultType="com.example.demo.dto.ApiChkDevVO">
 
 		SELECT
 		DEVICE_ID,
@@ -88,9 +138,9 @@
 		COL_NUM,
 		ROW_NUM,
 		CASE (STATE)
-        WHEN "1" THEN 'Y'
-        WHEN "0" THEN 'N'
-        END AS STATE
+		WHEN "1" THEN 'Y'
+		WHEN "0" THEN 'N'
+		END AS STATE
 		FROM
 		tb_device_info
 		WHERE
@@ -98,7 +148,7 @@
 		#{deviceId};
 
 	</select>
-	
+
 	<select id="getDeviceList"
 		resultType="com.example.demo.dto.ApiDeviceControllVO">
 
@@ -107,20 +157,36 @@
 		DEVICE_NAME
 		FROM
 		tb_device_info
-		WHERE STATE = "1";
+		WHERE STATE =
+		"1";
 
 	</select>
-	
+
 	<update id="updateColRowNum"
 		parameterType="com.example.demo.dto.ApiTagInfoParam">
 
 		UPDATE tb_device_info
 		SET
 		COL_NUM = #{colNum},
-		ROW_NUM = #{rowNum}
+		ROW_NUM =
+		#{rowNum}
 		WHERE
 		DEVICE_ID = #{deviceId};
 
 	</update>
+
+	<update id="updateSysCode"
+		parameterType="com.example.demo.dto.SysCodeParam">
+
+		UPDATE tb_sys_code
+		SET
+		CODE_VALUE = #{codeValue}
+		<!-- USE_YN =
+		#{useYn} -->
+		WHERE
+		CODE_NAME = #{codeName};
+
+	</update>
+
 
 </mapper>

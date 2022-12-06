@@ -32,22 +32,14 @@ public class StockController {
 
 	private IOHistoryService iOHistoryService;
 
-	// private ReportStatisticsService reportStatisticsService;
-
 	private ApiService apiService;
 
 	@Autowired
 	public StockController(CurrentCountService currentCountService, IOHistoryService iOHistoryService,
 			ApiService apiService) {
-		/*
-		 * @Autowired public StockController(CurrentCountService currentCountService,
-		 * IOHistoryService iOHistoryService, ReportStatisticsService
-		 * reportStatisticsService, ApiService apiService) {
-		 */
 
 		this.currentCountService = currentCountService;
 		this.iOHistoryService = iOHistoryService;
-		// this.reportStatisticsService = reportStatisticsService;
 		this.apiService = apiService;
 	}
 

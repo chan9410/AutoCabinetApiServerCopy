@@ -52,11 +52,7 @@ public class DeviceController {
 		param.setDeviceName(map.get("DEVICE_NAME").toString());
 		param.setRecentTime(now);
 
-		int result = devConService.saveDevice(param);
-
-		System.out.println(result);
-
-		return apiService.getSingleResult(result);
+		return apiService.getSingleResult(devConService.saveDevice(param));
 
 	}
 

@@ -65,16 +65,18 @@ public class DevConServiceImpl implements DevConService {
 
 		String chkDevId = devConDao.chkDeviceId(param);
 
-		int result = devConDao.delDevice(param);
-		System.out.println(result);
-
 		if (chkDevId == null) {
 			System.out.println("No Device");
 			return 100;
-		} else if (result == 0) {
-			return 101;
 		} else {
-			return 200;
+			try {
+				devConDao.delDeviceState(param);
+				devConDao.delDevice(param);
+				return 200;
+			} catch (Exception e) {
+				System.out.println(e);
+				return 101;
+			}
 		}
 	}
 
@@ -138,7 +140,7 @@ public class DevConServiceImpl implements DevConService {
 		int result = devConDao.updateSysCode(param);
 
 		if (chkCodeName == null) {
-			statusCode = 102;// 따로 코드 추가 필요
+			statusCode = 110;
 		} else if (result == 0) {
 			statusCode = 101;
 		} else {

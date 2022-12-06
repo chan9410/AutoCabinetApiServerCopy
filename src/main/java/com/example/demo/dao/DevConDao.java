@@ -21,6 +21,8 @@ public interface DevConDao {
 
 	public int delDevice(ApiDeviceControllVO param);
 
+	public int delDeviceState(ApiDeviceControllVO param);
+
 	public int updateDevice(ApiDeviceControllVO param);
 
 	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param);
