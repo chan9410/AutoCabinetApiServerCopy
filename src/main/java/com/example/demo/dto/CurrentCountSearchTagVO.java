@@ -10,6 +10,9 @@ public class CurrentCountSearchTagVO {
 	@JsonProperty(value = "DEVICE_ID")
 	private String deviceId;
 
+	@JsonProperty(value = "DEVICE_NAME")
+	private String deviceName;
+
 	@JsonProperty(value = "LOCATION")
 	private int location;
 
@@ -63,6 +66,14 @@ public class CurrentCountSearchTagVO {
 
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 	public int getLocation() {

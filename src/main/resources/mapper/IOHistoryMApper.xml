@@ -43,13 +43,15 @@
 		B.DATE_TIME,
 		CASE (B.STATE)
 		WHEN "1" THEN 'IN'
-		END AS STATE
+		END AS STATE,
+		C.DEVICE_NAME
 		FROM
 		tb_item_info A
 		LEFT JOIN
 		tb_tag_input_history B
-		ON A.TAG =
-		B.TAG
+		ON A.TAG = B.TAG
+		LEFT JOIN tb_device_info C
+		ON B.DEVICE_ID = C.DEVICE_ID
 
 		WHERE A.TAG = B.TAG
 
@@ -74,13 +76,15 @@
 		B.DATE_TIME,
 		CASE (B.STATE)
 		WHEN "0" THEN 'OUT'
-		END AS STATE
+		END AS STATE,
+		C.DEVICE_NAME
 		FROM
 		tb_item_info A
 		LEFT JOIN
 		tb_tag_output_history B
-		ON A.TAG =
-		B.TAG
+		ON A.TAG = B.TAG
+		LEFT JOIN tb_device_info C
+		ON B.DEVICE_ID = C.DEVICE_ID
 
 		WHERE A.TAG = B.TAG) IOHistory
 

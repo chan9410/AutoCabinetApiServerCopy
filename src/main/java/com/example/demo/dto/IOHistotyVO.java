@@ -46,6 +46,9 @@ public class IOHistotyVO {
 	@JsonProperty(value = "DEVICE_ID")
 	private String deviceId;
 
+	@JsonProperty(value = "DEVICE_NAME")
+	private String deviceName;
+
 	@JsonProperty(value = "WORKER_ID")
 	private String workerId;
 
@@ -161,6 +164,14 @@ public class IOHistotyVO {
 
 	public void setDeviceId(String deviceId) {
 		this.deviceId = deviceId;
+	}
+
+	public String getDeviceName() {
+		return deviceName;
+	}
+
+	public void setDeviceName(String deviceName) {
+		this.deviceName = deviceName;
 	}
 
 	public String getWorkerId() {

@@ -68,12 +68,15 @@
 		B.ITEM_ROOM,
 		B.ITEM_GET_DATE,
 		B.ITEM_GET_PRICE,
-		B.ITEM_NOTE
+		B.ITEM_NOTE,
+		C.DEVICE_NAME
 
 		FROM
 		tb_tag_current_location A
 		LEFT JOIN tb_item_info B
 		ON A.TAG = B.TAG
+		LEFT JOIN tb_device_info C
+		ON A.DEVICE_ID = C.DEVICE_ID
 
 		<trim prefix="WHERE" prefixOverrides="AND">
 
