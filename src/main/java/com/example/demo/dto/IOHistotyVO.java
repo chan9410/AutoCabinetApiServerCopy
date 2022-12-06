@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IOHistotyVO {
 
+	@JsonProperty(value = "TAG")
+	private String tag;
+
 	@JsonProperty(value = "ITEM_CODE")
 	private String itemCode;
 
@@ -55,6 +58,14 @@ public class IOHistotyVO {
 
 	@JsonProperty(value = "STATE")
 	private String state;
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
 	public String getItemCode() {
 		return itemCode;

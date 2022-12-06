@@ -57,6 +57,7 @@
 		A.DEVICE_ID,
 		A.DATE_TIME,
 		A.LOCATION,
+		B.TAG,
 		B.ITEM_CODE,
 		B.ITEM_NAME,
 		B.ITEM_GROUP,
@@ -85,6 +86,11 @@
 				#{deviceIdArr}
 			</foreach>
 			)
+
+			<if test="tag != null and tag != ''">
+				AND
+				B.TAG like CONCAT('%',#{tag},'%')
+			</if>
 
 			<if test="itemCode != null and itemCode != ''">
 				AND

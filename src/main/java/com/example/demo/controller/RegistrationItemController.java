@@ -123,6 +123,7 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
+		param.setTag((String) map.get("TAG"));
 		param.setItemName((String) map.get("ITEM_NAME"));
 		param.setItemGroup((String) map.get("ITEM_GROUP"));
 		param.setItemStandard((String) map.get("ITEM_STANDARD"));

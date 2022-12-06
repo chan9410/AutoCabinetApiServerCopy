@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class CurrentCountSearchTagVO {
 
+	@JsonProperty(value = "TAG")
+	private String tag;
+
 	@JsonProperty(value = "DEVICE_ID")
 	private String deviceId;
 
@@ -45,6 +48,14 @@ public class CurrentCountSearchTagVO {
 
 	@JsonProperty(value = "DATE_TIME")
 	private String dateTime;
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
 
 	public String getDeviceId() {
 		return deviceId;

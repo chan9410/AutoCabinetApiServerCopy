@@ -25,6 +25,7 @@
 		IOHistory.*
 		FROM
 		(SELECT
+		A.TAG,
 		A.ITEM_CODE,
 		A.ITEM_NAME,
 		A.ITEM_GROUP,
@@ -55,6 +56,7 @@
 		UNION
 
 		SELECT
+		A.TAG,
 		A.ITEM_CODE,
 		A.ITEM_NAME,
 		A.ITEM_GROUP,
@@ -91,6 +93,11 @@
 				#{deviceIdArr}
 			</foreach>
 			)
+
+			<if test="tag != null and tag != ''">
+				AND
+				IOHistory.TAG like CONCAT('%',#{tag},'%')
+			</if>
 
 			<if test="itemCode != null and itemCode != ''">
 				AND
