@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dao.DevConDao;
 import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
+import com.example.demo.dto.ApiDevTotalValueVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
 import com.example.demo.dto.SysCodeParam;
@@ -148,6 +149,11 @@ public class DevConServiceImpl implements DevConService {
 		}
 
 		return statusCode;
+	}
+
+	@Override
+	public List<ApiDevTotalValueVO> getDevTotalValueList() {
+		return devConDao.getDevTotalValueList();
 	}
 
 }

@@ -187,6 +187,26 @@
 		CODE_NAME = #{codeName};
 
 	</update>
+	
+	<select id="getDevTotalValueList"
+		resultType="com.example.demo.dto.ApiDevTotalValueVO">
+
+		SELECT
+		A.DEVICE_ID,
+		A.DEVICE_NAME,
+		CASE(B.STATE_LEVEL)
+		WHEN 1 THEN 'DISCONNECT'
+		WHEN 2 THEN 'CONNECTED'
+		WHEN 3 THEN 'SLEEP'
+		WHEN 4 THEN 'ALIVE'
+		END AS STATE_LEVEL
+		FROM
+		tb_device_info A
+		LEFT JOIN tb_device_connection_state B
+		ON A.DEVICE_ID = B.DEVICE_ID
+		WHERE STATE ="1";
+
+	</select>
 
 
 </mapper>

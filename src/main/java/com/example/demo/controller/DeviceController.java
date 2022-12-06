@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.dto.ApiChkDevVO;
 import com.example.demo.dto.ApiColRowNumVO;
+import com.example.demo.dto.ApiDevTotalValueVO;
 import com.example.demo.dto.ApiDeviceControllVO;
 import com.example.demo.dto.ApiTagInfoParam;
 import com.example.demo.dto.ListResult;
@@ -164,4 +165,21 @@ public class DeviceController {
 		return apiService.getSingleResult(result);
 	}
 
+	// 디바이스 값과 상태값을 동시 출력
+	@GetMapping(value = "/getDevTotalValueList", produces = "application/json")
+	public @ResponseBody ListResult<ApiDevTotalValueVO> getDevTotalValueList() {
+
+		List<ApiDevTotalValueVO> dataList = devConService.getDevTotalValueList();
+
+		int statusCode;
+
+		if (dataList.isEmpty()) {
+			statusCode = 101;
+		} else {
+			statusCode = 200;
+		}
+
+		return apiService.getListResult(dataList, statusCode);
+
+	}
 }
