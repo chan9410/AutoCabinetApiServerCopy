@@ -236,12 +236,11 @@
 
 	</select>
 
-	<insert id="excelTempUpload"
-		parameterType="com.example.demo.dto.ExcelData">
-		<!-- parameterType="List"> -->
+	<insert id="excelUpload"
+		parameterType="java.util.List">
 
 		INSERT INTO
-		tb_item_temp(
+		tb_item_info(
 		TAG,
 		ITEM_CODE,
 		ITEM_NAME,
@@ -255,37 +254,24 @@
 		ITEM_GET_PRICE,
 		ITEM_NOTE
 
-		)VALUES
-		(
-		#{tag},
-		#{itemCode},
-		#{itemName},
-		#{itemGroup},
-		#{itemStandard},
-		#{itemAdmin},
-		#{itemDepart},
-		#{itemSite},
-		#{itemRoom},
-		#{itemGetDate},
-		#{itemGetPrice},
-		#{itemNote}
-		)
+		) VALUES 
+		<foreach collection="dataList" item="ExcelData"
+			separator=",">
+			(
+			#{ExcelData.tag},
+			#{ExcelData.itemCode},
+			#{ExcelData.itemName},
+			#{ExcelData.itemGroup},
+			#{ExcelData.itemStandard},
+			#{ExcelData.itemAdmin},
+			#{ExcelData.itemDepart},
+			#{ExcelData.itemSite},
+			#{ExcelData.itemRoom},
+			#{ExcelData.itemGetDate},
+			#{ExcelData.itemGetPrice},
+			#{ExcelData.itemNote}
+			)
+	</foreach>
 	</insert>
-
-	<select id="getCountexcelTemp" resultType="int">
-		SELECT
-		COUNT(TAG)
-		FROM tb_item_temp;
-
-	</select>
-
-	<insert id="excelUpload">
-		INSERT INTO tb_item_info
-		SELECT * FROM tb_item_temp;
-	</insert>
-
-	<delete id="deleteExcelTemp">
-		DELETE FROM tb_item_temp
-	</delete>
 
 </mapper>

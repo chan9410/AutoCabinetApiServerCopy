@@ -2,17 +2,17 @@ package com.example.demo.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -46,10 +46,13 @@ public class RegistrationItemController {
 
 	private ApiService apiService;
 
+	private ExcelUtil excelUtil;
+
 	@Autowired
-	public RegistrationItemController(ItemTagService itemTagService, ApiService apiService) {
+	public RegistrationItemController(ItemTagService itemTagService, ApiService apiService, ExcelUtil excelUtil) {
 		this.itemTagService = itemTagService;
 		this.apiService = apiService;
+		this.excelUtil = excelUtil;
 	}
 
 	// 등록 현황 품목 조회
@@ -182,71 +185,51 @@ public class RegistrationItemController {
 			workbook = new HSSFWorkbook(file.getInputStream());
 		}
 
-		Sheet worksheet = workbook.getSheetAt(0);
+		List<ExcelData> dataList = new ArrayList<ExcelData>();
 
-		int dataLength = worksheet.getPhysicalNumberOfRows();
+		List<Map<String, Object>> listMap = excelUtil.getListData(file, 1, 12);
 
-		for (int i = 1; i < dataLength; i++) {/**/
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-			Row row = worksheet.getRow(i);
-
-			int errorCode = 200;
-
+		for (Map<String, Object> map : listMap) {
 			ExcelData data = new ExcelData();
 
 			try {
-				try {
-					data.setTag(row.getCell(0).getStringCellValue());
-					data.setItemCode(row.getCell(1).getStringCellValue());
-					data.setItemName(row.getCell(2).getStringCellValue());
-					data.setItemGroup(row.getCell(3, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
-					data.setItemAdmin(row.getCell(4, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
-					data.setItemGetDate(
-							(Date) row.getCell(5, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getDateCellValue());
-					data.setItemStandard(
-							row.getCell(6, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
-					data.setItemDepart(row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
-					data.setItemGetPrice(
-							(int) (row.getCell(8, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getNumericCellValue()));
-					data.setItemRoom(row.getCell(9, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
-					data.setItemSite(row.getCell(10, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
-					data.setItemNote(row.getCell(11, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK).getStringCellValue());
 
-				} catch (NullPointerException e) {
-					data = null;
-					errorCode = 110;
+				data.setTag(map.get("0").toString());
+				data.setItemCode(map.get("1").toString());
+				data.setItemName(map.get("2").toString());
+				data.setItemGroup((String) map.get("3"));
+				data.setItemAdmin((String) map.get("4"));
+				if (map.get("5") == null) {
+					data.setItemGetDate(null);
+				} else {
+					data.setItemGetDate((String) dateFormat.format(map.get("5")));
 				}
-			} catch (IllegalStateException e) {
+				data.setItemStandard((String) map.get("6"));
+				data.setItemDepart((String) map.get("7"));
+				if (map.get("8") == null) {
+					data.setItemGetPrice(0);
+				} else {
+					data.setItemGetPrice((Integer.parseInt((String) map.get("8"))));
+				}
+				data.setItemRoom((String) map.get("9"));
+				data.setItemSite((String) map.get("10"));
+				data.setItemNote((String) map.get("11"));
+
+			} catch (IllegalArgumentException e) {
 				data = null;
-				errorCode = 111;
+			} catch (NullPointerException e) {
+				data = null;
 			}
 
-			if (errorCode == 110) {
-				System.out.println("NullPointerException 발생");
-			} else if (errorCode == 111) {
-				System.out.println("IllegalStateException 발생");
-			} else if (data == null) {
-				System.out.println("Data is Null");
-			} else {
-				itemTagService.excelTempUpload(data);
-			}
-		}
-		int tempCount = itemTagService.getCountexcelTemp();
-		int statusCode;
-
-		System.out.println(tempCount);
-		System.out.println(dataLength);
-
-		if (tempCount == dataLength - 1) {// 엑셀의 첫번째 열은 읽지 않음.
-			itemTagService.excelUpload();
-			itemTagService.deleteExcelTemp();
-			statusCode = 200;
-		} else {
-			itemTagService.deleteExcelTemp();
-			statusCode = 109;
+			dataList.add(data);
 		}
 
-		return apiService.getSingleResult(statusCode);
+		int result = itemTagService.excelUpload(dataList);
+
+		return apiService.getSingleResult(result);
+
 	}
 
 	@PostMapping(value = "/downloadTemplateFile")

@@ -92,34 +92,23 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
-	public void excelTempUpload(ExcelData data) {
+	public int excelUpload(List<ExcelData> dataList) {
 
-		String chkTag = itemTagDao.chkTag(data);
+		int resultCode;
 
-		String chkItemCode = itemTagDao.chkItemCode(data);
-
-		if (chkTag != null) {
-			System.out.println("EXIST TAG");
-
-		} else if (chkItemCode != null) {
-			System.out.println("EXIST ITEM CODE");
+		if (dataList.contains(null) == true) {
+			resultCode = 109;
 		} else {
-			itemTagDao.excelTempUpload(data);
+
+			try {
+				itemTagDao.excelUpload(dataList);
+				resultCode = 200;
+			} catch (DuplicateKeyException e) {
+				resultCode = 104;
+			}
+
 		}
-	}
 
-	@Override
-	public int getCountexcelTemp() {
-		return itemTagDao.getCountexcelTemp();
-	}
-
-	@Override
-	public void excelUpload() {
-		itemTagDao.excelUpload();
-	}
-
-	@Override
-	public void deleteExcelTemp() {
-		itemTagDao.deleteExcelTemp();
+		return resultCode;
 	}
 }

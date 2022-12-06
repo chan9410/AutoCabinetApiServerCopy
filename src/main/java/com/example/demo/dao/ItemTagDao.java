@@ -36,12 +36,6 @@ public interface ItemTagDao {
 
 	public String chkItemCode(ExcelData data);
 
-	public void excelTempUpload(ExcelData data);
-
-	public int getCountexcelTemp();
-
-	public void excelUpload();
-
-	public void deleteExcelTemp();
+	public void excelUpload(List<ExcelData> dataList);
 
 }

@@ -3,23 +3,112 @@ package com.example.demo.util;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
+@Component
 public class ExcelUtil {
+
+	public Object getCellValue(XSSFCell cell) {
+
+		Object value = null;
+
+		if (cell == null) {
+			return value;
+		}
+
+		switch (cell.getCellType()) {
+
+		case STRING:
+			value = cell.getStringCellValue();
+			break;
+		case NUMERIC:
+
+			if (DateUtil.isCellDateFormatted(cell) == true) {
+				value = cell.getDateCellValue();
+			} else {
+				value = (int) cell.getNumericCellValue() + "";
+			}
+			break;
+		case BLANK:
+			value = null;
+		default:
+			break;
+
+		}
+		return value;
+	}
+
+	public List<Map<String, Object>> getListData(MultipartFile file, int startRowNum, int columnLength) {
+
+		List<Map<String, Object>> excelList = new ArrayList<Map<String, Object>>();
+
+		try {
+
+			OPCPackage opcPackage = OPCPackage.open(file.getInputStream());
+
+			@SuppressWarnings("resource")
+			XSSFWorkbook workbook = new XSSFWorkbook(opcPackage);
+
+			workbook.setMissingCellPolicy(MissingCellPolicy.CREATE_NULL_AS_BLANK);
+
+			XSSFSheet sheet = workbook.getSheetAt(0);
+
+			int rowIndex = 0;
+			int columnIndex = 0;
+
+			for (rowIndex = startRowNum; rowIndex < sheet.getLastRowNum() + 1; rowIndex++) {
+				XSSFRow row = sheet.getRow(rowIndex);
+
+				if (row.getCell(0) != null && !row.getCell(0).toString().isBlank()) {
+
+					Map<String, Object> map = new HashMap<String, Object>();
+
+					int cells = columnLength;
+
+					for (columnIndex = 0; columnIndex <= cells; columnIndex++) {
+						XSSFCell cell = row.getCell(columnIndex);
+						map.put(String.valueOf(columnIndex), getCellValue(cell));
+
+					}
+					excelList.add(map);
+				}
+			}
+
+		} catch (InvalidFormatException e) {
+			e.printStackTrace();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return excelList;
+
+	}
 
 	public static ByteArrayInputStream createListToExcel(List<String> excelHeader) {
 

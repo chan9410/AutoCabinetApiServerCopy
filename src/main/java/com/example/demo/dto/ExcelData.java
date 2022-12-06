@@ -1,7 +1,5 @@
 package com.example.demo.dto;
 
-import java.util.Date;
-
 public class ExcelData {
 
 	private String Tag;
@@ -14,15 +12,11 @@ public class ExcelData {
 
 	private String ItemAdmin;
 
-	// private String ItemGetDate;
-
-	private Date ItemGetDate;
+	private String ItemGetDate;
 
 	private String ItemStandard;
 
 	private String ItemDepart;
-
-	// private String ItemGetPrice;
 
 	private int ItemGetPrice;
 
@@ -72,17 +66,11 @@ public class ExcelData {
 		ItemAdmin = itemAdmin;
 	}
 
-	/*
-	 * public String getItemGetDate() { return ItemGetDate; }
-	 * 
-	 * public void setItemGetDate(String itemGetDate) { ItemGetDate = itemGetDate; }
-	 */
-
-	public Date getItemGetDate() {
+	public String getItemGetDate() {
 		return ItemGetDate;
 	}
 
-	public void setItemGetDate(Date itemGetDate) {
+	public void setItemGetDate(String itemGetDate) {
 		ItemGetDate = itemGetDate;
 	}
 
@@ -101,13 +89,6 @@ public class ExcelData {
 	public void setItemDepart(String itemDepart) {
 		ItemDepart = itemDepart;
 	}
-
-	/*
-	 * public String getItemGetPrice() { return ItemGetPrice; }
-	 * 
-	 * public void setItemGetPrice(String itemGetPrice) { ItemGetPrice =
-	 * itemGetPrice; }
-	 */
 
 	public int getItemGetPrice() {
 		return ItemGetPrice;
@@ -140,5 +121,4 @@ public class ExcelData {
 	public void setItemNote(String itemNote) {
 		ItemNote = itemNote;
 	}
-
 }
