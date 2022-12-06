@@ -132,6 +132,7 @@ public class DeviceController {
 
 	}
 
+	// 장비 리스트 불러오기
 	@GetMapping(value = "/getDeviceList", produces = "application/json")
 	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
 
@@ -148,6 +149,7 @@ public class DeviceController {
 		return apiService.getListResult(dataList, statusCode);
 	}
 
+	// SysCode Value 값 수정
 	@PostMapping(value = "updateSysCode", produces = "application/json")
 	public @ResponseBody SingleResult<Integer> updateSysCode(@RequestBody HashMap<String, Object> map) {
 

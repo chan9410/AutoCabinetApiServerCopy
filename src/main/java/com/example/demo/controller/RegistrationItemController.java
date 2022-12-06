@@ -90,7 +90,6 @@ public class RegistrationItemController {
 	}
 
 	// 등록 현황 단일 품목 등록
-
 	@PostMapping(value = "/saveTag", produces = "application/json")
 	public @ResponseBody SingleResult<Integer> saveTag(@RequestBody HashMap<String, Object> map) {
 
@@ -109,7 +108,6 @@ public class RegistrationItemController {
 		param.setItemGetPrice((String) map.get("ITEM_GET_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		// TAG, ITEMCODE, ITEMNAME 필수로 필요
 		System.out.println(map.get("TAG").toString());
 		System.out.println(map.get("ITEM_CODE").toString());
 		System.out.println(map.get("ITEM_NAME").toString());
@@ -168,6 +166,7 @@ public class RegistrationItemController {
 		return apiService.getSingleResult(result);
 	}
 
+	// 엑셀 업로드
 	@PostMapping(value = "/excelUpload", produces = "application/json")
 	public @ResponseBody SingleResult<ExcelData> excelUpload(@RequestParam("file") MultipartFile file, Model model)
 			throws IOException {
@@ -233,6 +232,7 @@ public class RegistrationItemController {
 
 	}
 
+	// 엑셀 템플릿 파일(기본 파일) 다운로드
 	@PostMapping(value = "/downloadTemplateFile")
 	public void downloadTemplateFile(HttpServletResponse response) throws IOException {
 

@@ -43,7 +43,7 @@ public class StockController {
 		this.apiService = apiService;
 	}
 
-	// 실시간 카운트 수 불러오기
+	// 실시간 카운트 불러오기
 	@PostMapping(value = "/currentCount", produces = "application/json")
 	public @ResponseBody ListResult<ApiTagCountVO> currentCount(@RequestBody HashMap<String, Object> map) {
 
@@ -67,7 +67,7 @@ public class StockController {
 		return apiService.getListResult(dataList, statusCode);
 	}
 
-	// 클릭한 구분영역의 정보 불러오기
+	// 클릭한 구분 영역 정보 불러오기
 	@PostMapping(value = "/chkLocationInfo", produces = "application/json")
 	public @ResponseBody ListResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
 
@@ -92,7 +92,7 @@ public class StockController {
 		return apiService.getListResult(dataList, statusCode);
 	}
 
-	// 리스트 형식의 실시간 재고 페이지에서 특정 조건으로 검색.
+	// 리스트 형식의 실시간 재고 페이지에서 특정 조건 조회.
 	@SuppressWarnings("unchecked")
 	@PostMapping(value = "/getCurrentCountSearch", produces = "application/json")
 	public @ResponseBody ListResult<CurrentCountSearchTagVO> getCurrentCountSearch(

@@ -35,6 +35,7 @@ public class LoginController {
 		this.apiService = apiService;
 	}
 
+	// 로그인 체크
 	@GetMapping(value = "/loginChk")
 	public @ResponseBody ReSingleResult<String> loginChk(HttpServletRequest request) {
 		/* HttpSession session = request.getSession(); */
@@ -55,6 +56,7 @@ public class LoginController {
 		return apiService.getSingleResult(data, statusCode);
 	}
 
+	// 로그인
 	@PostMapping(value = "/login", produces = "application/json")
 	public @ResponseBody ReSingleResult<String> login(@RequestBody HashMap<String, Object> map,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -109,6 +111,7 @@ public class LoginController {
 
 	}
 
+	// 로그아웃
 	@GetMapping(value = "/logout")
 	public @ResponseBody ReSingleResult<String> logout(HttpServletRequest request) {
 
@@ -129,6 +132,7 @@ public class LoginController {
 		}
 	}
 
+	// 로그인 인터셉터에서 Session 또는 session.getAttribute("loginUser")이 null일때 호출
 	@GetMapping(value = "/loginResult")
 	public @ResponseBody ReSingleResult<String> loginResult(HttpServletRequest request) {
 

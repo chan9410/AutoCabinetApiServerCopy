@@ -40,7 +40,7 @@ public class MiddleWareController {
 		this.apiService = apiService;
 	}
 
-	// 장비 리스트 불러오기
+	// 장비 리스트 불러오기(Ver.미들웨어)
 	@GetMapping(value = "/getDeviceList", produces = "application/json")
 	public @ResponseBody ListResult<ApiDeviceControllVO> getDeviceList() {
 
@@ -57,6 +57,7 @@ public class MiddleWareController {
 		return apiService.getListResult(dataList, statusCode);
 	}
 
+	// 행, 열 수정(Ver.미들웨어)
 	@PostMapping(value = "/updateColRowNum", produces = "application/json")
 	public @ResponseBody SingleResult<Integer> updateColRowNum(@RequestBody HashMap<String, Object> map) {
 
@@ -71,6 +72,7 @@ public class MiddleWareController {
 		return apiService.getSingleResult(devConService.updateColRowNum(param));
 	}
 
+	// 태그 값 불러오기(Ver.미들웨어)
 	@GetMapping(value = "/getTag", produces = "application/json")
 	public @ResponseBody ListResult<GetTagVO> getTag() {
 
