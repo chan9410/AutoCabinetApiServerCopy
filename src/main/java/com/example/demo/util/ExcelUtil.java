@@ -17,7 +17,6 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Row.MissingCellPolicy;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -25,6 +24,7 @@ import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -75,7 +75,7 @@ public class ExcelUtil {
 			@SuppressWarnings("resource")
 			XSSFWorkbook workbook = new XSSFWorkbook(opcPackage);
 
-			workbook.setMissingCellPolicy(MissingCellPolicy.CREATE_NULL_AS_BLANK);
+			// workbook.setMissingCellPolicy(MissingCellPolicy.CREATE_NULL_AS_BLANK);
 
 			XSSFSheet sheet = workbook.getSheetAt(0);
 
@@ -142,10 +142,20 @@ public class ExcelUtil {
 			Font headerFont = workbook.createFont();
 			headerFont.setFontHeight((short) 1600);
 
+			XSSFCellStyle style = (XSSFCellStyle) workbook.createCellStyle();
+
+			XSSFDataFormat format = (XSSFDataFormat) workbook.createDataFormat();
+
+			style.setDataFormat(format.getFormat("@"));
+
 			// 헤더 생성
 			row = sheet.createRow(rowNo++);
 			for (int i = 0; i < headerSize; i++) {
 
+				if (i != 5 && i != 8) {
+					sheet.setDefaultColumnStyle(i, style);
+					System.out.println(i);
+				}
 				sheet.autoSizeColumn(i);
 				sheet.setColumnWidth(i, sheet.getColumnWidth(0) + 1000);
 
