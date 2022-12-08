@@ -95,17 +95,16 @@ public class ItemTagServiceImpl implements ItemTagService {
 
 		int resultCode;
 
-		String chkExcelTagArr = itemTagDao.chkExcelTagArr(dataList);
+		List<ExcelData> chkExcelTagArr = itemTagDao.chkExcelTagArr(dataList);
 
-		String chkExcelItemCodeArr = itemTagDao.chkExcelItemCodeArr(dataList);
+		List<ExcelData> chkExcelItemCodeArr = itemTagDao.chkExcelItemCodeArr(dataList);
 
-		if (chkExcelTagArr != null) {
-			resultCode = 104;
-		} else if (chkExcelItemCodeArr != null) {
-			resultCode = 105;
-
-		} else if (dataList.contains(null) == true) {
+		if (dataList.contains(null) == true) {
 			resultCode = 109;
+		} else if (chkExcelTagArr.size() != 0) {
+			resultCode = 104;
+		} else if (chkExcelItemCodeArr.size() != 0) {
+			resultCode = 105;
 		} else {
 			resultCode = 200;
 			itemTagDao.excelUpload(dataList);

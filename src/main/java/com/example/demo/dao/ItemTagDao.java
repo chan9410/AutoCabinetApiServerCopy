@@ -38,7 +38,7 @@ public interface ItemTagDao {
 
 	public void excelUpload(List<ExcelData> dataList);
 
-	public String chkExcelTagArr(List<ExcelData> dataList);
+	public List<ExcelData> chkExcelTagArr(List<ExcelData> dataList);
 
-	public String chkExcelItemCodeArr(List<ExcelData> dataList);
+	public List<ExcelData> chkExcelItemCodeArr(List<ExcelData> dataList);
 }
