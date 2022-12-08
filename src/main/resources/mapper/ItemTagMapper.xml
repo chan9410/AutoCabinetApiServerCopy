@@ -235,6 +235,38 @@
 		FROM tb_item_info;
 
 	</select>
+		
+	<select id="chkExcelTagArr"
+		resultType="String">
+
+		SELECT
+		TAG
+		FROM
+		tb_item_info
+		WHERE
+		TAG IN(
+		<foreach collection="dataList" item="ExcelData"
+			separator=",">
+			#{ExcelData.tag}
+		</foreach>
+		)
+	</select>
+	
+	<select id="chkExcelItemCodeArr"
+		resultType="String">
+
+		SELECT
+		ITEM_CODE
+		FROM
+		tb_item_info
+		WHERE
+		ITEM_CODE IN(
+		<foreach collection="dataList" item="ExcelData"
+			separator=",">
+			#{ExcelData.itemCode}
+		</foreach>
+		)
+	</select>
 
 	<insert id="excelUpload"
 		parameterType="java.util.List">

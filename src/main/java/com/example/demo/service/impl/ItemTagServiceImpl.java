@@ -3,7 +3,6 @@ package com.example.demo.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ItemTagDao;
@@ -96,17 +95,20 @@ public class ItemTagServiceImpl implements ItemTagService {
 
 		int resultCode;
 
-		if (dataList.contains(null) == true) {
+		String chkExcelTagArr = itemTagDao.chkExcelTagArr(dataList);
+
+		String chkExcelItemCodeArr = itemTagDao.chkExcelItemCodeArr(dataList);
+
+		if (chkExcelTagArr != null) {
+			resultCode = 104;
+		} else if (chkExcelItemCodeArr != null) {
+			resultCode = 105;
+
+		} else if (dataList.contains(null) == true) {
 			resultCode = 109;
 		} else {
-
-			try {
-				itemTagDao.excelUpload(dataList);
-				resultCode = 200;
-			} catch (DuplicateKeyException e) {
-				resultCode = 104;
-			}
-
+			resultCode = 200;
+			itemTagDao.excelUpload(dataList);
 		}
 
 		return resultCode;

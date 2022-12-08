@@ -154,7 +154,6 @@ public class ExcelUtil {
 
 				if (i != 5 && i != 8) {
 					sheet.setDefaultColumnStyle(i, style);
-					System.out.println(i);
 				}
 				sheet.autoSizeColumn(i);
 				sheet.setColumnWidth(i, sheet.getColumnWidth(0) + 1000);
