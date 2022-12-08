@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,6 +35,7 @@ import com.example.demo.dto.ListResult;
 import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.ItemTagService;
+import com.example.demo.util.DateUtil;
 import com.example.demo.util.ExcelUtil;
 
 @CrossOrigin("*")
@@ -237,7 +239,14 @@ public class RegistrationItemController {
 	public void downloadTemplateFile(HttpServletResponse response) throws IOException {
 
 		response.setContentType("ms-vnd/excel");
-		response.setHeader("Content-Disposition", "attachment;filename=testExcel.xlsx");
+		// response.setHeader("Content-Disposition",
+		// "attachment;filename=testExcel.xlsx");
+
+		LocalDateTime now = LocalDateTime.now();
+
+		String date = DateUtil.getString(now, "yyyy.MM.dd_HHmmss");
+
+		response.setHeader("Content-Disposition", "attachment;filename=testExcel" + "_" + date + ".xlsx");
 
 		List<String> header = Arrays.asList("RFID Tag 코드", "제품 코드", "제품명", "제품 분류", "관리자", "취득 일자", "규격", "부서", "취득 가격",
 				"ROOM", "소재지", "비고");
