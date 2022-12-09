@@ -109,7 +109,9 @@ public class StockController {
 			@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
-
+		
+		int statusCode;
+		
 		param.setTag((String) map.get("TAG"));
 		param.setItemCode((String) map.get("ITEM_CODE"));
 		param.setItemName((String) map.get("ITEM_NAME"));
@@ -125,22 +127,20 @@ public class StockController {
 		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		try {
-			param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
-		}catch(NullPointerException e) {
+		if((List<String>) map.get("DEVICE_ID_ARR") == null) {
 			return apiService.getListResult(null, 111);
-		}
-
-		int statusCode;
-
+		}else {
+	    param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
+			
 		List<CurrentCountSearchTagVO> dataList = currentCountService.getCurrentCountSearch(param);
-
+		
 			if (dataList.isEmpty()) {
 				statusCode = 101;
 			} else {
 				statusCode = 200;
 			}
 		return apiService.getListResult(dataList, statusCode);
+		}
 	}
 
 	// 입출고 통합 History 조회
@@ -168,6 +168,10 @@ public class StockController {
 		param.setEndDateTime((String) map.get("END_DATE_TIME"));
 		param.setWorkerId((String) map.get("WORKER_ID"));
 		param.setState((String) map.get("STATE"));
+		
+		if((List<String>) map.get("DEVICE_ID_ARR") == null) {
+			return apiService.getListResult(null, 111);
+		}else {
 
 		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 
@@ -178,8 +182,8 @@ public class StockController {
 		int statusCode;
 
 		List<String> chkDevIdArr = iOHistoryService.chkDevIdArr(param);
-
-		System.out.println(chkDevIdArr.containsAll(devIdArr));
+		
+		System.out.println(chkDevIdArr);
 
 		if (chkDevIdArr.containsAll(devIdArr) == false) {
 			dataList = null;
@@ -199,4 +203,5 @@ public class StockController {
 		}
 		return apiService.getListResult(dataList, statusCode);
 	}
+}
 }

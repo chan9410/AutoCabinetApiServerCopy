@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
@@ -59,23 +60,19 @@ public class LoginController {
 	// 로그인
 	@PostMapping(value = "/login", produces = "application/json")
 	public @ResponseBody ReSingleResult<String> login(@RequestBody HashMap<String, Object> map,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
 
 		LoginParam param = new LoginParam();
-		String userPw = map.get("WORKER_PW").toString();
 		int statusCode;
 		String data;
 		
-		String selectUserId, selectUserPW, selectUser;
+		String selectUserId, userPw, selectUserPW, selectUser;
 
 		String encryptPassword = "";
-		try {
-			encryptPassword = SHA256.encrypt(userPw);
-		} catch (Exception e) {
-			System.out.println("PW fails to SHA256");
-		}
 		
 		try {
+			userPw = map.get("WORKER_PW").toString();
+			encryptPassword = SHA256.encrypt(userPw);
 			param.setWorkerId(map.get("WORKER_ID").toString());
 			param.setWorkerPw(encryptPassword);
 			

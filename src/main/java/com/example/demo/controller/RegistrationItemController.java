@@ -152,6 +152,10 @@ public class RegistrationItemController {
 	public @ResponseBody SingleResult<Integer> deleteTag(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
+		
+		if((List<String>) map.get("ITEM_CODE_ARR") == null) {
+			return apiService.getSingleResult(111);
+		} else {
 
 		List<String> itemCodeArr = (List<String>) map.get("ITEM_CODE_ARR");
 
@@ -161,9 +165,6 @@ public class RegistrationItemController {
 
 		Integer result;
 
-		System.out.println(itemCodeArr);
-		System.out.println(itemCodeArrChk);
-
 		if (itemCodeArrChk.containsAll(itemCodeArr)) {
 
 			result = itemTagService.deleteTag(param);
@@ -172,6 +173,7 @@ public class RegistrationItemController {
 			result = 103;
 		}
 		return apiService.getSingleResult(result);
+		}
 	}
 
 	// 엑셀 업로드

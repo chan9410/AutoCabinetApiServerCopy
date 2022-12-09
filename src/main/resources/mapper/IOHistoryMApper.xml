@@ -15,6 +15,7 @@
 			#{deviceIdArr}
 		</foreach>
 		)
+		AND STATE = 1;
 	</select>
 
 	<select id="IOHistorySearch"
