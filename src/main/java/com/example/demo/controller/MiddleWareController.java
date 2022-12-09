@@ -63,11 +63,13 @@ public class MiddleWareController {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 
-		param.setColNum((int) map.get("COL_NUM"));
-
-		param.setRowNum((int) map.get("ROW_NUM"));
-
-		param.setDeviceId(map.get("DEVICE_ID").toString());
+		try {
+			param.setColNum((int) map.get("COL_NUM"));
+			param.setRowNum((int) map.get("ROW_NUM"));
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+		}catch(NullPointerException e) {
+			return apiService.getSingleResult(111);
+		}
 
 		return apiService.getSingleResult(devConService.updateColRowNum(param));
 	}

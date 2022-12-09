@@ -48,7 +48,12 @@ public class StockController {
 	public @ResponseBody ListResult<ApiTagCountVO> currentCount(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
-		param.setDeviceId(map.get("DEVICE_ID").toString());
+		
+		try {
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+		}catch(NullPointerException e) {
+			return apiService.getListResult(null, 111);
+		}
 
 		List<ApiTagCountVO> dataList = currentCountService.currentCount(param);
 
@@ -72,8 +77,13 @@ public class StockController {
 	public @ResponseBody ListResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
-		param.setLocation((int) map.get("LOCATION"));
-		param.setDeviceId(map.get("DEVICE_ID").toString());
+		
+		try {
+			param.setLocation((int) map.get("LOCATION"));
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+		}catch(NullPointerException e) {
+			return apiService.getListResult(null, 111);
+		}
 
 		List<ApiSearchTagInfoVO> dataList = currentCountService.chkLocationInfo(param);
 
@@ -115,7 +125,11 @@ public class StockController {
 		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
+		try {
+			param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
+		}catch(NullPointerException e) {
+			return apiService.getListResult(null, 111);
+		}
 
 		int statusCode;
 

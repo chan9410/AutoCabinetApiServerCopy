@@ -65,6 +65,8 @@ public class LoginController {
 		String userPw = map.get("WORKER_PW").toString();
 		int statusCode;
 		String data;
+		
+		String selectUserId, selectUserPW, selectUser;
 
 		String encryptPassword = "";
 		try {
@@ -72,13 +74,21 @@ public class LoginController {
 		} catch (Exception e) {
 			System.out.println("PW fails to SHA256");
 		}
+		
+		try {
+			param.setWorkerId(map.get("WORKER_ID").toString());
+			param.setWorkerPw(encryptPassword);
+			
+			selectUserId = loginService.selectUserId(param);
+			selectUserPW = loginService.selectUserPW(param);
+			selectUser = loginService.selectUser(param);
+		}catch(NullPointerException e) {
+			selectUserId = null;
+			selectUserPW = null;
+			selectUser = null;
+			return apiService.getSingleResult(null, 111);
+		}
 
-		param.setWorkerId(map.get("WORKER_ID").toString());
-		param.setWorkerPw(encryptPassword);
-
-		String selectUserId = loginService.selectUserId(param);
-		String selectUserPW = loginService.selectUserPW(param);
-		String selectUser = loginService.selectUser(param);
 
 		if (selectUserId == null) {
 			System.out.println("UserId is Null");

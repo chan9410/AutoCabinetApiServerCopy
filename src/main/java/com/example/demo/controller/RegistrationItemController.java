@@ -31,7 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dto.ApiItemTagInfoParam;
 import com.example.demo.dto.ExcelData;
 import com.example.demo.dto.GetSearchTagVO;
+import com.example.demo.dto.ListExcelResult;
 import com.example.demo.dto.ListResult;
+import com.example.demo.dto.ReSingleResult;
 import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.ItemTagService;
@@ -97,9 +99,6 @@ public class RegistrationItemController {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
-		param.setTag(map.get("TAG").toString());
-		param.setItemCode(map.get("ITEM_CODE").toString());
-		param.setItemName(map.get("ITEM_NAME").toString());
 		param.setItemGroup((String) map.get("ITEM_GROUP"));
 		param.setItemStandard((String) map.get("ITEM_STANDARD"));
 		param.setItemAdmin((String) map.get("ITEM_ADMIN"));
@@ -109,10 +108,14 @@ public class RegistrationItemController {
 		param.setItemGetDate((String) map.get("ITEM_GET_DATE"));
 		param.setItemGetPrice((String) map.get("ITEM_GET_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
-
-		System.out.println(map.get("TAG").toString());
-		System.out.println(map.get("ITEM_CODE").toString());
-		System.out.println(map.get("ITEM_NAME").toString());
+		
+		try {
+			param.setTag(map.get("TAG").toString());
+			param.setItemCode(map.get("ITEM_CODE").toString());
+			param.setItemName(map.get("ITEM_NAME").toString());
+		}catch(NullPointerException e) {
+			return apiService.getSingleResult(111);
+		}
 
 		return apiService.getSingleResult(itemTagService.saveTag(param));
 	}
@@ -135,7 +138,11 @@ public class RegistrationItemController {
 		param.setItemGetPrice((String) map.get("ITEM_GET_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		param.setItemCode(map.get("ITEM_CODE").toString());
+		try {
+			param.setItemCode(map.get("ITEM_CODE").toString());
+		}catch(NullPointerException e) {
+			return apiService.getSingleResult(111);
+		}
 
 		return apiService.getSingleResult(itemTagService.updateTag(param));
 	}

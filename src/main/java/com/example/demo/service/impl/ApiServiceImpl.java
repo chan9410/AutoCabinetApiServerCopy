@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dto.CommonResult;
+import com.example.demo.dto.ListExcelResult;
 import com.example.demo.dto.ListResult;
 import com.example.demo.dto.ReSingleResult;
 import com.example.demo.dto.SingleResult;
@@ -26,9 +27,11 @@ public class ApiServiceImpl implements ApiService {
 		EXIST_TAG(203, "Tag가 중복되는 값입니다."),
 		EXIST_ITEM_CODE(204, "ITEM CODE가 중복되는 값입니다."),
 		USER_ID_NULL(205, "DB 상에 등록되지 않은 ID입니다."),
-		USER_PW_NULL(206, "DB 상에 등록되지 않은 PW입니다."), 
+		USER_PW_NULL(206, "DB 상에 등록되지 않은 PW입니다."),
+		NOT_NORMAL_PARAM(207, "파라미터가 정상적으로 입력되지 않았습니다."),
 		LOGIN_FAIL(401, "로그인에 실패하였습니다."),
-		EXCEL_UPLOAD_FAIL(402, "Excel Upload에 실패하였습니다. Excel 파일을 형식에 맞추어 작성하였는지 다시 한번 확인바랍니다.");
+		EXCEL_UPLOAD_FAIL(402, "Excel Upload에 실패하였습니다. Excel 파일을 형식에 맞추어 작성하였는지 다시 한번 확인바랍니다."),
+		NOT_EXCEL_FILE(403, "Excel File 형식의 파일만 업로드할 수 있습니다.");
 
 		int code;
 		String message;
@@ -91,6 +94,11 @@ public class ApiServiceImpl implements ApiService {
 			setUserPWNull(singleResult);
 			System.out.println("PW IS NULL");
 			return singleResult;
+		case (111):
+			data = null;
+			setNotNormalParam(singleResult);
+			System.out.println("NOT NORMAL PARAM");
+			return singleResult;
 		}
 		return singleResult;
 	}
@@ -145,6 +153,11 @@ public class ApiServiceImpl implements ApiService {
 			setNoCodeName(singleResult);
 			System.out.println("No CODE NAME");
 			return singleResult;
+		case (111):
+			data = null;
+			setNotNormalParam(singleResult);
+			System.out.println("NOT NORMAL PARAM");
+			return singleResult;
 		}
 		return singleResult;
 	}
@@ -172,10 +185,58 @@ public class ApiServiceImpl implements ApiService {
 			setNoTag(listResult);
 			System.out.println("NO TAG");
 			return listResult;
+		case (111):
+			setNotNormalParam(listResult);
+			System.out.println("NOT NORMAL PARAM");
+			return listResult;
 
 		}
 		return listResult;
 	}
+	
+	@Override
+	public <T> ListExcelResult<T> getListExcelResult(List<T> overlapTagList, List<T> overlapItemCodeList,
+			int statusCode) {
+		ListExcelResult<T> listExcelResult = new ListExcelResult<>();
+
+		switch (statusCode) {
+		case (200):
+			listExcelResult.setOverlapTagList(overlapTagList);
+			listExcelResult.setOverlapItemCodeList(overlapItemCodeList);
+			setSuccessResult(listExcelResult);
+			System.out.println("SUCCESS");
+			return listExcelResult;
+		case (101):
+			listExcelResult = null;
+			setNoData(listExcelResult);
+			System.out.println("NO RESULT");
+			return listExcelResult;
+		case (104):
+			listExcelResult.setOverlapTagList(overlapTagList);
+			setExistTag(listExcelResult);
+			System.out.println("EXIST TAG");
+			return listExcelResult;
+		case (105):
+			listExcelResult.setOverlapItemCodeList(overlapItemCodeList);
+			setExistItemCode(listExcelResult);
+			System.out.println("EXIST ITEM CODE");
+			return listExcelResult;
+		case (109):
+			setExcelUploadFail(listExcelResult);
+			System.out.println("EXCEL UPLOAD FAIL");
+			return listExcelResult;
+		case (111):
+			setNotNormalParam(listExcelResult);
+			System.out.println("NOT NORMAL PARAM");
+			return listExcelResult;
+		case (112):
+			setNotExcelFile(listExcelResult);
+			System.out.println("NOT EXCEL FILE TYPE");
+			return listExcelResult;
+		
+	}
+		return listExcelResult;
+}
 
 	private void setSuccessResult(CommonResult result) {
 		result.setCode(CommonResponse.SUCCESS.getCode());
@@ -245,6 +306,16 @@ public class ApiServiceImpl implements ApiService {
 	private void setNoCodeName(CommonResult result) {
 		result.setCode(CommonResponse.NO_CODE_NAME.getCode());
 		result.setMessage(CommonResponse.NO_CODE_NAME.getMessage());
+	}
+	
+	private void setNotNormalParam(CommonResult result) {
+		result.setCode(CommonResponse.NOT_NORMAL_PARAM.getCode());
+		result.setMessage(CommonResponse.NOT_NORMAL_PARAM.getMessage());
+	}
+	
+	private void setNotExcelFile(CommonResult result) {
+		result.setCode(CommonResponse.NOT_EXCEL_FILE.getCode());
+		result.setMessage(CommonResponse.NOT_EXCEL_FILE.getMessage());
 	}
 
 }

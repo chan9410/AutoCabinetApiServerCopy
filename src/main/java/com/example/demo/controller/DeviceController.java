@@ -49,10 +49,17 @@ public class DeviceController {
 		String now = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
-		param.setDeviceId(map.get("DEVICE_ID").toString());
-		param.setDeviceName(map.get("DEVICE_NAME").toString());
+		
 		param.setRecentTime(now);
 
+		try {
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+			param.setDeviceName(map.get("DEVICE_NAME").toString());
+
+		}catch(NullPointerException e) {
+			return apiService.getSingleResult(111);
+		}
+		
 		return apiService.getSingleResult(devConService.saveDevice(param));
 
 	}
@@ -63,9 +70,14 @@ public class DeviceController {
 	public @ResponseBody SingleResult<Integer> updateDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
-		param.setDeviceId(map.get("DEVICE_ID").toString());
-		param.setDeviceName(map.get("DEVICE_NAME").toString());
-
+		
+		try {
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+			param.setDeviceName(map.get("DEVICE_NAME").toString());
+		} catch(NullPointerException e) {
+			return apiService.getSingleResult(111);
+		}
+		
 		return apiService.getSingleResult(devConService.updateDevice(param));
 	}
 
@@ -75,7 +87,12 @@ public class DeviceController {
 	public @ResponseBody SingleResult<Integer> delDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
-		param.setDeviceId(map.get("DEVICE_ID").toString());
+		
+		try {
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+		}catch(NullPointerException e) {
+			return apiService.getSingleResult(111);
+		}
 
 		return apiService.getSingleResult(devConService.delDevice(param));
 	}
@@ -85,10 +102,16 @@ public class DeviceController {
 	public @ResponseBody ReSingleResult<ApiColRowNumVO> getColRowNum(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
+		
+		ApiColRowNumVO data;
 
-		param.setDeviceId(map.get("DEVICE_ID").toString());
-
-		ApiColRowNumVO data = devConService.getColRowNum(param);
+		try {
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+			data = devConService.getColRowNum(param);
+		}catch(NullPointerException e) {
+			data = null;
+			return apiService.getSingleResult(null, 111);
+		}
 
 		String chkDev = devConService.chkDeviceId(param);
 
@@ -112,10 +135,16 @@ public class DeviceController {
 	public @ResponseBody ReSingleResult<ApiChkDevVO> chkDevInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
-
-		param.setDeviceId(map.get("DEVICE_ID").toString());
-
-		ApiChkDevVO data = devConService.chkDevInfo(param);
+		
+		ApiChkDevVO data;
+		
+		try {
+			param.setDeviceId(map.get("DEVICE_ID").toString());
+			data = devConService.chkDevInfo(param);
+		}catch(NullPointerException e) {
+			data = null;
+			return apiService.getSingleResult(null, 111);
+		}
 
 		String chkDev = devConService.chkDeviceId(param);
 
@@ -155,14 +184,16 @@ public class DeviceController {
 	public @ResponseBody SingleResult<Integer> updateSysCode(@RequestBody HashMap<String, Object> map) {
 
 		SysCodeParam param = new SysCodeParam();
+		
+		try {
+			param.setCodeValue((int) map.get("CODE_VALUE"));
+			param.setCodeName(map.get("CODE_NAME").toString());
+			// param.setUseYn((String) map.get("USE_YN"));
+		}catch(NullPointerException e) {
+			return apiService.getSingleResult(111);
+		}
 
-		param.setCodeValue((int) map.get("CODE_VALUE"));
-		param.setCodeName(map.get("CODE_NAME").toString());
-		// param.setUseYn((String) map.get("USE_YN"));
-
-		int result = devConService.updateSysCode(param);
-
-		return apiService.getSingleResult(result);
+		return apiService.getSingleResult(devConService.updateSysCode(param));
 	}
 
 	// 디바이스 값과 상태값을 동시 출력
