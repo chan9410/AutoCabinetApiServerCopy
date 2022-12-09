@@ -57,10 +57,10 @@ public class DeviceController {
 			param.setDeviceName(map.get("DEVICE_NAME").toString());
 
 		}catch(NullPointerException e) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 111);
 		}
 		
-		return apiService.getSingleResult(devConService.saveDevice(param));
+		return apiService.getSingleResult("saveDevice", devConService.saveDevice(param));
 
 	}
 
@@ -75,10 +75,10 @@ public class DeviceController {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 			param.setDeviceName(map.get("DEVICE_NAME").toString());
 		} catch(NullPointerException e) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 111);
 		}
 		
-		return apiService.getSingleResult(devConService.updateDevice(param));
+		return apiService.getSingleResult("updateDevice", devConService.updateDevice(param));
 	}
 
 	// 장비 제거
@@ -91,10 +91,10 @@ public class DeviceController {
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 		}catch(NullPointerException e) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 111);
 		}
 
-		return apiService.getSingleResult(devConService.delDevice(param));
+		return apiService.getSingleResult("delDevice", devConService.delDevice(param));
 	}
 
 	// COL,ROW 개수 불러오기
@@ -110,7 +110,7 @@ public class DeviceController {
 			data = devConService.getColRowNum(param);
 		}catch(NullPointerException e) {
 			data = null;
-			return apiService.getSingleResult(null, 111);
+			return apiService.getSingleResult(null, null, 111);
 		}
 
 		String chkDev = devConService.chkDeviceId(param);
@@ -124,10 +124,7 @@ public class DeviceController {
 		} else {
 			statusCode = 200;
 		}
-
-		System.out.println(statusCode);
-
-		return apiService.getSingleResult(data, statusCode);
+		return apiService.getSingleResult("getColRowNum", data, statusCode);
 	}
 
 	// 선택한 장비의 정보 불러오기
@@ -143,7 +140,7 @@ public class DeviceController {
 			data = devConService.chkDevInfo(param);
 		}catch(NullPointerException e) {
 			data = null;
-			return apiService.getSingleResult(null, 111);
+			return apiService.getSingleResult(null, null, 111);
 		}
 
 		String chkDev = devConService.chkDeviceId(param);
@@ -158,7 +155,7 @@ public class DeviceController {
 			statusCode = 200;
 		}
 
-		return apiService.getSingleResult(data, statusCode);
+		return apiService.getSingleResult("chkDevInfo", data, statusCode);
 
 	}
 
@@ -176,7 +173,7 @@ public class DeviceController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("getDeviceList", dataList, statusCode);
 	}
 
 	// SysCode Value 값 수정
@@ -190,10 +187,10 @@ public class DeviceController {
 			param.setCodeName(map.get("CODE_NAME").toString());
 			// param.setUseYn((String) map.get("USE_YN"));
 		}catch(NullPointerException e) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 111);
 		}
 
-		return apiService.getSingleResult(devConService.updateSysCode(param));
+		return apiService.getSingleResult("updateSysCode", devConService.updateSysCode(param));
 	}
 
 	// 디바이스 값과 상태값을 동시 출력
@@ -210,7 +207,7 @@ public class DeviceController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("getDevTotalValueList", dataList, statusCode);
 
 	}
 }

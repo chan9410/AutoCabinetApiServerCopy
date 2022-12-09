@@ -37,7 +37,6 @@ public class DevConServiceImpl implements DevConService {
 		String chkDeviceYN = devConDao.chkDeviceYN(param);
 
 		if (chkDevId != null) {
-			System.out.println("EXIST DEVICE");
 			return 102;
 		} else if (chkDeviceYN != null) {
 			try {
@@ -45,7 +44,6 @@ public class DevConServiceImpl implements DevConService {
 				devConDao.saveDeviceState(param);
 				return 200;
 			} catch (Exception e) {
-				System.out.println(e);
 				return 101;
 			}
 		} else {
@@ -54,7 +52,6 @@ public class DevConServiceImpl implements DevConService {
 				devConDao.saveDeviceState(param);
 				return 200;
 			} catch (Exception e) {
-				System.out.println(e);
 				return 101;
 			}
 		}
@@ -67,7 +64,6 @@ public class DevConServiceImpl implements DevConService {
 		String chkDevId = devConDao.chkDeviceId(param);
 
 		if (chkDevId == null) {
-			System.out.println("No Device");
 			return 100;
 		} else {
 			try {
@@ -75,7 +71,6 @@ public class DevConServiceImpl implements DevConService {
 				devConDao.delDevice(param);
 				return 200;
 			} catch (Exception e) {
-				System.out.println(e);
 				return 101;
 			}
 		}
@@ -89,7 +84,6 @@ public class DevConServiceImpl implements DevConService {
 		int result = devConDao.updateDevice(param);
 
 		if (chkDevId == null) {
-			System.out.println("No Device");
 			return 100;
 		} else if (result == 0) {
 			return 101;
@@ -122,7 +116,6 @@ public class DevConServiceImpl implements DevConService {
 		int result = devConDao.updateColRowNum(param);
 
 		if (chkDevId == null) {
-			System.out.println("No Device");
 			return 100;
 		} else if (result == 0) {
 			return 101;

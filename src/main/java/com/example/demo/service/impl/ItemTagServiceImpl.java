@@ -35,10 +35,8 @@ public class ItemTagServiceImpl implements ItemTagService {
 		String chkItemCode = itemTagDao.chkItemCode(param);
 
 		if (chkTag != null) {
-			System.out.println("EXIST TAG");
 			return 104;
 		} else if (chkItemCode != null) {
-			System.out.println("EXIST ITEM CODE");
 			return 105;
 		} else {
 			itemTagDao.saveTag(param);
@@ -53,16 +51,11 @@ public class ItemTagServiceImpl implements ItemTagService {
 
 		int result = itemTagDao.updateTag(param);
 
-		System.out.println(result);
-
 		if (chkItemCode == null) {
-			System.out.println("No Tag");
 			return 103;
 		} else if (result == 0) {
-			System.out.println("No Result");
 			return 101;
 		} else {
-			System.out.println("Success");
 			return 200;
 		}
 	}
@@ -77,10 +70,8 @@ public class ItemTagServiceImpl implements ItemTagService {
 		int result = itemTagDao.deleteTag(param);
 
 		if (result == 0) {
-			System.out.println("No Result");
 			return 101;
 		} else {
-			System.out.println("Success");
 			return 200;
 		}
 	}

@@ -9,11 +9,11 @@ import com.example.demo.dto.SingleResult;
 
 public interface ApiService {
 
-	public <T> ListResult<T> getListResult(List<T> dataList, int statusCode);
+	public <T> ListResult<T> getListResult(String value, List<T> dataList, int statusCode);
 
-	public <T> SingleResult<T> getSingleResult(Integer data);
+	public <T> SingleResult<T> getSingleResult(String value, Integer data);
 
-	public <T> ReSingleResult<T> getSingleResult(T data, int statusCode);
+	public <T> ReSingleResult<T> getSingleResult(String value, T data, int statusCode);
 	
 	public <T> ListExcelResult<T> getListExcelResult(List<T> overlapTagList, List<T> overlapItemCodeList, int statusCode);
 

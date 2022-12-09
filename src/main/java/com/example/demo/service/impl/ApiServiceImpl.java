@@ -52,111 +52,111 @@ public class ApiServiceImpl implements ApiService {
 	}
 
 	@Override
-	public <T> ReSingleResult<T> getSingleResult(T data, int statusCode) {
+	public <T> ReSingleResult<T> getSingleResult(String value, T data, int statusCode) {
 		ReSingleResult<T> singleResult = new ReSingleResult<>();
 
 		switch (statusCode) {
 		case (200):
 			singleResult.setData(data);
+			System.out.println(value + " " + "Success");
 			setSuccessResult(singleResult);
-			System.out.println("SUCCESS");
 			return singleResult;
 		case (100):
 			setNoDev(singleResult);
-			System.out.println("NO DEVICE");
+			System.out.println("No Device");
 			return singleResult;
 		case (101):
 			setNoData(singleResult);
-			System.out.println("NO RESULT");
+			System.out.println("No Result");
 			return singleResult;
 		case (201):
 			singleResult.setData(data);
+			System.out.println(value + " " + "Success");
 			setLoginSuccess(singleResult);
-			System.out.println("LOGIN SUCCESS");
 			return singleResult;
 		case (202):
 			singleResult.setData(data);
+			System.out.println(value + " " + "Success");
 			setLogoutSuccess(singleResult);
-			System.out.println("LOGOUT SUCCESS");
 			return singleResult;
 		case (106):
 			data = null;
 			setLoginFail(singleResult);
-			System.out.println("LOGIN FAIL");
+			System.out.println("Login Fail");
 			return singleResult;
 		case (107):
 			data = null;
 			setUserIdNull(singleResult);
-			System.out.println("ID IS NULL");
+			System.out.println("No UserId");
 			return singleResult;
 		case (108):
 			data = null;
 			setUserPWNull(singleResult);
-			System.out.println("PW IS NULL");
+			System.out.println("No UserPw");
 			return singleResult;
 		case (111):
 			data = null;
 			setNotNormalParam(singleResult);
-			System.out.println("NOT NORMAL PARAM");
+			System.out.println("Not Normal Param");
 			return singleResult;
 		}
 		return singleResult;
 	}
 
 	@Override
-	public <T> SingleResult<T> getSingleResult(Integer data) {
+	public <T> SingleResult<T> getSingleResult(String value, Integer data) {
 		SingleResult<T> singleResult = new SingleResult<>();
 
 		switch (data) {
 		case (200):
 			singleResult.setData(data);
+			System.out.println(value + " " + "Success");
 			setSuccessResult(singleResult);
-			System.out.println("SUCCESS");
 			return singleResult;
 		case (100):
 			data = null;
 			setNoDev(singleResult);
-			System.out.println("NO DEVICE");
+			System.out.println("No Device");
 			return singleResult;
 		case (101):
 			data = null;
 			setNoData(singleResult);
-			System.out.println("NO RESULT");
+			System.out.println("No Result");
 			return singleResult;
 		case (102):
 			data = null;
 			setExistDev(singleResult);
-			System.out.println("EXIST DEVICE");
+			System.out.println("Exist Device");
 			return singleResult;
 		case (103):
 			data = null;
 			setNoTag(singleResult);
-			System.out.println("NO TAG");
+			System.out.println("No Tag");
 			return singleResult;
 		case (104):
 			data = null;
 			setExistTag(singleResult);
-			System.out.println("EXIST TAG");
+			System.out.println("Exist Tag");
 			return singleResult;
 		case (105):
 			data = null;
 			setExistItemCode(singleResult);
-			System.out.println("EXIST ITEM CODE");
+			System.out.println("Exist ItemCode");
 			return singleResult;
 		case (109):
 			data = null;
 			setExcelUploadFail(singleResult);
-			System.out.println("EXCEL UPLOAD FAIL");
+			System.out.println("Excel Upload Fail");
 			return singleResult;
 		case (110):
 			data = null;
 			setNoCodeName(singleResult);
-			System.out.println("No CODE NAME");
+			System.out.println("No CodeName");
 			return singleResult;
 		case (111):
 			data = null;
 			setNotNormalParam(singleResult);
-			System.out.println("NOT NORMAL PARAM");
+			System.out.println("Not Normal Param");
 			return singleResult;
 		}
 		return singleResult;
@@ -164,30 +164,30 @@ public class ApiServiceImpl implements ApiService {
 
 	// 다중 데이터 조회 결과를 처리하는 메소드
 	@Override
-	public <T> ListResult<T> getListResult(List<T> dataList, int statusCode) {
+	public <T> ListResult<T> getListResult(String value, List<T> dataList, int statusCode) {
 		ListResult<T> listResult = new ListResult<>();
 
 		switch (statusCode) {
 		case (200):
 			listResult.setDataList(dataList);
+			System.out.println(value + " " + "Success");
 			setSuccessResult(listResult);
-			System.out.println("SUCCESS");
 			return listResult;
 		case (100):
 			setNoDev(listResult);
-			System.out.println("NO DEVICE");
+			System.out.println("No Device");
 			return listResult;
 		case (101):
 			setNoData(listResult);
-			System.out.println("NO RESULT");
+			System.out.println("No Result");
 			return listResult;
 		case (103):
 			setNoTag(listResult);
-			System.out.println("NO TAG");
+			System.out.println("no Tag");
 			return listResult;
 		case (111):
 			setNotNormalParam(listResult);
-			System.out.println("NOT NORMAL PARAM");
+			System.out.println("Not Normal Param");
 			return listResult;
 
 		}
@@ -203,34 +203,34 @@ public class ApiServiceImpl implements ApiService {
 		case (200):
 			listExcelResult.setOverlapTagList(overlapTagList);
 			listExcelResult.setOverlapItemCodeList(overlapItemCodeList);
+			System.out.println("ExcelUpload Success");
 			setSuccessResult(listExcelResult);
-			System.out.println("SUCCESS");
 			return listExcelResult;
 		case (101):
 			setNoData(listExcelResult);
-			System.out.println("NO RESULT");
+			System.out.println("No Result");
 			return listExcelResult;
 		case (104):
 			listExcelResult.setOverlapTagList(overlapTagList);
 			setExistTag(listExcelResult);
-			System.out.println("EXIST TAG");
+			System.out.println("Exist Tag");
 			return listExcelResult;
 		case (105):
 			listExcelResult.setOverlapItemCodeList(overlapItemCodeList);
 			setExistItemCode(listExcelResult);
-			System.out.println("EXIST ITEM CODE");
+			System.out.println("Exist ItemCode");
 			return listExcelResult;
 		case (109):
 			setExcelUploadFail(listExcelResult);
-			System.out.println("EXCEL UPLOAD FAIL");
+			System.out.println("Excel Upload Fail");
 			return listExcelResult;
 		case (111):
 			setNotNormalParam(listExcelResult);
-			System.out.println("NOT NORMAL PARAM");
+			System.out.println("Not Normal Param");
 			return listExcelResult;
 		case (112):
 			setNotExcelFile(listExcelResult);
-			System.out.println("NOT EXCEL FILE TYPE");
+			System.out.println("Not ExcelFile Type");
 			return listExcelResult;
 		
 	}

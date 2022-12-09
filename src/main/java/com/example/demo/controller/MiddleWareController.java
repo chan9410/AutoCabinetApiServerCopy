@@ -54,7 +54,7 @@ public class MiddleWareController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("getDeviceList(MW)", dataList, statusCode);
 	}
 
 	// 행, 열 수정(Ver.미들웨어)
@@ -68,10 +68,10 @@ public class MiddleWareController {
 			param.setRowNum((int) map.get("ROW_NUM"));
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 		}catch(NullPointerException e) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 111);
 		}
 
-		return apiService.getSingleResult(devConService.updateColRowNum(param));
+		return apiService.getSingleResult("updateColRowNum(MW)", devConService.updateColRowNum(param));
 	}
 
 	// 태그 값 불러오기(Ver.미들웨어)
@@ -79,8 +79,6 @@ public class MiddleWareController {
 	public @ResponseBody ListResult<GetTagVO> getTag() {
 
 		List<GetTagVO> data = itemTagService.getTag();
-
-		System.out.println(data);
 
 		int statusCode;
 
@@ -90,7 +88,7 @@ public class MiddleWareController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult(data, statusCode);
+		return apiService.getListResult("getTag", data, statusCode);
 	}
 
 }

@@ -52,7 +52,7 @@ public class StockController {
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 		}catch(NullPointerException e) {
-			return apiService.getListResult(null, 111);
+			return apiService.getListResult(null, null, 111);
 		}
 
 		List<ApiTagCountVO> dataList = currentCountService.currentCount(param);
@@ -69,7 +69,7 @@ public class StockController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("currentCount", dataList, statusCode);
 	}
 
 	// 클릭한 구분 영역 정보 불러오기
@@ -82,7 +82,7 @@ public class StockController {
 			param.setLocation((int) map.get("LOCATION"));
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 		}catch(NullPointerException e) {
-			return apiService.getListResult(null, 111);
+			return apiService.getListResult(null, null, 111);
 		}
 
 		List<ApiSearchTagInfoVO> dataList = currentCountService.chkLocationInfo(param);
@@ -99,7 +99,7 @@ public class StockController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("chkLocationInfo", dataList, statusCode);
 	}
 
 	// 리스트 형식의 실시간 재고 페이지에서 특정 조건 조회.
@@ -128,7 +128,7 @@ public class StockController {
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 
 		if((List<String>) map.get("DEVICE_ID_ARR") == null) {
-			return apiService.getListResult(null, 111);
+			return apiService.getListResult(null, null, 111);
 		}else {
 	    param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 			
@@ -139,7 +139,7 @@ public class StockController {
 			} else {
 				statusCode = 200;
 			}
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("getCurrentCountSearch", dataList, statusCode);
 		}
 	}
 
@@ -170,7 +170,7 @@ public class StockController {
 		param.setState((String) map.get("STATE"));
 		
 		if((List<String>) map.get("DEVICE_ID_ARR") == null) {
-			return apiService.getListResult(null, 111);
+			return apiService.getListResult(null, null, 111);
 		}else {
 
 		param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
@@ -183,8 +183,6 @@ public class StockController {
 
 		List<String> chkDevIdArr = iOHistoryService.chkDevIdArr(param);
 		
-		System.out.println(chkDevIdArr);
-
 		if (chkDevIdArr.containsAll(devIdArr) == false) {
 			dataList = null;
 			statusCode = 100;
@@ -201,7 +199,7 @@ public class StockController {
 			}
 
 		}
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("IOHistorySearch", dataList, statusCode);
 	}
 }
 }

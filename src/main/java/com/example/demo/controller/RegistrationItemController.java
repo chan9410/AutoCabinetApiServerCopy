@@ -89,7 +89,7 @@ public class RegistrationItemController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult(dataList, statusCode);
+		return apiService.getListResult("getSearchTag", dataList, statusCode);
 	}
 
 	// 등록 현황 단일 품목 등록
@@ -113,10 +113,10 @@ public class RegistrationItemController {
 			param.setItemCode(map.get("ITEM_CODE").toString());
 			param.setItemName(map.get("ITEM_NAME").toString());
 		}catch(NullPointerException e) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 111);
 		}
 
-		return apiService.getSingleResult(itemTagService.saveTag(param));
+		return apiService.getSingleResult("saveTag", itemTagService.saveTag(param));
 	}
 
 	// 등록 현황 품목 수정
@@ -140,10 +140,10 @@ public class RegistrationItemController {
 		try {
 			param.setItemCode(map.get("ITEM_CODE").toString());
 		}catch(NullPointerException e) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 00111);
 		}
 
-		return apiService.getSingleResult(itemTagService.updateTag(param));
+		return apiService.getSingleResult("updateTag", itemTagService.updateTag(param));
 	}
 
 	// 등록 현황 품목 삭제
@@ -154,7 +154,7 @@ public class RegistrationItemController {
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 		
 		if((List<String>) map.get("ITEM_CODE_ARR") == null) {
-			return apiService.getSingleResult(111);
+			return apiService.getSingleResult(null, 111);
 		} else {
 
 		List<String> itemCodeArr = (List<String>) map.get("ITEM_CODE_ARR");
@@ -169,10 +169,9 @@ public class RegistrationItemController {
 
 			result = itemTagService.deleteTag(param);
 		} else {
-			System.out.println("No ItemCodeArr");
 			result = 103;
 		}
-		return apiService.getSingleResult(result);
+		return apiService.getSingleResult("deleteTag", result);
 		}
 	}
 
@@ -238,7 +237,6 @@ public class RegistrationItemController {
 		}
 		
 		if(dataList.size() == 0) {
-			System.out.println(dataList.size());
 			return apiService.getListExcelResult(null, null, 101);
 		} else {
 				
@@ -258,9 +256,6 @@ public class RegistrationItemController {
 			itemTagService.excelUpload(dataList);
 			statusCode = 200;
 		}
-		
-		System.out.println(statusCode);
-		
 		return apiService.getListExcelResult(chkExcelTagArr, chkExcelItemCodeArr, statusCode);
 
 		}

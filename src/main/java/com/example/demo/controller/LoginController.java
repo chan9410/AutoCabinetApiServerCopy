@@ -48,13 +48,11 @@ public class LoginController {
 			// session이 null이거나 로그인에 성공했을 때 session 기본 객체에 기록한 loginUser를 확인하여 로그인 여부를 확인
 			statusCode = 201;
 			data = session.getAttribute("loginUser").toString();
-			System.out.println(data);
 		} else {
 			statusCode = 106;
 			data = null;
 		}
-
-		return apiService.getSingleResult(data, statusCode);
+		return apiService.getSingleResult("loginChk", data, statusCode);
 	}
 
 	// 로그인
@@ -83,20 +81,17 @@ public class LoginController {
 			selectUserId = null;
 			selectUserPW = null;
 			selectUser = null;
-			return apiService.getSingleResult(null, 111);
+			return apiService.getSingleResult(null, null, 111);
 		}
 
 
 		if (selectUserId == null) {
-			System.out.println("UserId is Null");
 			statusCode = 107;
 			data = null;
 		} else if (selectUserPW == null) {
-			System.out.println("UserPW is Null");
 			statusCode = 108;
 			data = null;
 		} else if (selectUser == null) {
-			System.out.println("Login Fail");
 			statusCode = 106;
 			data = null;
 		} else {
@@ -113,8 +108,7 @@ public class LoginController {
 			statusCode = 201;
 			data = selectUserId;
 		}
-
-		return apiService.getSingleResult(data, statusCode);
+		return apiService.getSingleResult("login", data, statusCode);
 
 	}
 
@@ -131,10 +125,9 @@ public class LoginController {
 
 			session.invalidate();// session 날림
 			statusCode = 202;
-			return apiService.getSingleResult(data, statusCode);
+			return apiService.getSingleResult("logout", data, statusCode);
 
 		} else {
-			System.out.println("Logout Fail");
 			return null;
 		}
 	}
@@ -143,7 +136,7 @@ public class LoginController {
 	@GetMapping(value = "/loginResult")
 	public @ResponseBody ReSingleResult<String> loginResult(HttpServletRequest request) {
 
-		return apiService.getSingleResult(null, 106);
+		return apiService.getSingleResult(null, null, 106);
 	}
 
 }

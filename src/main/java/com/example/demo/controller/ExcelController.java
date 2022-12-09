@@ -93,19 +93,16 @@ public class ExcelController {
 			data.setItemNote((String) map.get("11"));
 			
 			} catch (IllegalArgumentException e) {
-				System.out.println("IllegalArgumentException");
+				e.printStackTrace();
 				data = null;
 			} catch (NullPointerException e) {
-				System.out.println("NullPointerException");
+				e.printStackTrace();
 				data = null;
 			}
 
 			dataList.add(data);
-
 		}
 
-		System.out.println(dataList);
-
-		return apiService.getListResult(dataList, 200);
+		return apiService.getListResult(null, dataList, 200);
 	}
 }
