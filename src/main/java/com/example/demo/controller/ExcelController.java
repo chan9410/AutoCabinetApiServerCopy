@@ -49,7 +49,6 @@ public class ExcelController {
 			throw new IOException("엑셀파일만 업로드 해주세요.");
 		}
 
-		@SuppressWarnings("unused")
 		Workbook workbook = null;
 
 		// workbook.setMissingCellPolicy(MissingCellPolicy.CREATE_NULL_AS_BLANK);
@@ -69,7 +68,9 @@ public class ExcelController {
 
 		for (Map<String, Object> map : listMap) {
 			ExcelData data = new ExcelData();
-
+			
+			try {
+				
 			data.setTag(map.get("0").toString());
 			data.setItemCode(map.get("1").toString());
 			data.setItemName(map.get("2").toString());
@@ -90,6 +91,14 @@ public class ExcelController {
 			data.setItemRoom((String) map.get("9"));
 			data.setItemSite((String) map.get("10"));
 			data.setItemNote((String) map.get("11"));
+			
+			} catch (IllegalArgumentException e) {
+				System.out.println("IllegalArgumentException");
+				data = null;
+			} catch (NullPointerException e) {
+				System.out.println("NullPointerException");
+				data = null;
+			}
 
 			dataList.add(data);
 

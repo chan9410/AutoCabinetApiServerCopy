@@ -177,13 +177,14 @@ public class RegistrationItemController {
 
 	// 엑셀 업로드
 	@PostMapping(value = "/excelUpload", produces = "application/json")
-	public @ResponseBody SingleResult<ExcelData> excelUpload(@RequestParam("file") MultipartFile file, Model model)
+	public @ResponseBody ListExcelResult<ExcelData> excelUpload(@RequestParam("file") MultipartFile file, Model model)
 			throws IOException {
 
-		String extension = FilenameUtils.getExtension(file.getOriginalFilename()); // 3
+		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
 
 		if (!extension.equals("xlsx") && !extension.equals("xls")) {
-			throw new IOException("엑셀파일만 업로드 해주세요.");
+			//throw new IOException("엑셀파일만 업로드 해주세요.");
+			return apiService.getListExcelResult(null, null, 112);
 		}
 
 		Workbook workbook = null;
@@ -234,20 +235,38 @@ public class RegistrationItemController {
 
 			dataList.add(data);
 		}
-
-		int result = itemTagService.excelUpload(dataList);
-
-		return apiService.getSingleResult(result);
+		
+		System.out.println(dataList);
+		
+		List<ExcelData> chkExcelTagArr = itemTagService.chkExcelTagArr(dataList);
+		
+		List<ExcelData> chkExcelItemCodeArr = itemTagService.chkExcelItemCodeArr(dataList);
+		
+		int statusCode;
+						
+		if (dataList.contains(null) == true) {
+			statusCode = 109;
+		}else if(chkExcelTagArr.size() != 0) {
+			statusCode = 104;
+		}else if(chkExcelItemCodeArr.size() != 0){
+			statusCode = 105;
+		}else if(itemTagService.excelUpload(dataList) == 0){
+			statusCode = 101;
+		}else {
+			statusCode = 200;
+		}
+		
+		System.out.println(statusCode);
+		
+		return apiService.getListExcelResult(chkExcelTagArr, chkExcelItemCodeArr, statusCode);
 
 	}
 
 	// 엑셀 템플릿 파일(기본 파일) 다운로드
 	@PostMapping(value = "/downloadTemplateFile")
-	public void downloadTemplateFile(HttpServletResponse response) throws IOException {
+	public void downloadTemplateFile(HttpServletResponse response) throws IOException {//GetMapping으로 변경 필요
 
 		response.setContentType("ms-vnd/excel");
-		// response.setHeader("Content-Disposition",
-		// "attachment;filename=testExcel.xlsx");
 
 		LocalDateTime now = LocalDateTime.now();
 

@@ -23,4 +23,8 @@ public interface ItemTagService {
 
 	public int excelUpload(List<ExcelData> dataList);
 
+	public List<ExcelData> chkExcelTagArr(List<ExcelData> dataList);
+
+	public List<ExcelData> chkExcelItemCodeArr(List<ExcelData> dataList);
+
 }

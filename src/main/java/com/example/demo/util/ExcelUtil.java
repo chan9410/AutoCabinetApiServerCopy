@@ -97,6 +97,8 @@ public class ExcelUtil {
 
 					}
 					excelList.add(map);
+				}else {
+					excelList.add(null);
 				}
 			}
 

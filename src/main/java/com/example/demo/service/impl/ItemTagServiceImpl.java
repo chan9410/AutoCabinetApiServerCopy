@@ -92,24 +92,16 @@ public class ItemTagServiceImpl implements ItemTagService {
 
 	@Override
 	public int excelUpload(List<ExcelData> dataList) {
+		return itemTagDao.excelUpload(dataList);
+	}
 
-		int resultCode;
+	@Override
+	public List<ExcelData> chkExcelTagArr(List<ExcelData> dataList) {
+		return itemTagDao.chkExcelTagArr(dataList);
+	}
 
-		List<ExcelData> chkExcelTagArr = itemTagDao.chkExcelTagArr(dataList);
-
-		List<ExcelData> chkExcelItemCodeArr = itemTagDao.chkExcelItemCodeArr(dataList);
-
-		if (dataList.contains(null) == true) {
-			resultCode = 109;
-		} else if (chkExcelTagArr.size() != 0) {
-			resultCode = 104;
-		} else if (chkExcelItemCodeArr.size() != 0) {
-			resultCode = 105;
-		} else {
-			resultCode = 200;
-			itemTagDao.excelUpload(dataList);
-		}
-
-		return resultCode;
+	@Override
+	public List<ExcelData> chkExcelItemCodeArr(List<ExcelData> dataList) {
+		return itemTagDao.chkExcelItemCodeArr(dataList);
 	}
 }
