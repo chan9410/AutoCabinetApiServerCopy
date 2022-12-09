@@ -133,23 +133,13 @@ public class StockController {
 
 		int statusCode;
 
-		List<CurrentCountSearchTagVO> dataList;
-
-		if ((List<String>) map.get("DEVICE_ID_ARR") == null) {
-
-			statusCode = 100;
-			dataList = null;
-
-		} else {
-
-			dataList = currentCountService.getCurrentCountSearch(param);
+		List<CurrentCountSearchTagVO> dataList = currentCountService.getCurrentCountSearch(param);
 
 			if (dataList.isEmpty()) {
 				statusCode = 101;
 			} else {
 				statusCode = 200;
 			}
-		}
 		return apiService.getListResult(dataList, statusCode);
 	}
 
