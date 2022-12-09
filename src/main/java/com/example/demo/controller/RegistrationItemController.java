@@ -33,7 +33,6 @@ import com.example.demo.dto.ExcelData;
 import com.example.demo.dto.GetSearchTagVO;
 import com.example.demo.dto.ListExcelResult;
 import com.example.demo.dto.ListResult;
-import com.example.demo.dto.ReSingleResult;
 import com.example.demo.dto.SingleResult;
 import com.example.demo.service.ApiService;
 import com.example.demo.service.ItemTagService;
@@ -236,8 +235,11 @@ public class RegistrationItemController {
 			dataList.add(data);
 		}
 		
-		System.out.println(dataList);
-		
+		if(dataList.size() == 0) {
+			System.out.println(dataList.size());
+			return apiService.getListExcelResult(null, null, 101);
+		} else {
+				
 		List<ExcelData> chkExcelTagArr = itemTagService.chkExcelTagArr(dataList);
 		
 		List<ExcelData> chkExcelItemCodeArr = itemTagService.chkExcelItemCodeArr(dataList);
@@ -250,9 +252,8 @@ public class RegistrationItemController {
 			statusCode = 104;
 		}else if(chkExcelItemCodeArr.size() != 0){
 			statusCode = 105;
-		}else if(itemTagService.excelUpload(dataList) == 0){
-			statusCode = 101;
 		}else {
+			itemTagService.excelUpload(dataList);
 			statusCode = 200;
 		}
 		
@@ -260,6 +261,7 @@ public class RegistrationItemController {
 		
 		return apiService.getListExcelResult(chkExcelTagArr, chkExcelItemCodeArr, statusCode);
 
+		}
 	}
 
 	// 엑셀 템플릿 파일(기본 파일) 다운로드

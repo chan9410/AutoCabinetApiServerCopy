@@ -207,7 +207,6 @@ public class ApiServiceImpl implements ApiService {
 			System.out.println("SUCCESS");
 			return listExcelResult;
 		case (101):
-			listExcelResult = null;
 			setNoData(listExcelResult);
 			System.out.println("NO RESULT");
 			return listExcelResult;
