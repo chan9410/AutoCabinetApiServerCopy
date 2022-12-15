@@ -30,18 +30,18 @@ public class CurrentCountServiceImpl implements CurrentCountService {
 	}
 
 	@Override
-	public List<ApiTagCountVO> currentCount(ApiTagInfoParam param) {
-		return currentCountDao.currentCount(param);
+	public List<ApiTagCountVO> getCurrentStockCount(ApiTagInfoParam param) {
+		return currentCountDao.getCurrentStockCount(param);
 	}
 
 	@Override
-	public List<ApiSearchTagInfoVO> chkLocationInfo(ApiTagInfoParam param) {
-		return currentCountDao.chkLocationInfo(param);
+	public List<ApiSearchTagInfoVO> getCurrentLocationInfo(ApiTagInfoParam param) {
+		return currentCountDao.getCurrentLocationInfo(param);
 	}
 
 	@Override
-	public List<CurrentCountSearchTagVO> getCurrentCountSearch(ApiItemTagInfoParam param) {
-		return currentCountDao.getCurrentCountSearch(param);
+	public List<CurrentCountSearchTagVO> getCurrentStockInfo(ApiItemTagInfoParam param) {
+		return currentCountDao.getCurrentStockInfo(param);
 	}
 
 }

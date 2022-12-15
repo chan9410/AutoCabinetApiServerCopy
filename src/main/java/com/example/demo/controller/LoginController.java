@@ -37,8 +37,8 @@ public class LoginController {
 	}
 
 	// 로그인 체크
-	@GetMapping(value = "/loginChk")
-	public @ResponseBody ReSingleResult<String> loginChk(HttpServletRequest request) {
+	@GetMapping(value = "/getLoginResult")
+	public @ResponseBody ReSingleResult<String> getLoginResult(HttpServletRequest request) {
 		/* HttpSession session = request.getSession(); */
 		HttpSession session = request.getSession(false);
 		int statusCode;
@@ -52,7 +52,7 @@ public class LoginController {
 			statusCode = 106;
 			data = null;
 		}
-		return apiService.getSingleResult("loginChk", data, statusCode);
+		return apiService.getSingleResult("getLoginResult", data, statusCode);
 	}
 
 	// 로그인

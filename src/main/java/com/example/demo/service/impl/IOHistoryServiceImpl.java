@@ -31,8 +31,8 @@ public class IOHistoryServiceImpl implements IOHistoryService {
 	}
 
 	@Override
-	public List<IOHistotyVO> IOHistorySearch(ApiItemTagInfoParam param) {
-		return iOHistoryDao.IOHistorySearch(param);
+	public List<IOHistotyVO> getIOHistory(ApiItemTagInfoParam param) {
+		return iOHistoryDao.getIOHistory(param);
 	}
 
 	@Override

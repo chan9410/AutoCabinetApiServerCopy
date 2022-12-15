@@ -59,8 +59,8 @@ public class RegistrationItemController {
 	}
 
 	// 등록 현황 품목 조회
-	@PostMapping(value = "/getSearchTag", produces = "application/json")
-	public @ResponseBody ListResult<GetSearchTagVO> getSearchTag(@RequestBody HashMap<String, Object> map) {
+	@PostMapping(value = "/getTagInfo", produces = "application/json")
+	public @ResponseBody ListResult<GetSearchTagVO> getTagInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
@@ -79,7 +79,7 @@ public class RegistrationItemController {
 		param.setItemGetHighPrice((String) map.get("ITEM_GET_HIGH_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 
-		List<GetSearchTagVO> dataList = itemTagService.getSearchTag(param);
+		List<GetSearchTagVO> dataList = itemTagService.getTagInfo(param);
 
 		int statusCode;
 
@@ -89,7 +89,7 @@ public class RegistrationItemController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult("getSearchTag", dataList, statusCode);
+		return apiService.getListResult("getTagInfo", dataList, statusCode);
 	}
 
 	// 등록 현황 단일 품목 등록
@@ -176,8 +176,8 @@ public class RegistrationItemController {
 	}
 
 	// 엑셀 업로드
-	@PostMapping(value = "/excelUpload", produces = "application/json")
-	public @ResponseBody ListExcelResult<ExcelData> excelUpload(@RequestParam("file") MultipartFile file, Model model)
+	@PostMapping(value = "/saveItemExcel", produces = "application/json")
+	public @ResponseBody ListExcelResult<ExcelData> saveItemExcel(@RequestParam("file") MultipartFile file, Model model)
 			throws IOException {
 
 		String extension = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -253,7 +253,7 @@ public class RegistrationItemController {
 		}else if(chkExcelItemCodeArr.size() != 0){
 			statusCode = 105;
 		}else {
-			itemTagService.excelUpload(dataList);
+			itemTagService.saveItemExcel(dataList);
 			statusCode = 200;
 		}
 		return apiService.getListExcelResult(chkExcelTagArr, chkExcelItemCodeArr, statusCode);
@@ -262,8 +262,8 @@ public class RegistrationItemController {
 	}
 
 	// 엑셀 템플릿 파일(기본 파일) 다운로드
-	@PostMapping(value = "/downloadTemplateFile")
-	public void downloadTemplateFile(HttpServletResponse response) throws IOException {//GetMapping으로 변경 필요
+	@PostMapping(value = "/getTemplateExcel")
+	public void getTemplateExcel(HttpServletResponse response) throws IOException {//GetMapping으로 변경 필요
 
 		response.setContentType("ms-vnd/excel");
 

@@ -16,7 +16,7 @@ public interface IOHistoryDao {
 
 	public List<IOHistotyVO> outputHistorySearch(ApiItemTagInfoParam param);
 
-	public List<IOHistotyVO> IOHistorySearch(ApiItemTagInfoParam param);
+	public List<IOHistotyVO> getIOHistory(ApiItemTagInfoParam param);
 
 	public List<String> chkDevIdArr(ApiItemTagInfoParam param);
 

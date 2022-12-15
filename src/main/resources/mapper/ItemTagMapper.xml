@@ -73,7 +73,7 @@
 		)
 	</insert>
 
-	<select id="getSearchTag"
+	<select id="getTagInfo"
 		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
 		resultType="com.example.demo.dto.GetSearchTagVO">
 
@@ -268,7 +268,7 @@
 		)
 	</select>
 
-	<insert id="excelUpload"
+	<insert id="saveItemExcel"
 		parameterType="java.util.List">
 
 		INSERT INTO

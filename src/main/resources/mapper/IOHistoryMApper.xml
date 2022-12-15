@@ -18,7 +18,7 @@
 		AND STATE = 1;
 	</select>
 
-	<select id="IOHistorySearch"
+	<select id="getIOHistory"
 		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
 		resultType="com.example.demo.dto.IOHistotyVO">
 

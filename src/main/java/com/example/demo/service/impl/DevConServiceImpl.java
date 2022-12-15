@@ -59,7 +59,7 @@ public class DevConServiceImpl implements DevConService {
 	}
 
 	@Override
-	public int delDevice(ApiDeviceControllVO param) {
+	public int deleteDevice(ApiDeviceControllVO param) {
 
 		String chkDevId = devConDao.chkDeviceId(param);
 
@@ -68,7 +68,7 @@ public class DevConServiceImpl implements DevConService {
 		} else {
 			try {
 				devConDao.delDeviceState(param);
-				devConDao.delDevice(param);
+				devConDao.deleteDevice(param);
 				return 200;
 			} catch (Exception e) {
 				return 101;
@@ -99,8 +99,8 @@ public class DevConServiceImpl implements DevConService {
 	}
 
 	@Override
-	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param) {
-		return devConDao.chkDevInfo(param);
+	public ApiChkDevVO getDeviceInfo(ApiTagInfoParam param) {
+		return devConDao.getDeviceInfo(param);
 	}
 
 	@Override
@@ -126,12 +126,12 @@ public class DevConServiceImpl implements DevConService {
 	}
 
 	@Override
-	public int updateSysCode(SysCodeParam param) {
+	public int updateSysCodeValue(SysCodeParam param) {
 
 		String chkCodeName = devConDao.chkCodeName(param);
 
 		int statusCode;
-		int result = devConDao.updateSysCode(param);
+		int result = devConDao.updateSysCodeValue(param);
 
 		if (chkCodeName == null) {
 			statusCode = 110;
@@ -145,8 +145,8 @@ public class DevConServiceImpl implements DevConService {
 	}
 
 	@Override
-	public List<ApiDevTotalValueVO> getDevTotalValueList() {
-		return devConDao.getDevTotalValueList();
+	public List<ApiDevTotalValueVO> getDeviceStateList() {
+		return devConDao.getDeviceStateList();
 	}
 
 }

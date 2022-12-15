@@ -44,8 +44,8 @@ public class StockController {
 	}
 
 	// 실시간 카운트 불러오기
-	@PostMapping(value = "/currentCount", produces = "application/json")
-	public @ResponseBody ListResult<ApiTagCountVO> currentCount(@RequestBody HashMap<String, Object> map) {
+	@PostMapping(value = "/getCurrentStockCount", produces = "application/json")
+	public @ResponseBody ListResult<ApiTagCountVO> getCurrentStockCount(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		
@@ -55,7 +55,7 @@ public class StockController {
 			return apiService.getListResult(null, null, 111);
 		}
 
-		List<ApiTagCountVO> dataList = currentCountService.currentCount(param);
+		List<ApiTagCountVO> dataList = currentCountService.getCurrentStockCount(param);
 
 		String chkDev = currentCountService.chkDeviceId(param);
 
@@ -69,12 +69,12 @@ public class StockController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult("currentCount", dataList, statusCode);
+		return apiService.getListResult("getCurrentStockCount", dataList, statusCode);
 	}
 
 	// 클릭한 구분 영역 정보 불러오기
-	@PostMapping(value = "/chkLocationInfo", produces = "application/json")
-	public @ResponseBody ListResult<ApiSearchTagInfoVO> chkLocationInfo(@RequestBody HashMap<String, Object> map) {
+	@PostMapping(value = "/getCurrentLocationInfo", produces = "application/json")
+	public @ResponseBody ListResult<ApiSearchTagInfoVO> getCurrentLocationInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		
@@ -85,7 +85,7 @@ public class StockController {
 			return apiService.getListResult(null, null, 111);
 		}
 
-		List<ApiSearchTagInfoVO> dataList = currentCountService.chkLocationInfo(param);
+		List<ApiSearchTagInfoVO> dataList = currentCountService.getCurrentLocationInfo(param);
 
 		String chkDev = currentCountService.chkDeviceId(param);
 
@@ -99,13 +99,13 @@ public class StockController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult("chkLocationInfo", dataList, statusCode);
+		return apiService.getListResult("getCurrentLocationInfo", dataList, statusCode);
 	}
 
 	// 리스트 형식의 실시간 재고 페이지에서 특정 조건 조회.
 	@SuppressWarnings("unchecked")
-	@PostMapping(value = "/getCurrentCountSearch", produces = "application/json")
-	public @ResponseBody ListResult<CurrentCountSearchTagVO> getCurrentCountSearch(
+	@PostMapping(value = "/getCurrentStockInfo", produces = "application/json")
+	public @ResponseBody ListResult<CurrentCountSearchTagVO> getCurrentStockInfo(
 			@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
@@ -132,21 +132,21 @@ public class StockController {
 		}else {
 	    param.setDeviceIdArr((List<String>) map.get("DEVICE_ID_ARR"));
 			
-		List<CurrentCountSearchTagVO> dataList = currentCountService.getCurrentCountSearch(param);
+		List<CurrentCountSearchTagVO> dataList = currentCountService.getCurrentStockInfo(param);
 		
 			if (dataList.isEmpty()) {
 				statusCode = 101;
 			} else {
 				statusCode = 200;
 			}
-		return apiService.getListResult("getCurrentCountSearch", dataList, statusCode);
+		return apiService.getListResult("getCurrentStockInfo", dataList, statusCode);
 		}
 	}
 
 	// 입출고 통합 History 조회
 	@SuppressWarnings("unchecked")
-	@PostMapping(value = "/IOHistorySearch", produces = "application/json")
-	public @ResponseBody ListResult<IOHistotyVO> IOHistorySearch(@RequestBody HashMap<String, Object> map) {
+	@PostMapping(value = "/getIOHistory", produces = "application/json")
+	public @ResponseBody ListResult<IOHistotyVO> getIOHistory(@RequestBody HashMap<String, Object> map) {
 
 		ApiItemTagInfoParam param = new ApiItemTagInfoParam();
 
@@ -188,7 +188,7 @@ public class StockController {
 			statusCode = 100;
 		} else {
 
-			dataList = iOHistoryService.IOHistorySearch(param);
+			dataList = iOHistoryService.getIOHistory(param);
 
 			if (dataList.isEmpty()) {
 				dataList = null;
@@ -199,7 +199,7 @@ public class StockController {
 			}
 
 		}
-		return apiService.getListResult("IOHistorySearch", dataList, statusCode);
+		return apiService.getListResult("getIOHistory", dataList, statusCode);
 	}
 }
 }

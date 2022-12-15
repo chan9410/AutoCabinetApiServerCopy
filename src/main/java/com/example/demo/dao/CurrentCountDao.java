@@ -15,11 +15,11 @@ import com.example.demo.dto.CurrentCountSearchTagVO;
 @Mapper
 public interface CurrentCountDao {
 
-	public List<ApiTagCountVO> currentCount(ApiTagInfoParam param);
+	public List<ApiTagCountVO> getCurrentStockCount(ApiTagInfoParam param);
 
-	public List<ApiSearchTagInfoVO> chkLocationInfo(ApiTagInfoParam param);
+	public List<ApiSearchTagInfoVO> getCurrentLocationInfo(ApiTagInfoParam param);
 
-	public List<CurrentCountSearchTagVO> getCurrentCountSearch(ApiItemTagInfoParam param);
+	public List<CurrentCountSearchTagVO> getCurrentStockInfo(ApiItemTagInfoParam param);
 
 	public String chkDeviceId(ApiTagInfoParam param);
 

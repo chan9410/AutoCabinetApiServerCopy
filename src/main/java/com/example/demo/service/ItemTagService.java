@@ -17,11 +17,11 @@ public interface ItemTagService {
 
 	public List<String> chkItemCodeArr(ApiItemTagInfoParam param);
 
-	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param);
+	public List<GetSearchTagVO> getTagInfo(ApiItemTagInfoParam param);
 
 	public List<GetTagVO> getTag();
 
-	public int excelUpload(List<ExcelData> dataList);
+	public int saveItemExcel(List<ExcelData> dataList);
 
 	public List<ExcelData> chkExcelTagArr(List<ExcelData> dataList);
 

@@ -15,11 +15,11 @@ public interface DevConService {
 
 	public int saveDevice(ApiTagInfoParam param);
 
-	public int delDevice(ApiDeviceControllVO param);
+	public int deleteDevice(ApiDeviceControllVO param);
 
 	public ApiColRowNumVO getColRowNum(ApiTagInfoParam param);
 
-	public ApiChkDevVO chkDevInfo(ApiTagInfoParam param);
+	public ApiChkDevVO getDeviceInfo(ApiTagInfoParam param);
 
 	public List<ApiDeviceControllVO> getDeviceList();
 
@@ -27,8 +27,8 @@ public interface DevConService {
 
 	public int updateColRowNum(ApiTagInfoParam param);
 
-	public int updateSysCode(SysCodeParam param);
+	public int updateSysCodeValue(SysCodeParam param);
 
-	public List<ApiDevTotalValueVO> getDevTotalValueList();
+	public List<ApiDevTotalValueVO> getDeviceStateList();
 
 }

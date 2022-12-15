@@ -20,7 +20,7 @@ public interface ItemTagDao {
 
 	public int deleteTag(ApiItemTagInfoParam param);
 
-	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param);
+	public List<GetSearchTagVO> getTagInfo(ApiItemTagInfoParam param);
 
 	public String chkTag(ApiItemTagInfoParam param);
 
@@ -36,7 +36,7 @@ public interface ItemTagDao {
 
 	public String chkItemCode(ExcelData data);
 
-	public int excelUpload(List<ExcelData> dataList);
+	public int saveItemExcel(List<ExcelData> dataList);
 
 	public List<ExcelData> chkExcelTagArr(List<ExcelData> dataList);
 

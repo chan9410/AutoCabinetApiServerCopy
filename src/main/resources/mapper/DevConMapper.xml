@@ -101,7 +101,7 @@
 		WHERE DEVICE_ID = #{deviceId};
 	</delete>
 
-	<update id="delDevice"
+	<update id="deleteDevice"
 		parameterType="com.example.demo.dto.ApiDeviceControllVO">
 
 		UPDATE tb_device_info
@@ -128,7 +128,7 @@
 
 	</select>
 
-	<select id="chkDevInfo"
+	<select id="getDeviceInfo"
 		parameterType="com.example.demo.dto.ApiTagInfoParam"
 		resultType="com.example.demo.dto.ApiChkDevVO">
 
@@ -175,7 +175,7 @@
 
 	</update>
 
-	<update id="updateSysCode"
+	<update id="updateSysCodeValue"
 		parameterType="com.example.demo.dto.SysCodeParam">
 
 		UPDATE tb_sys_code
@@ -188,7 +188,7 @@
 
 	</update>
 	
-	<select id="getDevTotalValueList"
+	<select id="getDeviceStateList"
 		resultType="com.example.demo.dto.ApiDevTotalValueVO">
 
 		SELECT

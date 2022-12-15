@@ -23,8 +23,8 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
-	public List<GetSearchTagVO> getSearchTag(ApiItemTagInfoParam param) {
-		return itemTagDao.getSearchTag(param);
+	public List<GetSearchTagVO> getTagInfo(ApiItemTagInfoParam param) {
+		return itemTagDao.getTagInfo(param);
 	}
 
 	@Override
@@ -82,8 +82,8 @@ public class ItemTagServiceImpl implements ItemTagService {
 	}
 
 	@Override
-	public int excelUpload(List<ExcelData> dataList) {
-		return itemTagDao.excelUpload(dataList);
+	public int saveItemExcel(List<ExcelData> dataList) {
+		return itemTagDao.saveItemExcel(dataList);
 	}
 
 	@Override

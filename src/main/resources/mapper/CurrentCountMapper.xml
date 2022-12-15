@@ -15,7 +15,7 @@
 
 	</select>
 
-	<select id="currentCount"
+	<select id="getCurrentStockCount"
 		parameterType="com.example.demo.dto.ApiTagInfoParam"
 		resultType="com.example.demo.dto.ApiTagCountVO">
 
@@ -29,7 +29,7 @@
 
 	</select>
 
-	<select id="chkLocationInfo"
+	<select id="getCurrentLocationInfo"
 		parameterType="com.example.demo.dto.ApiTagInfoParam"
 		resultType="com.example.demo.dto.ApiSearchTagInfoVO">
 
@@ -49,7 +49,7 @@
 
 	</select>
 
-	<select id="getCurrentCountSearch"
+	<select id="getCurrentStockInfo"
 		parameterType="com.example.demo.dto.ApiItemTagInfoParam"
 		resultType="com.example.demo.dto.CurrentCountSearchTagVO">
 

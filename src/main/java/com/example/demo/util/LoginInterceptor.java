@@ -16,7 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 	public List<String> loginEssential = Arrays.asList("/devCon/**", "/itemCon/**", "/stockCon/**"/* , "/report/**" */);
 
-	public List<String> loginInessential = Arrays.asList("/mwCon/**", "/loginChk", "login");
+	public List<String> loginInessential = Arrays.asList("/mwCon/**", "/getLoginResult", "login");
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

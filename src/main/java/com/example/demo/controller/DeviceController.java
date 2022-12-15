@@ -83,8 +83,8 @@ public class DeviceController {
 
 	// 장비 제거
 
-	@PostMapping(value = "/delDevice", produces = "application/json")
-	public @ResponseBody SingleResult<Integer> delDevice(@RequestBody HashMap<String, Object> map) {
+	@PostMapping(value = "/deleteDevice", produces = "application/json")
+	public @ResponseBody SingleResult<Integer> deleteDevice(@RequestBody HashMap<String, Object> map) {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		
@@ -94,7 +94,7 @@ public class DeviceController {
 			return apiService.getSingleResult(null, 111);
 		}
 
-		return apiService.getSingleResult("delDevice", devConService.delDevice(param));
+		return apiService.getSingleResult("deleteDevice", devConService.deleteDevice(param));
 	}
 
 	// COL,ROW 개수 불러오기
@@ -128,8 +128,8 @@ public class DeviceController {
 	}
 
 	// 선택한 장비의 정보 불러오기
-	@PostMapping(value = "/chkDevInfo", produces = "application/json")
-	public @ResponseBody ReSingleResult<ApiChkDevVO> chkDevInfo(@RequestBody HashMap<String, Object> map) {
+	@PostMapping(value = "/getDeviceInfo", produces = "application/json")
+	public @ResponseBody ReSingleResult<ApiChkDevVO> getDeviceInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		
@@ -137,7 +137,7 @@ public class DeviceController {
 		
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
-			data = devConService.chkDevInfo(param);
+			data = devConService.getDeviceInfo(param);
 		}catch(NullPointerException e) {
 			data = null;
 			return apiService.getSingleResult(null, null, 111);
@@ -155,7 +155,7 @@ public class DeviceController {
 			statusCode = 200;
 		}
 
-		return apiService.getSingleResult("chkDevInfo", data, statusCode);
+		return apiService.getSingleResult("getDeviceInfo", data, statusCode);
 
 	}
 
@@ -177,8 +177,8 @@ public class DeviceController {
 	}
 
 	// SysCode Value 값 수정
-	@PostMapping(value = "updateSysCode", produces = "application/json")
-	public @ResponseBody SingleResult<Integer> updateSysCode(@RequestBody HashMap<String, Object> map) {
+	@PostMapping(value = "updateSysCodeValue", produces = "application/json")
+	public @ResponseBody SingleResult<Integer> updateSysCodeValue(@RequestBody HashMap<String, Object> map) {
 
 		SysCodeParam param = new SysCodeParam();
 		
@@ -190,14 +190,14 @@ public class DeviceController {
 			return apiService.getSingleResult(null, 111);
 		}
 
-		return apiService.getSingleResult("updateSysCode", devConService.updateSysCode(param));
+		return apiService.getSingleResult("updateSysCodeValue", devConService.updateSysCodeValue(param));
 	}
 
 	// 디바이스 값과 상태값을 동시 출력
-	@GetMapping(value = "/getDevTotalValueList", produces = "application/json")
-	public @ResponseBody ListResult<ApiDevTotalValueVO> getDevTotalValueList() {
+	@GetMapping(value = "/getDeviceStateList", produces = "application/json")
+	public @ResponseBody ListResult<ApiDevTotalValueVO> getDeviceStateList() {
 
-		List<ApiDevTotalValueVO> dataList = devConService.getDevTotalValueList();
+		List<ApiDevTotalValueVO> dataList = devConService.getDeviceStateList();
 
 		int statusCode;
 
@@ -207,7 +207,7 @@ public class DeviceController {
 			statusCode = 200;
 		}
 
-		return apiService.getListResult("getDevTotalValueList", dataList, statusCode);
+		return apiService.getListResult("getDeviceStateList", dataList, statusCode);
 
 	}
 }
