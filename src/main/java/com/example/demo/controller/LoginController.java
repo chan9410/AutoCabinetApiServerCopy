@@ -52,7 +52,7 @@ public class LoginController {
 			statusCode = 106;
 			data = null;
 		}
-		return apiService.getSingleResult("getLoginResult", data, statusCode);
+		return apiService.getSingleResult("getLoginResult", null, statusCode);
 	}
 
 	// 로그인
@@ -117,18 +117,21 @@ public class LoginController {
 	public @ResponseBody ReSingleResult<String> logout(HttpServletRequest request) {
 
 		HttpSession session = request.getSession(false);
-		int statusCode;
 		String data;
+		int statusCode;
 
 		if (session != null) {
 			data = session.getAttribute("loginUser").toString();
-
-			session.invalidate();// session 날림
+			
 			statusCode = 202;
-			return apiService.getSingleResult("logout", data, statusCode);
+			
+			session.invalidate();// session 날림
+						
+			return apiService.getSingleResult("logout", null, 202);
 
 		} else {
-			return null;
+			statusCode = 112;
+			return apiService.getSingleResult(null, null, 112);
 		}
 	}
 

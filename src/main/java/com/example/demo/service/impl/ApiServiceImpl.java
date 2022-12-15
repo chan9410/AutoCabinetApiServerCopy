@@ -30,6 +30,7 @@ public class ApiServiceImpl implements ApiService {
 		USER_PW_NULL(206, "DB 상에 등록되지 않은 PW입니다."),
 		NOT_NORMAL_PARAM(207, "파라미터가 정상적으로 입력되지 않았습니다."),
 		LOGIN_FAIL(401, "로그인에 실패하였습니다."),
+		LOGOUT_FAIL(201, "로그아웃에 실패하였습니다."),
 		EXCEL_UPLOAD_FAIL(402, "Excel Upload에 실패하였습니다. Excel 파일을 형식에 맞추어 작성하였는지 다시 한번 확인바랍니다."),
 		NOT_EXCEL_FILE(403, "Excel File 형식의 파일만 업로드할 수 있습니다.");
 
@@ -83,6 +84,11 @@ public class ApiServiceImpl implements ApiService {
 			data = null;
 			setLoginFail(singleResult);
 			System.out.println("Login Fail");
+			return singleResult;
+		case (112):
+			data = null;
+			setLogoutFail(singleResult);
+			System.out.println("Logout Fail");
 			return singleResult;
 		case (107):
 			data = null;
@@ -281,10 +287,15 @@ public class ApiServiceImpl implements ApiService {
 		result.setCode(CommonResponse.LOGOUT_SUCCESS.getCode());
 		result.setMessage(CommonResponse.LOGOUT_SUCCESS.getMessage());
 	}
-
+	
 	private void setLoginFail(CommonResult result) {
 		result.setCode(CommonResponse.LOGIN_FAIL.getCode());
 		result.setMessage(CommonResponse.LOGIN_FAIL.getMessage());
+	}
+	
+	private void setLogoutFail(CommonResult result) {
+		result.setCode(CommonResponse.LOGOUT_FAIL.getCode());
+		result.setMessage(CommonResponse.LOGOUT_FAIL.getMessage());
 	}
 
 	private void setUserIdNull(CommonResult result) {
