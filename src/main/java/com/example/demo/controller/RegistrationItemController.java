@@ -108,6 +108,12 @@ public class RegistrationItemController {
 		param.setItemGetPrice((String) map.get("ITEM_GET_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 		
+		if(map.get("TAG") == null || map.get("ITEM_CODE") == null ||
+		   map.get("ITEM_NAME") == null || map.get("TAG").toString() == "" ||
+		   map.get("ITEM_CODE").toString() == "" || map.get("ITEM_NAME").toString() == "") {
+			return apiService.getSingleResult(null, 111);
+		} else {
+
 		try {
 			param.setTag(map.get("TAG").toString());
 			param.setItemCode(map.get("ITEM_CODE").toString());
@@ -117,6 +123,7 @@ public class RegistrationItemController {
 		}
 
 		return apiService.getSingleResult("saveTag", itemTagService.saveTag(param));
+		}
 	}
 
 	// 등록 현황 품목 수정
@@ -137,13 +144,18 @@ public class RegistrationItemController {
 		param.setItemGetPrice((String) map.get("ITEM_GET_PRICE"));
 		param.setItemNote((String) map.get("ITEM_NOTE"));
 
+		if(map.get("ITEM_CODE") == null || map.get("ITEM_CODE").toString() == "") {
+			return apiService.getSingleResult(null, 111);
+		} else {
+		
 		try {
 			param.setItemCode(map.get("ITEM_CODE").toString());
 		}catch(NullPointerException e) {
-			return apiService.getSingleResult(null, 00111);
+			return apiService.getSingleResult(null, 111);
 		}
 
 		return apiService.getSingleResult("updateTag", itemTagService.updateTag(param));
+		}
 	}
 
 	// 등록 현황 품목 삭제
@@ -164,6 +176,9 @@ public class RegistrationItemController {
 		List<String> itemCodeArrChk = itemTagService.chkItemCodeArr(param);
 
 		Integer result;
+		
+		System.out.println(itemCodeArrChk);
+		System.out.println(itemCodeArr);
 
 		if (itemCodeArrChk.containsAll(itemCodeArr)) {
 

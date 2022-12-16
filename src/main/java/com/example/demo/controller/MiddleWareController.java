@@ -62,7 +62,12 @@ public class MiddleWareController {
 	public @ResponseBody SingleResult<Integer> updateColRowNum(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
-
+		
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_ID").toString() == "" ||
+		   map.get("COL_NUM") == null || map.get("ROW_NUM") == null) {
+			return apiService.getSingleResult(null, 111);
+		} else {
+	
 		try {
 			param.setColNum((int) map.get("COL_NUM"));
 			param.setRowNum((int) map.get("ROW_NUM"));
@@ -72,6 +77,7 @@ public class MiddleWareController {
 		}
 
 		return apiService.getSingleResult("updateColRowNum(MW)", devConService.updateColRowNum(param));
+		}
 	}
 
 	// 태그 값 불러오기(Ver.미들웨어)

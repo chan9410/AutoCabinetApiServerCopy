@@ -49,6 +49,10 @@ public class StockController {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_ID").toString() == "") {
+			return apiService.getListResult(null, null, 111);
+		} else {
+		
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 		}catch(NullPointerException e) {
@@ -70,6 +74,7 @@ public class StockController {
 		}
 
 		return apiService.getListResult("getCurrentStockCount", dataList, statusCode);
+		}
 	}
 
 	// 클릭한 구분 영역 정보 불러오기
@@ -77,6 +82,11 @@ public class StockController {
 	public @ResponseBody ListResult<ApiSearchTagInfoVO> getCurrentLocationInfo(@RequestBody HashMap<String, Object> map) {
 
 		ApiTagInfoParam param = new ApiTagInfoParam();
+		
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_ID").toString() == "" ||
+		   map.get("LOCATION") == null) {
+			return apiService.getListResult(null, null, 111);
+		} else {
 		
 		try {
 			param.setLocation((int) map.get("LOCATION"));
@@ -100,6 +110,7 @@ public class StockController {
 		}
 
 		return apiService.getListResult("getCurrentLocationInfo", dataList, statusCode);
+		}
 	}
 
 	// 리스트 형식의 실시간 재고 페이지에서 특정 조건 조회.

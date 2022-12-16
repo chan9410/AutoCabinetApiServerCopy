@@ -52,6 +52,12 @@ public class DeviceController {
 		
 		param.setRecentTime(now);
 
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_NAME") == null ||
+		   map.get("DEVICE_ID").toString() == "" || map.get("DEVICE_NAME").toString() == "") {
+			
+			return apiService.getSingleResult(null, 111);
+		} else {
+		
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 			param.setDeviceName(map.get("DEVICE_NAME").toString());
@@ -61,7 +67,7 @@ public class DeviceController {
 		}
 		
 		return apiService.getSingleResult("saveDevice", devConService.saveDevice(param));
-
+		}
 	}
 
 	// 장비 데이터 수정
@@ -71,6 +77,11 @@ public class DeviceController {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_NAME") == null ||
+		   map.get("DEVICE_ID").toString() == "" || map.get("DEVICE_NAME").toString() == "") {
+			return apiService.getSingleResult(null, 111);
+		} else {
+		
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 			param.setDeviceName(map.get("DEVICE_NAME").toString());
@@ -79,6 +90,7 @@ public class DeviceController {
 		}
 		
 		return apiService.getSingleResult("updateDevice", devConService.updateDevice(param));
+		}
 	}
 
 	// 장비 제거
@@ -88,13 +100,17 @@ public class DeviceController {
 
 		ApiDeviceControllVO param = new ApiDeviceControllVO();
 		
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_ID").toString() == "") {
+			return apiService.getSingleResult(null, 111);
+		} else {
+
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
 		}catch(NullPointerException e) {
 			return apiService.getSingleResult(null, 111);
 		}
-
 		return apiService.getSingleResult("deleteDevice", devConService.deleteDevice(param));
+		}
 	}
 
 	// COL,ROW 개수 불러오기
@@ -104,6 +120,10 @@ public class DeviceController {
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		
 		ApiColRowNumVO data;
+		
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_ID").toString() == "") {
+			return apiService.getSingleResult(null, null, 111);
+		} else {
 
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
@@ -111,6 +131,7 @@ public class DeviceController {
 		}catch(NullPointerException e) {
 			data = null;
 			return apiService.getSingleResult(null, null, 111);
+		
 		}
 
 		String chkDev = devConService.chkDeviceId(param);
@@ -125,6 +146,7 @@ public class DeviceController {
 			statusCode = 200;
 		}
 		return apiService.getSingleResult("getColRowNum", data, statusCode);
+		}
 	}
 
 	// 선택한 장비의 정보 불러오기
@@ -134,6 +156,10 @@ public class DeviceController {
 		ApiTagInfoParam param = new ApiTagInfoParam();
 		
 		ApiChkDevVO data;
+		
+		if(map.get("DEVICE_ID") == null || map.get("DEVICE_ID").toString() == "") {
+			return apiService.getSingleResult(null, null, 111);
+		} else {
 		
 		try {
 			param.setDeviceId(map.get("DEVICE_ID").toString());
@@ -156,7 +182,7 @@ public class DeviceController {
 		}
 
 		return apiService.getSingleResult("getDeviceInfo", data, statusCode);
-
+		}
 	}
 
 	// 장비 리스트 불러오기
@@ -179,8 +205,13 @@ public class DeviceController {
 	// SysCode Value 값 수정
 	@PostMapping(value = "updateSysCodeValue", produces = "application/json")
 	public @ResponseBody SingleResult<Integer> updateSysCodeValue(@RequestBody HashMap<String, Object> map) {
-
+		
 		SysCodeParam param = new SysCodeParam();
+		
+		if(map.get("CODE_NAME") == null || map.get("CODE_NAME").toString() == "" ||
+		   map.get("CODE_VALUE") == null){
+			return apiService.getSingleResult(null, 111);
+		} else {
 		
 		try {
 			param.setCodeValue((int) map.get("CODE_VALUE"));
@@ -191,6 +222,7 @@ public class DeviceController {
 		}
 
 		return apiService.getSingleResult("updateSysCodeValue", devConService.updateSysCodeValue(param));
+		}
 	}
 
 	// 디바이스 값과 상태값을 동시 출력
